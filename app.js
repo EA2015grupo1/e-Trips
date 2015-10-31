@@ -23,13 +23,12 @@ var models     = require('./models/usuario')(app, mongoose);
 var TVUsuarioCtrl = require('./controllers/tvusuarios');
 
 console.log (models);
-// Example Route
+/*// Example Route
 var router = express.Router();
 router.get('/', function(req, res) {
     res.send("Hello world!");
 });
-app.use(router);
-
+app.use(router);*/
 // API routes
 var tvusuarios = express.Router();
 
@@ -46,7 +45,11 @@ tvusuarios.route('/tvusuarios/login')
 
 app.use('/api', tvusuarios);
 
+// Carga una vista HTML
+app.get('*', function(req, res) {
+    res.sendfile('./public/index.html');
+});
 // Start server
-app.listen(3000, function() {
-    console.log("Node server running on http://localhost:3000");
+app.listen(8080, function() {
+    console.log("Node server running on http://localhost:8080");
 });
