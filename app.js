@@ -7,7 +7,7 @@ var express         = require("express"),
     cookieParser = require('cookie-parser');
 
 // Connection to DB
-mongoose.connect('mongodb://localhost/usuarios', function(err, res) {
+mongoose.connect('mongodb://localhost/users', function(err, res) {
     if(err) throw err;
     console.log('Connected to Database');
 });
@@ -19,8 +19,8 @@ app.use(methodOverride());
 app.use(cookieParser());
 
 // Import Models and controllers
-var models     = require('./models/usuario')(app, mongoose);
-var TVUsuarioCtrl = require('./controllers/tvusuarios');
+var models     = require('./models/user')(app, mongoose);
+var UserCtrl = require('./controllers/users');
 
 console.log (models);
 // Example Route
@@ -31,20 +31,20 @@ router.get('/', function(req, res) {
 app.use(router);
 
 // API routes
-var tvusuarios = express.Router();
+var users = express.Router();
 
-tvusuarios.route('/tvusuarios')
-    .get(TVUsuarioCtrl.findAllTVUsuarios)
-    .post(TVUsuarioCtrl.addTVUsuario);
+users.route('/users')
+    .get(UserCtrl.findAllUsers)
+    .post(UserCtrl.addUser);
 
-tvusuarios.route('/tvusuarios/:id')
-    .get(TVUsuarioCtrl.findById)
-    .put(TVUsuarioCtrl.updateTVUsuario)
-    .delete(TVUsuarioCtrl.deleteTVUsuario);
-tvusuarios.route('/tvusuarios/login')
-    .post(TVUsuarioCtrl.loginTVUsuario);
+users.route('/users/:id')
+    .get(UserCtrl.findById)
+    .put(UserCtrl.updateUser)
+    .delete(UserCtrl.deleteUser);
+users.route('/users/login')
+    .post(UserCtrl.loginUser);
 
-app.use('/api', tvusuarios);
+app.use('/api', users);
 
 // Start server
 app.listen(3000, function() {
