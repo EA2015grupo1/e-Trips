@@ -123,7 +123,7 @@ exports.loginUser = function(req, res) {
     var p2;
     req.body.password = hash
     var u= req.body.username;
-    User.find(u, function (err, user) {
+    User.find({username:u}, function (err, user) {
 
        var user = JSON.stringify(user);
         console.log (user);
