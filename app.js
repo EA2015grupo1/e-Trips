@@ -3,6 +3,9 @@ var express         = require("express"),
     bodyParser      = require("body-parser"),
     methodOverride  = require("method-override"),
     mongoose        = require('mongoose');
+    logger = require('morgan');
+    path = require('path');
+    favicon = require('serve-favicon');
     crypto = require('crypto');
     cookieParser = require('cookie-parser');
 
@@ -13,6 +16,13 @@ mongoose.connect('mongodb://localhost/users', function(err, res) {
 });
 
 // Middlewares
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'));
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(methodOverride());
@@ -46,6 +56,9 @@ users.route('/users/login')
 
 app.use('/api', users);
 
+app.get('*', function(req, res) {
+    res.sendfile('./public/index.html');
+});
 // Start server
 app.listen(3000, function() {
     console.log("Node server running on http://localhost:3000");

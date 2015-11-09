@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<!-- Template Name: Clip-Two - Responsive Admin Template build with Twitter Bootstrap 3.x | Author: ClipTheme -->
+<!--[if IE 8]><html class="ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9" lang="en"><![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" ng-app="MainApp">>
+	<!--<![endif]-->
+	<!-- start: HEAD -->
+	<head>
+		<title>Sprint0 - Admin Panel</title>
+		<!-- start: META -->
+		<!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta content="" name="description" />
+		<meta content="" name="author" />
+		<!-- end: META -->
+		<!-- start: GOOGLE FONTS -->
+		<link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
+		<!-- end: GOOGLE FONTS -->
+		<!-- start: MAIN CSS -->
+		<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="vendor/fontawesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="vendor/themify-icons/themify-icons.min.css">
+		<link href="vendor/animate.css/animate.min.css" rel="stylesheet" media="screen">
+		<link href="vendor/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet" media="screen">
+		<link href="vendor/switchery/switchery.min.css" rel="stylesheet" media="screen">
+		<!-- end: MAIN CSS -->
+		<!-- start: CLIP-TWO CSS -->
+		<link rel="stylesheet" href="assets/css/styles.css">
+		<link rel="stylesheet" href="assets/css/plugins.css">
+		<link rel="stylesheet" href="assets/css/themes/theme-1.css" id="skin_color" />
+        <link rel="stylesheet" href="bower_components/dist/sweetalert.css">
+
+
+
+		<!-- end: CLIP-TWO CSS -->
+		<!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
+		<!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
+	</head>
+	<!-- end: HEAD -->
+	<body ng-controller="mainController">
+		<div id="app">
+			<!-- sidebar -->
+			<div class="sidebar app-aside" id="sidebar">
+				<div class="sidebar-container perfect-scrollbar">
+					<nav>
+						<!-- start: SEARCH FORM -->
+						<div class="search-form">
+							<a class="s-open" href="#">
+								<i class="ti-search"></i>
+							</a>
+							<form class="navbar-form" role="search">
+								<a class="s-remove" href="#" target=".navbar-form">
+									<i class="ti-close"></i>
+								</a>
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="Search...">
+									<button class="btn search-button" type="submit">
+										<i class="ti-search"></i>
+									</button>
+								</div>
+							</form>
+						</div>
+						<!-- end: SEARCH FORM -->
+						<!-- start: MAIN NAVIGATION MENU -->
+						<div class="navbar-title">
+							<span>Main Navigation</span>
+						</div>
+						<ul class="main-navigation-menu">
+							<li class="active open">
+								<a href="users.html">
+									<div class="item-content">
+										<div class="item-media">
+											<i class="ti-home"></i>
+										</div>
+										<div class="item-inner">
+											<span class="title"> Usuarios Registrados </span>
+										</div>
+									</div>
+								</a>
+							</li>
+							<li class="active open">
+								<a href="register.html">
+									<div class="item-content">
+										<div class="item-media">
+											<i class="ti-settings"></i>
+										</div>
+										<div class="item-inner">
+											<span class="title"> Registrar Usuario </span>
+										</div>
+									</div>
+								</a>
+							</li>
+
+						</ul>
+						<!-- end: MAIN NAVIGATION MENU -->
+						<!-- start: CORE FEATURES -->
+						<div class="navbar-title">
+							<span>Core Features</span>
+						</div>
+						<ul class="folders">
+							<li>
+								<a href="pages_calendar.html">
+									<div class="item-content">
+										<div class="item-media">
+										<div class="item-media">
+											<span class="fa-stack"> <i class="fa fa-square fa-stack-2x"></i> <i class="fa fa-terminal fa-stack-1x fa-inverse"></i> </span>
+										</div>
+										<div class="item-inner">
+											<span class="title"> Calendar </span>
+										</div>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="pages_messages.html">
+									<div class="item-content">
+										<div class="item-media">
+											<span class="fa-stack"> <i class="fa fa-square fa-stack-2x"></i> <i class="fa fa-folder-open-o fa-stack-1x fa-inverse"></i> </span>
+										</div>
+										<div class="item-inner">
+											<span class="title"> Messages </span>
+										</div>
+									</div>
+								</a>
+							</li>
+						</ul>
+						<!-- end: CORE FEATURES -->
+						<!-- start: DOCUMENTATION BUTTON -->
+						<div class="wrapper">
+							<a href="documentation.html" class="button-o">
+								<i class="ti-help"></i>
+								<span>Documentation</span>
+							</a>
+						</div>
+						<!-- end: DOCUMENTATION BUTTON -->
+					</nav>
+				</div>
+			</div>
+			<!-- / sidebar -->
+			<div class="app-content">
+				<!-- start: TOP NAVBAR -->
+				<header class="navbar navbar-default navbar-static-top">
+					<!-- start: NAVBAR HEADER -->
+					<div class="navbar-header">
+						<a href="#" class="sidebar-mobile-toggler pull-left hidden-md hidden-lg" class="btn btn-navbar sidebar-toggle" data-toggle-class="app-slide-off" data-toggle-target="#app" data-toggle-click-outside="#sidebar">
+							<i class="ti-align-justify"></i>
+						</a>
+						<a class="navbar-brand" href="#">
+							<img src="assets/images/logo.png" alt="Clip-Two"/>
+						</a>
+						<a href="#" class="sidebar-toggler pull-right visible-md visible-lg" data-toggle-class="app-sidebar-closed" data-toggle-target="#app">
+							<i class="ti-align-justify"></i>
+						</a>
+						<a class="pull-right menu-toggler visible-xs-block" id="menu-toggler" data-toggle="collapse" href=".navbar-collapse">
+							<span class="sr-only">Toggle navigation</span>
+							<i class="ti-view-grid"></i>
+						</a>
+					</div>
+					<!-- end: NAVBAR HEADER -->
+					<!-- start: NAVBAR COLLAPSE -->
+					<div class="navbar-collapse collapse">
+						<ul class="nav navbar-right">
+							<!-- start: MESSAGES DROPDOWN -->
+							<li class="dropdown">
+								<a href class="dropdown-toggle" data-toggle="dropdown">
+									<span class="dot-badge partition-red"></span> <i class="ti-comment"></i> <span>MESSAGES</span>
+								</a>
+								<ul class="dropdown-menu dropdown-light dropdown-messages dropdown-large">
+									<li>
+										<span class="dropdown-header"> Unread messages</span>
+									</li>
+									<li>
+										<div class="drop-down-wrapper ps-container">
+											<ul>
+												<li class="unread">
+													<a href="javascript:;" class="unread">
+														<div class="clearfix">
+															<div class="thread-image">
+																<img src="./assets/images/avatar-2.jpg" alt="">
+															</div>
+															<div class="thread-content">
+																<span class="author">Nicole Bell</span>
+																<span class="preview">Duis mollis, est non commodo luctus, nisi erat porttitor ligula...</span>
+																<span class="time"> Just Now</span>
+															</div>
+														</div>
+													</a>
+												</li>
+												<li>
+													<a href="javascript:;" class="unread">
+														<div class="clearfix">
+															<div class="thread-image">
+																<img src="./assets/images/avatar-3.jpg" alt="">
+															</div>
+															<div class="thread-content">
+																<span class="author">Steven Thompson</span>
+																<span class="preview">Duis mollis, est non commodo luctus, nisi erat porttitor ligula...</span>
+																<span class="time">8 hrs</span>
+															</div>
+														</div>
+													</a>
+												</li>
+												<li>
+													<a href="javascript:;">
+														<div class="clearfix">
+															<div class="thread-image">
+																<img src="./assets/images/avatar-5.jpg" alt="">
+															</div>
+															<div class="thread-content">
+																<span class="author">Kenneth Ross</span>
+																<span class="preview">Duis mollis, est non commodo luctus, nisi erat porttitor ligula...</span>
+																<span class="time">14 hrs</span>
+															</div>
+														</div>
+													</a>
+												</li>
+											</ul>
+										</div>
+									</li>
+									<li class="view-all">
+										<a href="#">
+											See All
+										</a>
+									</li>
+								</ul>
+							</li>
+							<!-- end: MESSAGES DROPDOWN -->
+							<!-- start: ACTIVITIES DROPDOWN -->
+							<li class="dropdown">
+								<a href class="dropdown-toggle" data-toggle="dropdown">
+									<i class="ti-check-box"></i> <span>ACTIVITIES</span>
+								</a>
+								<ul class="dropdown-menu dropdown-light dropdown-messages dropdown-large">
+									<li>
+										<span class="dropdown-header"> You have new notifications</span>
+									</li>
+									<li>
+										<div class="drop-down-wrapper ps-container">
+											<div class="list-group no-margin">
+												<a class="media list-group-item" href="">
+													<img class="img-circle" alt="..." src="assets/images/avatar-1.jpg">
+													<span class="media-body block no-margin"> Use awesome animate.css <small class="block text-grey">10 minutes ago</small> </span>
+												</a>
+												<a class="media list-group-item" href="">
+													<span class="media-body block no-margin"> 1.0 initial released <small class="block text-grey">1 hour ago</small> </span>
+												</a>
+											</div>
+										</div>
+									</li>
+									<li class="view-all">
+										<a href="#">
+											See All
+										</a>
+									</li>
+								</ul>
+							</li>
+							<!-- end: ACTIVITIES DROPDOWN -->
+							<!-- start: LANGUAGE SWITCHER -->
+							
+							<!-- start: LANGUAGE SWITCHER -->
+							<!-- start: USER OPTIONS DROPDOWN -->
+							<li class="dropdown current-user">
+								<a href class="dropdown-toggle" data-toggle="dropdown">
+									<img src="assets/images/admin.png" alt="Peter"> <span class="username">Admin <i class="ti-angle-down"></i></i></span>
+								</a>
+								<ul class="dropdown-menu dropdown-dark">
+									<li>
+										<a href="pages_user_profile.html">
+											My Profile
+										</a>
+									</li>
+									<li>
+										<a href="pages_calendar.html">
+											My Calendar
+										</a>
+									</li>
+									<li>
+										<a hef="pages_messages.html">
+											My Messages (3)
+										</a>
+									</li>
+									<li>
+										<a href="login_lockscreen.html">
+											Lock Screen
+										</a>
+									</li>
+									<li>
+										<a href="login_signin.html">
+											Log Out
+										</a>
+									</li>
+								</ul>
+							</li>
+							<!-- end: USER OPTIONS DROPDOWN -->
+						</ul>
+						<!-- start: MENU TOGGLER FOR MOBILE DEVICES -->
+						<div class="close-handle visible-xs-block menu-toggler" data-toggle="collapse" href=".navbar-collapse">
+							<div class="arrow-left"></div>
+							<div class="arrow-right"></div>
+						</div>
+						<!-- end: MENU TOGGLER FOR MOBILE DEVICES -->
+					</div>
+					<a class="dropdown-off-sidebar" data-toggle-class="app-offsidebar-open" data-toggle-target="#app" data-toggle-click-outside="#off-sidebar">
+						&nbsp;
+					</a>
+					<!-- end: NAVBAR COLLAPSE -->
+				</header>
+				<!-- end: TOP NAVBAR -->
+				<div class="main-content" >
+					<div class="wrap-content container" id="container">
+						<!-- start: DASHBOARD TITLE -->
+						<section id="page-title" class="padding-top-15 padding-bottom-15">
+							<div class="row">
+								<div class="col-sm-7">
+									<h3 class="mainTitle">Usuarios Registrados</h3>
+									<!-- 	<span class="mainDescription">overview &amp; stats </span>-->
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <!-- start: MINI STATS WITH SPARKLINE -->
+									<ul class="mini-stats pull-right">
+										<li>
+											<div class="sparkline-1">
+												<span ></span>
+											</div>
+											<div class="values">
+												<strong class="text-dark">{{users.length}}</strong>
+												<p class="text-small no-margin">
+													Registros
+												</p>
+											</div>
+										</li>
+									<!---	<li>
+											<div class="sparkline-2">
+												<span ></span>
+											</div>
+											<div class="values">
+												<strong class="text-dark">&#36;3,833</strong>
+												<p class="text-small no-margin">
+													Earnings
+												</p>
+											</div>
+										</li>
+										<li>
+											<div class="sparkline-3">
+												<span ></span>
+											</div>
+											<div class="values">
+												<strong class="text-dark">&#36;848</strong>
+												<p class="text-small no-margin">
+													Referrals
+												</p>
+											</div>
+										</li>-->
+									</ul>
+									<!-- end: MINI STATS WITH SPARKLINE -->
+								</div>
+							</div>
+						</section>
+						<!-- end: DASHBOARD TITLE -->
+						<!-- start: FEATURED BOX LINKS -->
+						<div class="container-fluid container-fullw">
+							<div class="row">
+								<div class="col-md-12">
+
+
+									<table class="table table-striped table-hover" id="sample-table-2">
+										<thead>
+										<tr>
+											<th class="center">Foto</th>
+											<th>Nombre Completo</th>
+											<th class="hidden-xs">Rol</th>
+											<th class="hidden-xs">Usuario</th>
+											<th class="hidden-xs">Email</th>
+											<th></th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr ng-repeat="user in users">
+											<td class="center"><img src={{user.imageUrl}} class="img-rounded" alt="image"/></td>
+											<td>{{user.name}}</td>
+											<td class="hidden-xs">{{user.rol}}</td>
+											<td class="hidden-xs">
+												<a href="#" rel="nofollow" target="_blank">
+													{{user.username}}
+												</a></td>
+											<td class="hidden-xs">{{user.email}}</td>
+											<td class="center">
+												<div class="visible-md visible-lg hidden-sm hidden-xs">
+													<a href="" class="btn btn-transparent btn-xs" tooltip-placement="top" tooltip="Edit" ng-click="getUser(user._id)"><i class="fa fa-pencil"></i></a>
+													<a href="#" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="Remove" ng-click="deleteUser(user._id)"><i class="fa fa-times fa fa-white"></i></a>
+												</div>
+												<div class="visible-xs visible-sm hidden-md hidden-lg">
+													<div class="btn-group" dropdown>
+														<button type="button" class="btn btn-primary btn-sm dropdown-toggle" dropdown-toggle>
+															<i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+														</button>
+														<ul class="dropdown-menu pull-right dropdown-light" role="menu">
+															<li>
+																<a href="">
+																	Editar Usuario
+																</a>
+															</li>
+
+															<li>
+																<a href="#">
+																	Eliminar Usuario
+																</a>
+															</li>
+														</ul>
+													</div>
+												</div></td>
+										</tr>
+
+
+
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+</div>
+				</div>
+
+			</div>
+
+		</div>
+
+
+		<!-- start: MAIN JAVASCRIPTS -->
+		<script src="vendor/jquery/jquery.min.js"></script>
+		<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+		<script src="vendor/modernizr/modernizr.js"></script>
+		<script src="vendor/jquery-cookie/jquery.cookie.js"></script>
+		<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+		<script src="vendor/switchery/switchery.min.js"></script>
+		<!-- end: MAIN JAVASCRIPTS -->
+		<!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+		<script src="vendor/Chart.js/Chart.min.js"></script>
+		<script src="vendor/jquery.sparkline/jquery.sparkline.min.js"></script>
+		<!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+		<!-- start: CLIP-TWO JAVASCRIPTS -->
+		<script src="assets/js/main.js"></script>
+		<!-- Cargamos angular -->
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-cookies.js"></script>
+		<!-- Cargamos el javascript de angular -->
+		<script src="/js/main.js"></script>
+        <script src="/js/sweetalert.min.js"></script>
+        <script src="/js/SweetAlert.js"></script>
+
+
+
+		<!-- end: JavaScript Event Handlers for this page -->
+		<!-- end: CLIP-TWO JAVASCRIPTS -->
+	</body>
+</html>

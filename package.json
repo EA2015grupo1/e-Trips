@@ -6,6 +6,9 @@
     "express": "^4.7.1",
     "method-override": "^2.1.2",
     "body-parser": "^1.5.1",
-    "cookie-parser": "latest"
+    "cookie-parser": "latest",
+    "morgan": "~1.6.1",
+    "debug": "~2.2.0",
+    "serve-favicon": "~2.3.0"
   }
 }
