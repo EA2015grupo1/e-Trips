@@ -14,7 +14,7 @@ exports.findAllUsers = function(req, res) {
 
 //GET - Return a User with specified ID
 exports.findById = function(req, res) {
-    TVUsuario.findById(req.params.id, function(err, user) {
+    User.findById(req.params.id, function(err, user) {
         if(err) return res.send(500, err.message);
 
         console.log('GET /user/' + req.params.id);
@@ -69,7 +69,8 @@ function checkreg (u1, u2){
             password: 	  request.body.password,
             name:   request.body.name,
             email:   request.body.email,
-            rolename: "registrado",
+            rol: "registrado",
+            imageUrl: "http://localhost:3000/assets/images/admin.png"
 
         })
 
@@ -84,6 +85,8 @@ function checkreg (u1, u2){
 //PUT - Update a register already exists
 exports.updateUser = function(req, res) {
    User.findById(req.params.id, function(err,user) {
+       console.log('PUT');
+       console.log(req.body);
         var hash = crypto
             .createHash("md5")
             .update(req.body.password)
@@ -95,7 +98,8 @@ exports.updateUser = function(req, res) {
         user.password    = req.body.password;
         user.name = req.body.name;
         user.email  = req.body.email;
-        user.rolename = "registrado";
+        user.rol = "registrado";
+        user.imageUrl = "http://localhost:3000/assets/images/admin.png";
 
       user.save(function(err) {
             if(err) return res.send(500, err.message);
@@ -118,25 +122,29 @@ exports.loginUser = function(req, res) {
     var p1;
     var p2;
     req.body.password = hash
-   var username = req.body.username;
-    User.find(username, function (err, user) {
+    var u= req.body.username;
+    User.find(u, function (err, user) {
+
        var user = JSON.stringify(user);
+        console.log (user);
         var res = user.split(",");
         key = res[2].split(":");
         p2 = key[1];
         p1 = '"'+req.body.password+'"';
-        goal (p1, p2, username);
+        goal (p1, p2, u);
 
         });
 
 };
 
-function goal (p1, p2, username){
+function goal (p1, p2, u){
     if (p1==p2){
-        return resultado.status(200).jsonp({"loginSuccessful":true, "username": username });
+        console.log ("Entramos..")
+        return resultado.status(200).jsonp({"loginSuccessful":true, "username": u });
+
     }
     else{
-        return resultado.status(200).jsonp({"loginSuccessful":false, "username": username});
+        return resultado.status(404).jsonp({"loginSuccessful":false, "username": u});
     }
 };
 
