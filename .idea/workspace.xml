@@ -2,71 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9f812b5e-7de2-4c07-806a-2efb52038b9b" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\angular\.bower.json" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\angular\README.md" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\angular\angular-csp.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\angular\angular.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\angular\angular.min.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\angular\angular.min.js.gzip" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\angular\angular.min.js.map" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\angular\bower.json" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\angular\index.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\angular\package.json" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\.bower.json" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\.editorconfig" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\.jshintrc" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\.travis.yml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\README.md" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\bower.json" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dev\gulpfile-wrap-template.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dev\ie9.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dev\loader-animation.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dev\modules\default-params.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dev\modules\handle-click.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dev\modules\handle-dom.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dev\modules\handle-key.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dev\modules\handle-swal-dom.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dev\modules\injected-html.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dev\modules\set-params.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dev\modules\utils.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dev\sweetalert.es6.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dev\sweetalert.scss" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dist\sweetalert-dev.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dist\sweetalert.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dist\sweetalert.min.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\example\example.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\example\example.scss" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\example\images\logo_big.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\example\images\logo_big@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\example\images\logo_small.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\example\images\logo_small@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\example\images\te-logo-small.svg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\example\images\thumbs-up.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\example\images\vs_icon.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\example\images\vs_icon@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\gulpfile.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\index.html" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\lib\modules\default-params.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\lib\modules\handle-click.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\lib\modules\handle-dom.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\lib\modules\handle-key.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\lib\modules\handle-swal-dom.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\lib\modules\injected-html.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\lib\modules\set-params.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\lib\modules\utils.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\lib\sweetalert.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\package.json" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\sweetalert.gif" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\test\index.html" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\test\tests.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\themes\facebook\facebook.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\themes\facebook\facebook.scss" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\themes\google\google.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\themes\google\google.scss" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\themes\twitter\twitter.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\themes\twitter\twitter.scss" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="sprint0.iws" />
@@ -136,12 +71,12 @@
         <option value="$PROJECT_DIR$/models/tvshow.js" />
         <option value="$PROJECT_DIR$/controllers/tvshows.js" />
         <option value="$PROJECT_DIR$/models/usuario.js" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/controllers/tvusuarios.js" />
         <option value="$PROJECT_DIR$/public/login_soft.html" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/package.json" />
       </list>
     </option>
   </component>
@@ -309,7 +244,13 @@
       <option name="project" value="LOCAL" />
       <updated>1447091335383</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="commit angular, node y gitignore2">
+      <created>1447091771944</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1447091771944</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView">
@@ -360,7 +301,8 @@
     <MESSAGE value="commit html y js (manel) revertir" />
     <MESSAGE value="commit html y js (manel)" />
     <MESSAGE value="commit angular, node y gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit angular, node y gitignore" />
+    <MESSAGE value="commit angular, node y gitignore2" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit angular, node y gitignore2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
