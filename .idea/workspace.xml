@@ -1,10 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9f812b5e-7de2-4c07-806a-2efb52038b9b" name="Default" comment="commit html y js (manel)">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/users.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
+    <list default="true" id="9f812b5e-7de2-4c07-806a-2efb52038b9b" name="Default" comment="">
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\angular\.bower.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\angular\README.md" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\angular\angular-csp.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\angular\angular.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\angular\angular.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\angular\angular.min.js.gzip" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\angular\angular.min.js.map" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\angular\bower.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\angular\index.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\angular\package.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\.bower.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\.editorconfig" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\.jshintrc" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\.travis.yml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\README.md" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\bower.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dev\gulpfile-wrap-template.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dev\ie9.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dev\loader-animation.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dev\modules\default-params.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dev\modules\handle-click.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dev\modules\handle-dom.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dev\modules\handle-key.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dev\modules\handle-swal-dom.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dev\modules\injected-html.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dev\modules\set-params.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dev\modules\utils.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dev\sweetalert.es6.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dev\sweetalert.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dist\sweetalert-dev.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dist\sweetalert.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\dist\sweetalert.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\example\example.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\example\example.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\example\images\logo_big.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\example\images\logo_big@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\example\images\logo_small.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\example\images\logo_small@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\example\images\te-logo-small.svg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\example\images\thumbs-up.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\example\images\vs_icon.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\example\images\vs_icon@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\gulpfile.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\lib\modules\default-params.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\lib\modules\handle-click.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\lib\modules\handle-dom.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\lib\modules\handle-key.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\lib\modules\handle-swal-dom.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\lib\modules\injected-html.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\lib\modules\set-params.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\lib\modules\utils.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\lib\sweetalert.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\package.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\sweetalert.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\test\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\test\tests.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\themes\facebook\facebook.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\themes\facebook\facebook.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\themes\google\google.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\themes\google\google.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\themes\twitter\twitter.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\crist_000\WebstormProjects\sprint1\bower_components\sweetalert\themes\twitter\twitter.scss" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="sprint0.iws" />
@@ -36,21 +98,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.807693">
+            <state vertical-scroll-proportion="0.6854839">
               <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.045822103">
-              <caret line="1" column="15" selection-start-line="1" selection-start-column="15" selection-end-line="1" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -251,7 +303,13 @@
       <option name="project" value="LOCAL" />
       <updated>1446252199624</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="commit angular, node y gitignore">
+      <created>1447091335383</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1447091335383</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TodoView">
@@ -267,8 +325,9 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22916667" sideWeight="0.74882627" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22916667" sideWeight="0.74882627" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32952693" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32913387" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32952693" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -278,7 +337,6 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22916667" sideWeight="0.2511737" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39967373" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32913387" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -301,7 +359,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="commit html y js (manel) revertir" />
     <MESSAGE value="commit html y js (manel)" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit html y js (manel)" />
+    <MESSAGE value="commit angular, node y gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit angular, node y gitignore" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -348,18 +407,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.807693">
-          <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.045822103">
+          <caret line="1" column="16" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.045822103">
-          <caret line="1" column="15" selection-start-line="1" selection-start-column="15" selection-end-line="1" selection-end-column="15" />
+        <state vertical-scroll-proportion="0.6854839">
+          <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
           <folding />
         </state>
       </provider>
