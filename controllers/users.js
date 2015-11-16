@@ -69,6 +69,10 @@ function checkreg (u1, u2){
             password: 	  request.body.password,
             name:   request.body.name,
             email:   request.body.email,
+            phone:  request.body.phone,
+            gender: request.body.gender,
+            zipCode: request.body.zipCode,
+            city: request.body.city,
             rol: "registrado",
             imageUrl: "http://localhost:3000/assets/images/admin.png"
 
@@ -94,12 +98,24 @@ exports.updateUser = function(req, res) {
 
         req.body.password = hash
 
+       if (req.body.rol== "administrador")
+       {
+            var rol= "administrador";
+       }
+       else{
+           var rol = "registrado";
+       }
+
         user.username = req.body.username;
         user.password    = req.body.password;
         user.name = req.body.name;
         user.email  = req.body.email;
-        user.rol = "registrado";
-        user.imageUrl = "http://localhost:3000/assets/images/admin.png";
+        user.phone = req.body.phone;
+        user.gender= req.body.gender;
+       user.zipCode= req.body.zipCode;
+       user.city = req.body.city;
+        user.rol = rol;
+        user.imageUrl = req.body.imageUrl;
 
       user.save(function(err) {
             if(err) return res.send(500, err.message);
@@ -109,10 +125,6 @@ exports.updateUser = function(req, res) {
 };
 //POST - login User
 exports.loginUser = function(req, res) {
-    if (!req.body.username || !req.body.password) {
-        res.send('username and password cannot be null.');
-        return;
-    }
     resultado = res;
     var hash = crypto
         .createHash("md5")
@@ -124,29 +136,30 @@ exports.loginUser = function(req, res) {
     req.body.password = hash
     var u= req.body.username;
     User.find({username:u}, function (err, user) {
+        if (user.length==0){
+            return resultado.status(404).jsonp({"loginSuccessful":false, "username": u});
+        }
+        else {
+            var usuario = JSON.stringify(user);
+            //console.log(user);
+            var res = usuario.split(",");
+            key = res[2].split(":");
+            p2 = key[1];
+            p1 = '"' + req.body.password + '"';
+            if (p1==p2){
+                console.log ("Entramos..")
+                return resultado.status(200).jsonp({"loginSuccessful":true, "username": u}, user);
 
-       var user = JSON.stringify(user);
-        console.log (user);
-        var res = user.split(",");
-        key = res[2].split(":");
-        p2 = key[1];
-        p1 = '"'+req.body.password+'"';
-        goal (p1, p2, u);
-
-        });
+            }
+            else{
+                return resultado.status(404).jsonp({"loginSuccessful":false, "username": u});
+            }
+        }
+    });
 
 };
 
-function goal (p1, p2, u){
-    if (p1==p2){
-        console.log ("Entramos..")
-        return resultado.status(200).jsonp({"loginSuccessful":true, "username": u });
 
-    }
-    else{
-        return resultado.status(404).jsonp({"loginSuccessful":false, "username": u});
-    }
-};
 
 //DELETE - Delete a User with specified ID
 exports.deleteUser = function(req, res) {

@@ -1,130 +1,93 @@
 <!DOCTYPE html>
-<!-- Template Name: Clip-Two - Responsive Admin Template build with Twitter Bootstrap 3.x | Author: ClipTheme -->
-<!--[if IE 8]><html class="ie8" lang="en"><![endif]-->
-<!--[if IE 9]><html class="ie9" lang="en"><![endif]-->
-<!--[if !IE]><!-->
-<html lang="en" ng-app="MainApp">
-	<!--<![endif]-->
-	<!-- start: HEAD -->
-	<!-- start: HEAD -->
+<html lang="en" data-ng-app="clipApp">
 	<head>
-		<title>Login - Admin Template</title>
-		<!-- start: META -->
-		<!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-		<meta content="" name="description" />
-		<meta content="" name="author" />
-		<!-- end: META -->
-		<!-- start: GOOGLE FONTS -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="description" content="{{app.description}}">
+		<meta name="keywords" content="app, responsive, angular, bootstrap, dashboard, admin">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> 
+		<meta name="HandheldFriendly" content="true" /> 
+		<meta name="apple-touch-fullscreen" content="yes" />
+		<title data-ng-bind="pageTitle()">Clip-Two - Angular Bootstrap Admin Template</title>
+		<!-- Google fonts -->
 		<link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
-		<!-- end: GOOGLE FONTS -->
-		<!-- start: MAIN CSS -->
+		<!-- Bootstrap -->
 		<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+		<!-- Font Awesome -->
 		<link rel="stylesheet" href="vendor/fontawesome/css/font-awesome.min.css">
+		<!-- Themify Icons -->
 		<link rel="stylesheet" href="vendor/themify-icons/themify-icons.min.css">
-		<link href="vendor/animate.css/animate.min.css" rel="stylesheet" media="screen">
-		<link href="vendor/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet" media="screen">
-		<link href="vendor/switchery/switchery.min.css" rel="stylesheet" media="screen">
-		<!-- end: MAIN CSS -->
-		<!-- start: CLIP-TWO CSS -->
+		<!-- Loading Bar -->
+		<link rel="stylesheet" href="vendor/loadingbar/loading-bar.min.css">
+		<!-- Animate Css -->
+		<link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
+		<link rel="stylesheet" href="vendor/animate-css/animate.css">
+		<!-- Clip-Two CSS -->
 		<link rel="stylesheet" href="assets/css/styles.css">
 		<link rel="stylesheet" href="assets/css/plugins.css">
-		<link rel="stylesheet" href="assets/css/themes/theme-1.css" id="skin_color" />
-        <link rel="stylesheet" href="bower_components/dist/sweetalert.css">
 
+		<!-- Clip-Two Theme -->
+		<link rel="stylesheet" data-ng-href="assets/css/themes/{{ app.layout.theme }}.css" />
 
-		<!-- end: CLIP-TWO CSS -->
-		<!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
-		<!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
 	</head>
-	<!-- end: HEAD -->
-	<!-- start: BODY -->
-	<body class="login" ng-controller="mainController">
-		<!-- start: LOGIN -->
-		<div class="row">
-			<div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
-				<div class="logo margin-top-30">
-					<!--<img src="assets/images/logo.png" alt="Clip-Two"/>-->
-				</div>
-				<!-- start: LOGIN BOX -->
-				<div class="box-login">
-					<form class="form-login">
-						<fieldset>
-							<legend>
-								Iniciar sesión en su cuenta
-							</legend>
-							<p>
-								Por favor, introduzca su usuario y contraseña para entrar.
-							</p>
-							<div class="form-group">
-								<span class="input-icon">
-									<input type="text" class="form-control" name="username" placeholder="Username" ng-model="newUser.username">
-									<i class="fa fa-user"></i> </span>
-							</div>
-							<div class="form-group form-actions">
-								<span class="input-icon">
-									<input type="password" class="form-control password" name="password" placeholder="Password" ng-model="newUser.password">
-									<i class="fa fa-lock"></i>
-									<a class="forgot" href="login_forgot.html">
-										Olvidé mi contraseña
-									</a> </span>
-							</div>
-							<div class="form-actions">
-								<div class="checkbox clip-check check-primary">
-									<input type="checkbox" id="remember" value="1">
-									<label for="remember">
-										Guardar Contraseña
-									</label>
-								</div>
-								<button type="submit" class="btn btn-primary pull-right" ng-click="loginUser(newUser)" >
-									Login <i class="fa fa-arrow-circle-right"></i>
-								</button>
-							</div>
-							<div class="new-account">
-								¿No tienes una cuenta todavía?
-								<a href="login_registration.html">
-									Crea una cuenta
-								</a>
-							</div>
-						</fieldset>
-					</form>
-					<!-- start: COPYRIGHT -->
-					<div class="copyright">
-						&copy; <span class="current-year"></span><span class="text-bold text-uppercase"> ClipTheme</span>. <span>All rights reserved</span>
-					</div>
-					<!-- end: COPYRIGHT -->
-				</div>
-				<!-- end: LOGIN BOX -->
-			</div>
+	<body ng-controller="AppCtrl">
+		<div ui-view id="app" ng-class="{'app-mobile' : app.isMobile,  'app-sidebar-fixed' : app.layout.isSidebarFixed, 'app-sidebar-closed':app.layout.isSidebarClosed, 'app-footer-fixed':app.layout.isFooterFixed}"></div>
 
-		</div>
-		<!-- end: LOGIN -->
-		<!-- start: MAIN JAVASCRIPTS -->
+		<!-- jQuery -->
 		<script src="vendor/jquery/jquery.min.js"></script>
-		<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-		<script src="vendor/modernizr/modernizr.js"></script>
-		<script src="vendor/jquery-cookie/jquery.cookie.js"></script>
-		<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-		<script src="vendor/switchery/switchery.min.js"></script>
-		<!-- end: MAIN JAVASCRIPTS -->
-		<!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
-		<script src="vendor/jquery-validation/jquery.validate.min.js"></script>
-		<!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
-		<!-- start: CLIP-TWO JAVASCRIPTS -->
+		<!-- Fastclick -->
+		<script src="vendor/fastclick/fastclick.min.js"></script>
+		<!-- Angular -->
+		<script src="vendor/angular/angular.min.js"></script>
+		<script src="vendor/angular/angular-cookies.min.js"></script>
+		<script src="vendor/angular/angular-animate.min.js"></script>
+		<script src="vendor/angular/angular-ui-router.min.js"></script>
+		<script src="vendor/angular/angular-touch.min.js"></script>
+		<script src="vendor/angular/angular-sanitize.min.js"></script>
+		<!-- Angular storage -->
+		<script src="vendor/angularstorage/ngStorage.min.js"></script>
+		<!-- Angular Translate -->
+		<script src="vendor/angulartranslate/angular-translate.min.js"></script>
+		<script src="vendor/angulartranslate/angular-translate-loader-url.min.js"></script>
+		<script src="vendor/angulartranslate/angular-translate-loader-static-files.min.js"></script>
+		<script src="vendor/angulartranslate/angular-translate-storage-local.min.js"></script>
+		<script src="vendor/angulartranslate/angular-translate-storage-cookie.min.js"></script>
+		<!-- oclazyload -->
+		<script src="vendor/oclazyload/ocLazyLoad.min.js"></script>
+		<!-- breadcrumb -->
+		<script src="vendor/angular-breadcrumb/angular-breadcrumb.min.js"></script>
+		<!-- UI Bootstrap -->
+		<script src="vendor/bootstrap/js/ui-bootstrap-tpls-0.12.1.min.js"></script>
+		<!-- Loading Bar -->
+		<script src="vendor/loadingbar/loading-bar.min.js"></script>
+		<!-- Angular Scroll -->
+		<script src="vendor/angular-scroll/angular-scroll.min.js"></script>
+		<!-- Clip-Two Scripts -->
+		<script src="assets/js/app.js"></script>
 		<script src="assets/js/main.js"></script>
-		<!-- start: JavaScript Event Handlers for this page -->
-		<!-- Cargamos angular -->
-		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
-		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-cookies.js"></script>
-		<!-- Cargamos el javascript de angular -->
-		<script src="js/main.js"></script>
-        <script src="/js/sweetalert.min.js"></script>
-        <script src="/js/SweetAlert.js"></script>
-		<!-- end: JavaScript Event Handlers for this page -->
-		<!-- end: CLIP-TWO JAVASCRIPTS -->
+		<script src="assets/js/config.constant.js"></script>
+		<script src="assets/js/config.router.js"></script>
+		<script src="assets/js/login.js"></script>
+		<script src="assets/js/sweetalert.min.js"></script>
+		<!-- Clip-Two Directives -->
+		<script src="assets/js/directives/toggle.js"></script>
+		<script src="assets/js/directives/empty-links.js"></script>
+		<script src="assets/js/directives/sidebars.js"></script>
+		<script src="assets/js/directives/off-click.js"></script>
+		<script src="assets/js/directives/full-height.js"></script>
+		<script src="assets/js/directives/panel-tools.js"></script>
+		<script src="assets/js/directives/char-limit.js"></script>
+		<script src="assets/js/directives/dismiss.js"></script>
+		<script src="assets/js/directives/compare-to.js"></script>
+		<script src="assets/js/directives/select.js"></script>
+		<script src="assets/js/directives/messages.js"></script>
+		<script src="assets/js/directives/chat.js"></script>
+		<!-- Clip-Two Controllers -->				
+		<script src="assets/js/controllers/mainCtrl.js"></script>
+		<script src="assets/js/controllers/bootstrapCtrl.js"></script>
+
+		<!-- Google Apis -->
+		<script src="//maps.googleapis.com/maps/api/js?v=3.exp&libraries=weather,visualization"></script>
 	</body>
-	<!-- end: BODY -->
 </html>

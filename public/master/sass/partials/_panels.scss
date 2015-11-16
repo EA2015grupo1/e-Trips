@@ -8,26 +8,6 @@
     color: $text-color;
     border: none;
     position: relative;
-    
-    .collapse-on {
-      display: none;
-    }
-    
-    .collapse-off {
-      display: block;
-    }
-    
-    &.collapses {
-        .panel-body {
-          display: none;
-        }
-        .collapse-on {
-          display: block;
-        }
-        .collapse-off {
-          display: none;
-        }      
-    }
 }
 
 .panel-footer {

@@ -2,12 +2,12 @@
 /*  Chartjs
 /* ---------------------------------------------------------------------- */
 
-.chart-legend > ul {
+.tc-chart-js-legend {
     list-style-type: none;
     padding-left: 0;
 }
 
-.chart-legend > ul li {
+.tc-chart-js-legend li {
     clear: both;
     display: block;
     float: left;
@@ -16,7 +16,7 @@
     font-size: $font-size-extra-small;
 }
 
-.chart-legend > ul li span {
+.tc-chart-js-legend li span {
     display: block;
     float: left;
     height: 25px;
@@ -24,7 +24,7 @@
     width: 25px;
 }
 
-.legend-xs .chart-legend > ul li {
+.legend-xs .tc-chart-js-legend li {
     line-height: 15px;
 
     span {
@@ -34,14 +34,14 @@
     }
 }
 
-.inline .chart-legend > ul li {
+.inline .tc-chart-js-legend li {
     clear: none;
     display: inline-block;
     float: none;
     padding: 10px;
 }
 
-.full-width {
+canvas[tc-chartjs-line], canvas[tc-chartjs-bar], canvas[tc-chartjs-radar] {
     max-width: 100% !important;
 }
 

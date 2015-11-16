@@ -30,11 +30,17 @@
             }
 
             &.collapsed {
-                
+                background-color: #F3F3F3;
+                border-color: #D9D9D9;
+                border-width: 0 0 0 1px;
+                color: $darkGrey;
+                font-weight: 300;
+
                 > .icon-arrow {
+                    @include opacity(0.75);
 
                     &:before {
-                        content: "\f105" !important;
+                        content: "\f067" !important;
                     }
                 }
             }
@@ -50,10 +56,10 @@
                 line-height: 1;
                 -webkit-font-smoothing: antialiased;
                 -moz-osx-font-smoothing: grayscale;
+                color: $lightGrey;
 
                 &:before {
-                    content: "\f107";
-                    color: $primary;
+                    content: "\f068";
                 }
             }
         }

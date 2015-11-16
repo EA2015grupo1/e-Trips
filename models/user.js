@@ -6,6 +6,10 @@ var userSchema = new Schema({
     password:    { type: String },
     name:  { type: String },
     email:   { type: String },
+    phone:   { type: String },
+    gender:   { type: String },
+    zipCode:   { type: String },
+    city:   { type: String },
     rol: {type: String},
     imageUrl: {type: String}
 });

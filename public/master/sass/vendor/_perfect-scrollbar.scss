@@ -41,11 +41,11 @@
     width: 10px !important;
 }
 
-.perfect-scrollbar {
+*[perfect-scrollbar] {
     overflow-y: hidden !important;
 }
 
-.touch .perfect-scrollbar {
+.touch *[perfect-scrollbar] {
     overflow-y: scroll !important;
     -webkit-overflow-scrolling: touch !important;
 }

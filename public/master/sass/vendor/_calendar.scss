@@ -1,165 +1,101 @@
 /* ---------------------------------------------------------------------- */
 /*  Calendar
 /* ---------------------------------------------------------------------- */
-#calendar {
-  position: relative;
-}
-.fc-event, #event-categories .event-category {
-  padding: 2px 5px;
-  background: $lightGrey !important;
-  border: 1px solid darken($lightGrey, 10%) !important;
-  color: $text-color !important;
-}
-#event-categories .event-category {
-  cursor: move;
-}
-.fc-day-number {
-  margin: 2px 2px 0 0;
-}
-.fc-header-title h2 {
-  color: $grey;
-  font-weight: 200;
-  letter-spacing: -1px;
-}
-.fc-today .fc-day-number {
-  font-weight: bold;
+.cal-month-box {
+    border-right: none !important;
+    border-bottom: none !important;
 }
 
-.fc-state-highlight {
-  background: #F5F5F5 !important;
-}
-.fc-button {
-  color: #858585 !important;
-  height: 40px !important;
-  line-height: 40px;
-  opacity: 0.6;
-}
-.fc-button:hover {
-  opacity: 1;
-}
-.fc-button-prev, .fc-button-next {
-  padding: 0;
-  width: 40px;
-  line-height: 40px;
-  text-align: center;
-  position: relative;
-  text-indent: -9999px;
-}
-.fc-button-prev .fc-text-arrow, .fc-button-next .fc-text-arrow {
-  font-weight: bold;
-}
-.fc-button-prev:after, .fc-button-next:after {
-  font-family: FontAwesome;
-  text-indent: 0;
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-.fc-button-prev:after {
-  content: "\f104";
-}
-.fc-button-next:after {
-  content: "\f105";
-}
-.fc-state-default {
-  background-color: #ffffff !important;
-  background-image: none !important;
-  border-color: #DDDDDD !important;
-  box-shadow: none !important;
-  color: #666666;
-  text-shadow: none !important;
-  border-radius: 0 !important;
-}
-.fc-state-down, .fc-state-active {
-  opacity: 1;
-}
-.fc-header-left {
-  position: absolute !important;
-  top: 0;
-  left: 15px;
-  width: 50% !important;
-}
-.fc-header-right {
-  position: absolute !important;
-  top: 0;
-  right: 15px;
-  width: 50% !important;
-}
-.fc-header-center {
-  display: block !important;
-  padding-top: 60px !important;
-}
-.event-category {
-  color: #ffffff;
-  padding: 5px;
-  border-radius: 3px;
-  margin: 5px 0;
+.event {
+    border: none !important;
+    box-shadow: none !important;
+    height: 8px !important;
+    width: 8px !important;
 }
 
-.fc-border-separate tr.fc-last th {
-  border-top: none !important;
-  border-left: none !important;
+.event-job {
+    background-color: $primary !important;
 }
-.fc-border-separate th.fc-last {
-  border-right: none !important;
+
+.event-home {
+    background-color: $purple !important;
 }
-.fc-grid th {
-  text-align: right;
+
+.event-to-do {
+    background-color: $orange !important;
 }
-.fc-event {
-  background-color: #F0F0F0;
-  border: none;
-  color: #333333;
-  font-size: 12px;
+
+.event-cancelled {
+    background-color: $yellow !important;
 }
-.fc-event .fc-content > span:first-child:before, .event-category:before {
-  content: "\f111";
-  font-family: FontAwesome;
-  font-size: 6px;
-  line-height: 16px;
-  padding-right: 5px;
-  color: #00AEFF;
-  float: left;
+
+.event-generic {
+    background-color: $info !important;
 }
-.event-category {
-  color: #858585;
+
+.event-off-site-work {
+    background-color: $green !important;
 }
-.event-category:before {
-  line-height: 20px;
+
+.day-highlight.dh-event-job {
+    border: none !important;
+    background-color: rgba($primary, 0.3) !important;
 }
-.event-cancelled .fc-content > span:first-child:before, .event-category.event-cancelled:before {
-  color: $yellow !important;
+
+.day-highlight.dh-event-home {
+    border: none !important;
+    background-color: rgba($purple, 0.3) !important;
 }
-.event-home .fc-content > span:first-child:before, .event-category.event-home:before {
-  color: $purple !important;
+
+.day-highlight.dh-event-to-do {
+    border: none !important;
+    background-color: rgba($orange, 0.3) !important;
 }
-.event-overtime .fc-content > span:first-child:before, .event-category.event-overtime:before {
-  color: #711A76;
+
+.day-highlight.dh-event-cancelled {
+    border: none !important;
+    background-color: rgba($yellow, 0.3) !important;
 }
-.event-generic .fc-content > span:first-child:before, .event-category.event-generic:before {
-  color: $info !important;
+
+.day-highlight.dh-event-generic {
+    border: none !important;
+    background-color: rgba($info, 0.3) !important;
 }
-.event-job .fc-content > span:first-child:before, .event-category.event-job:before {
-  color: $primary !important;
+
+.day-highlight.dh-event-off-site-work {
+    border: none !important;
+    background-color: rgba($info, 0.3) !important;
 }
-.event-off-site-work .fc-content > span:first-child:before, .event-category.event-off-site-work:before {
-  color: $green !important;
+
+.cal-slide-content {
+    background-color: #F2F2F2 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+
+    li {
+        padding: 20px;
+        border-bottom: 1px dotted $border-default;
+
+        &:hover {
+            background-color: #DDDDE8 !important;
+        }
+
+        a.event-item {
+            color: $text-color !important;
+            font-weight: 400;
+        }
+    }
 }
-.event-to-do .fc-content > span:first-child:before, .event-category.event-to-do:before {
-  color: $orange !important;
+
+.cal-day-today {
+    background: none !important;
 }
-.fc-view-month .fc-event-time {
-  display: none;
-}
-.fc-icon-fa {
-  display: inline-block;
-  font-family: FontAwesome !important;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-size: 1.33333333em;
+
+.cal-month-box .cal-day-today span[data-cal-date] {
+    font-size: 1.2em !important;
+    color: #fff !important;
+    background: $primary !important;
+    opacity: 1 !important;
+    padding: 2px 5px;
+    border-radius: 50%;
 }

@@ -17,7 +17,7 @@
             }
 
             .message-avatar {
-                display: block !important;
+                display: block;
             }
 
             .message-name {
@@ -57,7 +57,7 @@
             }
 
             .message-avatar {
-                display: block !important;
+                display: block;
             }
 
             .message-name {
@@ -111,6 +111,18 @@
             margin: 10px 0;
             text-align: center;
             width: 100% !important;
+        }
+
+        &.nextSame {
+            margin-bottom: 0 !important;
+
+            .message-text {
+                border-radius: 16px !important;
+            }
+
+            .message-avatar {
+                display: none !important;
+            }
         }
     }
 
@@ -171,7 +183,7 @@
         display: table-cell;
     }
 
-    textarea {
+    textarea, input {
         background: #fff;
         border: 1px solid $border-default;
         border-radius: 5px;
