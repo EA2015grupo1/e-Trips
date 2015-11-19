@@ -1,6 +1,6 @@
 <!-- start: TOP NAVBAR -->
 <!-- start: NAVBAR HEADER -->
-<body ng-controller="updateCtrl">
+<body ng-controller="profileCtrl">
 <div class="navbar-header">
 	<a href="#" class="sidebar-mobile-toggler pull-left hidden-md hidden-lg" ng-click="toggle('sidebar')" class="btn btn-navbar sidebar-toggle">
 		<i class="ti-align-justify"></i>
@@ -131,13 +131,13 @@
 		<!-- start: LANGUAGE SWITCHER -->
 		<!-- start: USER OPTIONS DROPDOWN -->
 
-		<li class="dropdown current-user" dropdown on-toggle="toggled(open)" ng:controller="updateCtrl">
+		<li class="dropdown current-user" dropdown on-toggle="toggled(open)" ng:controller="profileCtrl">
 			<a href class="dropdown-toggle" dropdown-toggle>
 				<img src="{{user.imageUrl}}" alt="{{user.name}}"> <span class="username">{{user.name}} <i class="ti-angle-down"></i></i></span>
 			</a>
 			<ul class="dropdown-menu dropdown-dark">
 				<li>
-					<a ui-sref="app.profile">
+					<a  ng-click="getProfile(user._id)">
 						Mi Perfil
 					</a>
 				</li>

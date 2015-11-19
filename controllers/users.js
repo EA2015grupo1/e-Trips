@@ -74,7 +74,7 @@ function checkreg (u1, u2){
             zipCode: request.body.zipCode,
             city: request.body.city,
             rol: "registrado",
-            imageUrl: "http://localhost:3000/assets/images/admin.png"
+            imageUrl: "http://localhost:3000/assets/images/user.png"
 
         })
 
@@ -112,8 +112,8 @@ exports.updateUser = function(req, res) {
         user.email  = req.body.email;
         user.phone = req.body.phone;
         user.gender= req.body.gender;
-       user.zipCode= req.body.zipCode;
-       user.city = req.body.city;
+        user.zipCode= req.body.zipCode;
+        user.city = req.body.city;
         user.rol = rol;
         user.imageUrl = req.body.imageUrl;
 
@@ -141,14 +141,14 @@ exports.loginUser = function(req, res) {
         }
         else {
             var usuario = JSON.stringify(user);
-            //console.log(user);
+            console.log(user);
             var res = usuario.split(",");
             key = res[2].split(":");
             p2 = key[1];
             p1 = '"' + req.body.password + '"';
             if (p1==p2){
                 console.log ("Entramos..")
-                return resultado.status(200).jsonp({"loginSuccessful":true, "username": u}, user);
+                return resultado.status(200).jsonp({"loginSuccessful":true, "user":user});
 
             }
             else{

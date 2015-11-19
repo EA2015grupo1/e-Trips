@@ -421,8 +421,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 else {
                     $http.post('/api/users/login', newUser)
                         .success(function (data) {
-                            console.log (data[0].imageUrl);
-                            $cookieStore.put('id', data[0]._id);
+                            console.log (data.user[0].imageUrl);
+                            $cookieStore.put('idlogin', data.user[0]._id);
                             $location.path('/app/home');
 
                         })
@@ -532,6 +532,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 console.log (id);
                 $cookieStore.put('id', id);
                 $location.path ('/app/profile');
+
             };
 
         }]);
@@ -546,14 +547,13 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
 // Función que obtiene un objeto usuario conocido su id
             $http.get('/api/users/' + id)
                 .success(function(data) {
-                    console.log ("hola");
                     $scope.user._id = data._id;
                     $scope.user.username = data.username;
                     $scope.user.name = data.name;
                     $scope.user.email = data.email;
                     $scope.user.phone = data.phone;
                     $scope.user.gender = data.gender;
-                    $scope.user.ziCode = data.zipCode;
+                    $scope.user.zipCode = data.zipCode;
                     $scope.user.city = data.city;
                     $scope.user.rol = data.rol;
                     $scope.user.imageUrl = data.imageUrl;
@@ -566,6 +566,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             $scope.updateUser = function(newUser) {
                 newUser.rol= $scope.user.rol;
                 newUser.imageUrl= $scope.user.imageUrl;
+                console.log (newUser);
                 if ((!newUser.name) && (!newUser.username) && (!newUser.email) && (!newUser.password)){
                     $scope.user.n = "Nombre Completo es requerido";
                     $scope.user.e = "Correo Electronico es requerido";
@@ -602,19 +603,54 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                     $scope.user.p = "Password es requerido";
                     swal("Opps!", "Faltan datos obligatorios!", "error")
                 }
+
                 else {
                     $http.put('/api/users/' + $scope.user._id, newUser)
                         .success(function (data) {
                             $scope.users = data;
                             console.log(data);
-                            location.href = '#/app/home';
-                            location.reload('#/app/home');
+                           location.href = '#/app/home';
+                           location.reload('#/app/home');
                         })
                         .error(function (data) {
                             console.log('Error: ' + data);
                         });
                 }
             };
+
+        }]);
+        app.controller('profileCtrl',['$scope', '$location', '$cookies', '$cookieStore', '$http', function($scope, $location,$cookies, $cookieStore, $http) {
+            $scope.newUser = {};
+            $scope.user = {};
+            $scope.selected = false;
+            var id = $cookieStore.get('idlogin');
+
+            $scope.getProfile = function(id) {
+                console.log (id);
+                $cookieStore.put('id', id);
+                location.href = '#/app/profile';
+                location.reload('#/app/profile');
+
+            };
+// Función que obtiene un objeto usuario conocido su id
+            $http.get('/api/users/' + id)
+                .success(function(data) {
+                    $scope.user._id = data._id;
+                    $scope.user.username = data.username;
+                    $scope.user.name = data.name;
+                    $scope.user.email = data.email;
+                    $scope.user.phone = data.phone;
+                    $scope.user.gender = data.gender;
+                    $scope.user.ziCode = data.zipCode;
+                    $scope.user.city = data.city;
+                    $scope.user.rol = data.rol;
+                    $scope.user.imageUrl = data.imageUrl;
+                    console.log (data);
+                })
+                .error(function(data) {
+                    console.log('Error: ' + data);
+                });
+
 
         }]);
 

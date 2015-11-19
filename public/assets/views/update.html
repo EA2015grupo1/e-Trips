@@ -35,35 +35,35 @@
                                         <label class="control-label">
                                             Nombre Completo (*)
                                         </label>
-                                        <input type="text" value="{{user.name}}" class="form-control" name="firstname" ng-model="newUser.name">
+                                        <input type="text" value="{{user.name}}" class="form-control" id="firstname" name="firstname" ng-model="user.name">
                                     </div>
                                     <p style="color:red">	{{user.n}}</p>
                                     <div class="form-group">
                                         <label class="control-label">
                                             Usuario (*)
                                         </label>
-                                        <input type="text" value={{user.username}} ng-model="newUser.username" class="form-control" name="lastname">
+                                        <input type="text" value={{user.name}} class="form-control" id="lastname" name="lastname"  ng-model="user.username">
                                     </div>
                                     <p style="color:red">	{{user.u}}</p>
                                     <div class="form-group">
                                         <label class="control-label">
-                                            Correo eletronico (*)
+                                            Correo Electronico (*)
                                         </label>
-                                        <input type="text" value={{user.email}} ng-model="newUser.email" class="form-control" name="email">
+                                        <input type="text" value={{user.email}} class="form-control" id="email" name="email"  ng-model="user.email">
                                     </div>
                                     <p style="color:red">	{{user.e}}</p>
                                     <div class="form-group">
                                         <label class="control-label">
                                             Password (*)
                                         </label>
-                                        <input type="password"  ng-model="newUser.password"class="form-control" name="phone">
+                                        <input type="password"  placeholder="Introduce tu password" class="form-control" name="password" id="password" ng-model="user.password">
                                     </div>
-                                    <p style="color:red">	{{user.p}}</p>
+                                    <p style="color:red">{{user.p}}</p>
                                     <div class="form-group">
                                         <label class="control-label">
                                             Telefono (Opcional)
                                         </label>
-                                        <input type="number" placeholder="Introduce Telefono" value={{user.phone}} class="form-control" name="url" ng-model="newUser.phone">
+                                        <input type="text" placeholder="Introduce Telefono" value={{user.phone}} class="form-control" id="phone" name="phone" ng-model="user.phone">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -72,11 +72,11 @@
                                             Genero (Opcional)
                                         </label>
                                         <div class="clip-radio radio-primary">
-                                            <input type="radio" id="us-female" name="gender" value={{user.gender}} value="Mujer" ng-model="newUser.gender">
+                                            <input type="radio" id="us-female" name="gender" value="Mujer" ng-model="user.gender">
                                             <label for="us-female">
                                                 Mujer
                                             </label>
-                                            <input type="radio" id="us-male" name="gender" value={{user.gender}} value="Hombre" ng-model="newUser.gender">
+                                            <input type="radio" id="us-male" name="gender" value="Hombre" ng-model="user.gender">
                                             <label for="us-male">
                                                 Hombre
                                             </label>
@@ -88,7 +88,7 @@
                                                 <label class="control-label">
                                                     Codigo Postal (Opcional)
                                                 </label>
-                                                <input class="form-control" placeholder="Codigo postal" vslue={{user.zipCode}} type="number" name="zipCode" ng-model="newUser.zipCode">
+                                                <input class="form-control" placeholder="Codigo postal" value={{user.zipCode}} type="text" name="zipCode" ng-model="user.zipCode">
                                             </div>
                                         </div>
                                         <div class="col-md-8">
@@ -96,7 +96,7 @@
                                                 <label class="control-label">
                                                     Ciudad (Opcional)
                                                 </label>
-                                                <input class="form-control" placeholder="Introduce tu ciudad" value={{user.city}} type="text" name="city" ng-model="newUser.city">
+                                                <input class="form-control" placeholder="Introduce tu ciudad" value={{user.city}} type="text" name="city" ng-model="user.city">
                                             </div>
                                         </div>
                                     </div>
@@ -199,7 +199,7 @@
                     </p>
                 </div>
                 <div class="col-md-4">
-                    <button class="btn btn-primary pull-right" type="submit" ng-click="updateUser(newUser)">
+                    <button class="btn btn-primary pull-right" type="submit" ng-click="updateUser(user)">
                         Editar <i class="fa fa-arrow-circle-right"></i>
                     </button>
                 </div>
