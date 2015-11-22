@@ -11,7 +11,11 @@ var userSchema = new Schema({
     zipCode:   { type: String },
     city:   { type: String },
     rol: {type: String},
-    imageUrl: {type: String}
+    provider: String,
+    provider_id: {type: String, unique: true},
+    imageUrl: {type: String},
+    createdAt: {type: Date, default: Date.now}
+
 });
 
 module.exports = mongoose.model('User', userSchema);

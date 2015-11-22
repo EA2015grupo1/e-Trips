@@ -29,7 +29,10 @@
 
 		<!-- Clip-Two Theme -->
 		<link rel="stylesheet" data-ng-href="assets/css/themes/{{ app.layout.theme }}.css" />
-
+		<link href="assets/css/login.css" rel="stylesheet" type="text/css"/>
+		<!-- END PAGE LEVEL SCRIPTS -->
+		<!-- BEGIN THEME STYLES -->
+		<link href="assets/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css"/>
 	</head>
 	<body ng-controller="AppCtrl">
 		<div ui-view id="app" ng-class="{'app-mobile' : app.isMobile,  'app-sidebar-fixed' : app.layout.isSidebarFixed, 'app-sidebar-closed':app.layout.isSidebarClosed, 'app-footer-fixed':app.layout.isFooterFixed}"></div>
