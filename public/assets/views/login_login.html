@@ -1,75 +1,58 @@
-<!-- start: LOGIN -->
-<body ng-controller="loginCtrl">
-<div class="row">
-	<div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
-
-		<!-- start: LOGIN BOX -->
-		<div class="box-login">
-			<form class="form-login">
-				<fieldset>
-					<legend>
-						Iniciar sesion en su cuenta
-					</legend>
-					<p>
-						Por favor, introduzca su usuario y clave para entrar.
-					</p>
-
-
-					<div class="form-group" >
-						<span class="input-icon">
-							<input type="text" class="form-control" name="username" placeholder="Username" ng-model="newUser.username">
-							<i class="fa fa-user"></i> </span>
-					</div>
-					<p style="color:red">	{{user.u}}</p>
-
-					<div class="form-group form-actions">
-						<span class="input-icon">
-							<input type="password" class="form-control password" name="password" placeholder="Password"ng-model="newUser.password">
-							<i class="fa fa-lock"></i>
-							<a class="forgot" ui-sref="login.forgot">
-								Olvide mi clave
-							</a> </span>
-					</div>
-					<p style="color:red">	{{user.p}}</p>
-					<div class="form-actions">
-						<div class="checkbox clip-check check-primary">
-							<input type="checkbox" id="remember" value="1">
-							<label for="remember">
-								Guardar Clave
-							</label>
-						</div>
-						<button type="submit" class="btn btn-primary pull-right" ng-click="loginUser(newUser)">
-							Login <i class="fa fa-arrow-circle-right"></i>
-						</button>
-					</div>
-					<div class="new-account">
-						No tienes una cuenta todavia?
-						<a ui-sref="login.registration">
-							Crea una cuenta
-						</a>
+<link rel="stylesheet" href="assets/css/style.css">
+<body class="account" data-page="login" ng-controller="loginCtrl">
+<!-- BEGIN LOGIN BOX -->
+<div class="container" id="login-block">
+	<div class="row">
+		<div class="col-sm-6 col-md-4 col-md-offset-4">
+			<div class="account-wall">
+				<i class="user-img icons-faces-users-03"></i>
+				<form class="form-signin" role="form">
+					<div class="append-icon">
+						<input type="text" name="name" id="name" class="form-control form-white username" placeholder="Username" required ng-model="newUser.username">
+						<i class="icon-user"></i>
 					</div>
 					<br>
+					<div class="append-icon m-b-20">
+						<input type="password" name="password" class="form-control form-white password" placeholder="Password" required ng-model="newUser.password">
+						<i class="icon-lock"></i>
+					</div>
+					<button type="submit" id="submit-form" class="btn btn-lg btn-danger btn-block ladda-button" data-style="expand-left" ng-click="loginUser(newUser)">Login</button>
+					<br>
 					<div class="login-options">
-						<h4>O logeate con</h4>
 						<ul class="social-icons">
 							<li>
-								<a class="social-icon-color facebook" data-original-title="facebook" href='auth/facebook'></a>
+								<a class="facebook" data-original-title="facebook" href='auth/facebook'>
+								</a>
 							</li>
 							<li>
-								<a class="social-icon-color twitter" data-original-title="Twitter" href='auth/twitter'></a>
+								<a class="twitter" data-original-title="Twitter" href='auth/twitter'>
+								</a>
 							</li>
 						</ul>
 					</div>
-				</fieldset>
-			</form>
-			<!-- start: COPYRIGHT -->
-			<div class="copyright">
-				{{app.year}} &copy; {{ app.name }} by {{ app.author }}.
+					<div class="clearfix">
+						<p class="pull-left m-t-20"><a id="password" href="#">Se te olvidó tu contraseña?</a></p>
+						<p class="pull-right m-t-20"><a href="#login/registration">Registrarse</a></p>
+					</div>
+				</form>
+				<form class="form-password" role="form">
+					<div class="append-icon m-b-20">
+						<input type="password" name="password" class="form-control form-white password" placeholder="Password" required>
+						<i class="icon-lock"></i>
+					</div>
+					<button type="submit" id="submit-password" class="btn btn-lg btn-danger btn-block ladda-button" data-style="expand-left">Send Password Reset Link</button>
+					<div class="clearfix">
+						<p class="pull-left m-t-20"><a id="login" href="#">Already got an account? Sign In</a></p>
+						<p class="pull-right m-t-20"><a href="user-signup-v1.html">New here? Sign up</a></p>
+					</div>
+				</form>
 			</div>
-			<!-- end: COPYRIGHT -->
 		</div>
-		<!-- end: LOGIN BOX -->
 	</div>
+	<p class="account-copyright">
+		<span>Copyright © 2015 </span><span>THEMES LAB</span>.<span>All rights reserved.</span>
+	</p>
+
 </div>
-<!-- end: LOGIN -->
+
 </body>

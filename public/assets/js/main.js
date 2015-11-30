@@ -12,9 +12,9 @@ function ($rootScope, $state, $stateParams) {
     // GLOBAL APP SCOPE
     // set below basic information
     $rootScope.app = {
-        name: 'Clip-Two', // name of your project
+        name: 'eR', // name of your project
         author: 'ClipTheme', // author's name or company name
-        description: 'Angular Bootstrap Admin Template', // brief description
+        description: 'Travel', // brief description
         version: '1.0', // current version
         year: ((new Date()).getFullYear()), // automatic current year (for copyright information)
         isMobile: (function () {// true if the browser is a mobile device

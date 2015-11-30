@@ -25,6 +25,54 @@ var resultado;
 var request;
 var username;
 //POST - Insert a new User in the DB
+var fs = require('fs');
+var filename;
+var imagen;
+exports.upload = function(req, res) {
+    var form = new formidable.IncomingForm();
+    form.parse(req, function(err, fields, files) {
+        var tmp_path = files.file.path;
+        var tipo=files.file.type;//tipo del archivo
+
+        if(tipo=='image/png' || tipo=='image/jpg' || tipo=='image/jpeg' ){
+            //Si es de tipo png jpg o jpeg
+            var aleatorio=Math.floor((Math.random()*9999)+1);//Variable aleatoria
+            filename=aleatorio+""+files.file.name;//nombre del archivo mas variable aleatoria
+
+            var target_path='./public/assets/images/'+filename;// hacia donde subiremos nuestro archivo dentro de nuestro servidor
+            fs.rename(tmp_path,target_path,function (err) {//Escribimos el archivo
+                fs.unlink(tmp_path,function (err) {//borramos el archivo tmp
+                    //damos una respuesta al cliente
+                    console.log('<p>Imagen subida OK</p></br><img  src="./images/'+filename+'"/>');
+                });
+
+            });
+
+            var u= req.params.username;
+            User.findOne({username:u}, function(err,user) {
+                imagen = "http://localhost:3000/assets/images/" +filename;
+                console.log ("usuario: "+user);
+                user.imageUrl = imagen;
+
+                user.save(function(err) {
+                    if(err) return res.send(500, err.message);
+                    res.status(200).jsonp(user);
+                });
+            });
+
+        }else{
+            console.log('Tipo de archivo imagen no soportada');
+        }
+
+        if (err) {
+            console.error(err.message);
+            return;
+        }
+
+
+    });
+
+};
 exports.addUser = function(req, res) {
     console.log('POST');
     console.log(req.body);
@@ -56,9 +104,11 @@ exports.addUser = function(req, res) {
 
     });
 
+
+
 };
 
-function checkreg (u1, u2){
+function checkreg (u1, u2, filename ){
 
     if (u1==u2){
         return resultado.status(409).jsonp("usuario " +username + " ya existe");
@@ -71,10 +121,9 @@ function checkreg (u1, u2){
             email:   request.body.email,
             phone:  request.body.phone,
             gender: request.body.gender,
-            zipCode: request.body.zipCode,
+           // zipCode: request.body.zipCode,
             city: request.body.city,
             rol: "registrado",
-            imageUrl: "http://localhost:3000/assets/images/user.png"
 
         })
 
