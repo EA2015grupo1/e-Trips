@@ -23,23 +23,38 @@
 		<!-- Animate Css -->
 		<link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css">
 		<link rel="stylesheet" href="vendor/animate-css/animate.css">
+		<link rel="stylesheet" href="dist/css/bootstrap-select.css">
 		<!-- Clip-Two CSS -->
 		<link rel="stylesheet" href="assets/css/styles.css">
 		<link rel="stylesheet" href="assets/css/plugins.css">
 
 		<!-- Clip-Two Theme -->
+
+		<link href="assets/css/ui.css" rel="stylesheet">
+		<link href="assets/plugins/bootstrap-loading/lada.min.css" rel="stylesheet">
 		<link rel="stylesheet" data-ng-href="assets/css/themes/{{ app.layout.theme }}.css" />
 		<link href="assets/css/login.css" rel="stylesheet" type="text/css"/>
 		<!-- END PAGE LEVEL SCRIPTS -->
 		<!-- BEGIN THEME STYLES -->
 		<link href="assets/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css"/>
 	</head>
-	<body ng-controller="AppCtrl">
+	<body class="account" data-page="login" ng-controller="AppCtrl">
 		<div ui-view id="app" ng-class="{'app-mobile' : app.isMobile,  'app-sidebar-fixed' : app.layout.isSidebarFixed, 'app-sidebar-closed':app.layout.isSidebarClosed, 'app-footer-fixed':app.layout.isFooterFixed}"></div>
 
 		<!-- jQuery -->
 		<script src="vendor/jquery/jquery.min.js"></script>
 		<!-- Fastclick -->
+		<script src="assets/plugins/icheck/icheck.min.js"></script>
+		<script src="assets/plugins/jquery/jquery-1.11.1.min.js"></script>
+		<script src="assets/plugins/jquery/jquery-migrate-1.2.1.min.js"></script>
+		<script src="assets/plugins/gsap/main-gsap.min.js"></script>
+		<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+		<script src="assets/plugins/backstretch/backstretch.min.js"></script>
+		<script src="assets/plugins/bootstrap-loading/lada.min.js"></script>
+		<script src="assets/plugins/jquery-validation/jquery.validate.min.js"></script>
+		<script src="assets/plugins/jquery-validation/additional-methods.min.js"></script>
+		<script src="assets/js/plugins.js"></script>
+		<script src="assets/js/pages/login-v1.js"></script>
 		<script src="vendor/fastclick/fastclick.min.js"></script>
 		<!-- Angular -->
 		<script src="vendor/angular/angular.min.js"></script>
@@ -67,11 +82,11 @@
 		<!-- Angular Scroll -->
 		<script src="vendor/angular-scroll/angular-scroll.min.js"></script>
 		<!-- Clip-Two Scripts -->
-		<script src="assets/js/app.js"></script>
+		<script src="assets/js/home.js"></script>
 		<script src="assets/js/main.js"></script>
 		<script src="assets/js/config.constant.js"></script>
 		<script src="assets/js/config.router.js"></script>
-		<script src="assets/js/login.js"></script>
+		<script src="assets/js/app.js"></script>
 		<script src="assets/js/sweetalert.min.js"></script>
 		<!-- Clip-Two Directives -->
 		<script src="assets/js/directives/toggle.js"></script>
@@ -92,5 +107,6 @@
 
 		<!-- Google Apis -->
 		<script src="//maps.googleapis.com/maps/api/js?v=3.exp&libraries=weather,visualization"></script>
+
 	</body>
 </html>

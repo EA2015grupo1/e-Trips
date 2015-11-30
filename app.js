@@ -11,13 +11,22 @@ var express         = require("express"),// Express: Framework HTTP para Node.js
     cookieParser = require('cookie-parser');
     passport = require('passport'); // Passport: Middleware de Node que facilita la autenticación de usuarios
     session = require('express-session');
+    formidable = require('formidable'),
 // Conexión a la base de datos de MongoDB que tenemos en local
 mongoose.connect('mongodb://localhost/users', function(err, res) {
     if(err) throw err;
     console.log('Conectado con éxito a la Base de Datos');
 });
+
 // Iniciamos la aplicación Express
 var app = express();
+app.all('/*', function(req, res, next) {
+    // CORS headers
+    res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 // Configuración (sistema de plantillas, directorio de vistas,...)
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -25,22 +34,26 @@ app.use(logger('dev'));
 
 // Middlewares de Express que nos permiten enrutar y poder
 // realizar peticiones HTTP (GET, POST, PUT, DELETE)
-
+//Funciones importantes para subir archivos
+app.use(bodyParser());
+app.use(bodyParser({uploadDir:'./images'}));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(methodOverride());
 app.use(cookieParser());
 // Ruta de los archivos estáticos (HTML estáticos, JS, CSS,...)
 app.use(express.static(__dirname + '/public'));
+app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 // Indicamos que use sesiones, para almacenar el objeto usuario
 // y que lo recuerde aunque abandonemos la página
 app.use(session({ secret: 'zasentodalaboca' })); // session secret
-// Configuración de Passport. Lo inicializamos
-// y le indicamos que Passport maneje la Sesión
+// Configuracion de Passport. Lo inicializamos y le indicamos que Passport maneje la Sesion
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Import Models and controllers
+
+
+// Importamos Models and controllers
 var models     = require('./models/user')(app, mongoose);
 var UserCtrl = require('./controllers/users');
 // Importamos el modelo usuario y la configuración de passport
@@ -79,7 +92,8 @@ users.route('/users/:id')
     .delete(UserCtrl.deleteUser);
 users.route('/users/login')
     .post(UserCtrl.loginUser);
-
+users.route('/users/upload/:username')
+    .put(UserCtrl.upload);
 app.use('/api', users);
 
 app.get('*', function(req, res) {
