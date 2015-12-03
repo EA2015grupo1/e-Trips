@@ -25,7 +25,7 @@ module.exports = function(passport) {
     passport.deserializeUser(function(obj, done) {
         done(null, obj);
     });
-
+/*
     // Configuración del autenticado con Twitter
     passport.use(new TwitterStrategy({
         consumerKey : configAuth.twitterAuth.clientID,
@@ -54,7 +54,7 @@ module.exports = function(passport) {
             });
         });
     }));
-
+*/
     // Configuración del autenticado con Facebook
     passport.use(new FacebookStrategy({
         clientID : configAuth.facebookAuth.clientID,

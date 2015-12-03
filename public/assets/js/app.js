@@ -36,7 +36,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             templateUrl: "assets/views/app.html",
             resolve: loadSequence('modernizr', 'moment', 'angularMoment', 'uiSwitch', 'perfect-scrollbar-plugin', 'perfect_scrollbar', 'toaster', 'ngAside', 'vAccordion', 'sweet-alert', 'chartjs', 'tc.chartjs', 'oitozero.ngSweetAlert', 'chatCtrl'),
             abstract: true,
-            controller: 'usersCtrl'
+            controller: 'MapCtrl'
         }).state('app.home', {
             url: "/home",
             templateUrl: "assets/views/home.html",
@@ -467,18 +467,41 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
 
 
         }]);
-        app.controller('usersCtrl',['$scope', '$location', '$cookies', '$cookieStore', '$http', function($scope, $location,$cookies, $cookieStore, $http) {
+        app.factory('User',function($resource){ //Step 2
+            //Step 3
+            return $resource('/api/users');
+        })
+        app.controller('usersCtrl',['$scope', '$location', '$cookies', '$cookieStore', '$http','ngTableParams', 'User', function($scope, $location,$cookies, $cookieStore, $http, ngTableParams, User) {
+
+            var params = {
+                page: 1,
+                count: 5
+            };
+
+            var settings = {
+                total: 0,
+                counts: [5, 10, 15],
+                getData: function($defer, params) {
+                    User.get(params.url(), function(response) {
+                        params.total(response.total);
+                        $defer.resolve(response.results);
+                    });
+                }
+            };
+
+            $scope.tableParams = new ngTableParams(params, settings);
+            /*
             $scope.newUser = {};
             $scope.user = {};
             $scope.selected = false;
             // Obtenemos todos los datos de la base de datos
             $http.get('/api/users').success(function (data) {
                 $scope.users = data;
-
+                console.log(data);
             })
                 .error(function (data) {
                     console.log('Error: ' + data);
-                });
+                });*/
             // Funci�n que borra un objeto usuario conocido su id
             $scope.deleteUser = function(id) {
                 swal({   title: "¿Estas seguro?",
@@ -628,6 +651,87 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                     console.log('Error: ' + data);
                 });
 
+
+        }]);
+
+       /* app.controller('MapCtrl', ['$scope', function ($scope) {
+
+            $scope.map = {
+                center: {
+                    latitude: 40.454018,
+                    longitude: -3.509205
+                },
+                zoom: 12,
+                options : {
+                    scrollwheel: false
+                },
+                control: {}
+            };
+            $scope.marker = {
+                id: 0,
+                coords: {
+                    latitude: 40.454018,
+                    longitude: -3.509205
+                },
+                options: {
+                    draggable: true
+                }
+            };
+        }]);
+        */
+        app.controller('MapCtrl', ['$scope', function ($scope) {
+
+            var markerId = 0;
+
+            function refresh(marker) {
+                $scope.map.control.refresh({latitude: marker.latitude,
+                    longitude: marker.longitude});
+            }
+
+            function create(latitude, longitude) {
+                var marker = {
+                    options: {
+                        animation: 1,
+                        labelAnchor: "28 -5",
+                        labelClass: 'markerlabel'
+                    },
+                    latitude: latitude,
+                    longitude: longitude,
+                    id: ++markerId
+                };
+                return marker;
+            }
+
+            function invokeSuccessCallback(successCallback, marker) {
+                if (typeof successCallback === 'function') {
+                    successCallback(marker);
+                }
+            }
+
+            function createByCoords(latitude, longitude, successCallback) {
+                var marker = create(latitude, longitude);
+                invokeSuccessCallback(successCallback, marker);
+            }
+
+            createByCoords(40.454018, -3.509205, function (marker) {
+                marker.options.labelContent = 'Autentia';
+                $scope.autentiaMarker = marker;
+                refresh(marker);
+            });
+            $scope.map = {
+                center: {
+                    latitude: $scope.autentiaMarker.latitude,
+                    longitude: $scope.autentiaMarker.longitude
+                },
+                zoom: 12,
+                markers: [],
+                control: {},
+                options: {
+                    scrollwheel: false
+                }
+            };
+
+            $scope.map.markers.push($scope.autentiaMarker);
 
         }]);
 

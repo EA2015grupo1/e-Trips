@@ -15,4 +15,7 @@ angular.module("clip-two", [
 	'ncy-angular-breadcrumb',
 	'duScroll',
 	'pascalprecht.translate',
+	'ngTable',
+	'ngResource',
+	'google-maps',
 ]);

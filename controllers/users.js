@@ -1,7 +1,7 @@
 //File: controllers/users.js
 var mongoose = require('mongoose');
 var User  = mongoose.model('User');
-
+/*
 //GET - Return all Users in the DB
 exports.findAllUsers = function(req, res) {
     User.find(function(err, users) {
@@ -10,6 +10,46 @@ exports.findAllUsers = function(req, res) {
         console.log('GET /users')
         res.status(200).jsonp(users);
     });
+};
+
+*/
+exports.findAllUsers = function(req, res) {
+
+    var count = req.query.count || 5;
+    var page = req.query.page || 1;
+
+    var filter = {
+        filters: {
+            mandatory: {
+                contains: req.query.filter
+            }
+        }
+    };
+
+    var pagination = {
+        start: (page - 1) * count,
+        count: count
+    };
+
+    var sort = {
+        sort: {
+            desc: '_id'
+        }
+    };
+
+    User.find()
+        .filter(filter)
+        .order(sort)
+        .page(pagination, function(err, users) {
+            if (err) {
+                return res.send(400, {
+                  //  message: getErrorMessage(err)
+                });
+            } else {
+                res.jsonp(users);
+            }
+        });
+
 };
 
 //GET - Return a User with specified ID

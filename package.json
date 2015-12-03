@@ -14,6 +14,7 @@
     "passport-facebook": "~1.0.2",
     "passport-twitter": "~1.0.2",
     "serve-favicon": "~2.3.0",
-    "formidable": "latest"
+    "formidable": "latest",
+    "mongoose-middleware": "latest"
   }
 }

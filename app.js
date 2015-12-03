@@ -12,6 +12,7 @@ var express         = require("express"),// Express: Framework HTTP para Node.js
     passport = require('passport'); // Passport: Middleware de Node que facilita la autenticación de usuarios
     session = require('express-session');
     formidable = require('formidable'),
+    require('mongoose-middleware').initialize(mongoose);
 // Conexión a la base de datos de MongoDB que tenemos en local
 mongoose.connect('mongodb://localhost/users', function(err, res) {
     if(err) throw err;
