@@ -31,12 +31,59 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         $urlRouterProvider.otherwise("/login/signin");
         //
         // Set up the states
-        $stateProvider.state('app', {
+        $stateProvider.state('admin', {
+            url: "/admin",
+            templateUrl: "assets/views/admin.html",
+            resolve: loadSequence('modernizr', 'moment', 'angularMoment', 'uiSwitch', 'perfect-scrollbar-plugin', 'perfect_scrollbar', 'toaster', 'ngAside', 'vAccordion', 'sweet-alert', 'chartjs', 'tc.chartjs', 'oitozero.ngSweetAlert', 'chatCtrl'),
+            abstract: true,
+            controller: 'MapCtrl'
+        }).state('app', {
             url: "/app",
             templateUrl: "assets/views/app.html",
             resolve: loadSequence('modernizr', 'moment', 'angularMoment', 'uiSwitch', 'perfect-scrollbar-plugin', 'perfect_scrollbar', 'toaster', 'ngAside', 'vAccordion', 'sweet-alert', 'chartjs', 'tc.chartjs', 'oitozero.ngSweetAlert', 'chatCtrl'),
             abstract: true,
             controller: 'MapCtrl'
+        }).state('admin.home', {
+            url: "/home",
+            templateUrl: "assets/views/home.html",
+            resolve: loadSequence('jquery-sparkline', 'sparkline', 'dashboardCtrl'),
+            title: 'Mi posicion',
+            ncyBreadcrumb: {
+                label: 'Mi posicion'
+            }
+
+        }).state('admin.usuarios', {
+            url: "/usuarios",
+            templateUrl: "assets/views/ausers.html",
+            title: "Usuarios",
+            controller: 'usersCtrl',
+            ncyBreadcrumb: {
+                label: 'Usuarios'
+            }
+        }).state('admin.ciudades', {
+            url: "/ciudades",
+            templateUrl: "assets/views/ciudades.html",
+            title: "Ciudades",
+            controller: 'usersCtrl',
+            ncyBreadcrumb: {
+                label: 'Usuarios'
+            }
+        }).state('admin.update', {
+            url: "/update",
+            templateUrl: "assets/views/update.html",
+            title: "Update",
+            controller: 'updateCtrl',
+            ncyBreadcrumb: {
+                label: 'Update'
+            }
+        }).state('admin.profile', {
+            url: "/profile",
+            templateUrl: "assets/views/profile.html",
+            title: "Profile",
+            controller: 'updateCtrl',
+            ncyBreadcrumb: {
+                label: 'Profile'
+            }
         }).state('app.home', {
             url: "/home",
             templateUrl: "assets/views/home.html",
@@ -46,14 +93,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Mi posicion'
             }
 
-        }).state('app.usuarios', {
-            url: "/usuarios",
-            templateUrl: "assets/views/ausers.html",
-            title: "Usuarios",
-            controller: 'usersCtrl',
-            ncyBreadcrumb: {
-                label: 'Usuarios'
-            }
         }).state('app.ciudades', {
             url: "/ciudades",
             templateUrl: "assets/views/ciudades.html",
@@ -85,6 +124,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'Documentation'
             }
+
         }).state('error', {
             url: '/error',
             template: '<div ui-view class="fade-in-up"></div>'
@@ -144,10 +184,14 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                     $http.post('/api/users/login', newUser)
                         .success(function (data) {
                             console.log(data);
-                            console.log(data.user[0].imageUrl);
-                            $cookieStore.put('rol', data.user[0].rol);
                             $cookieStore.put('idlogin', data.user[0]._id);
-                            $location.path('/app/home');
+                            if (data.user[0].rol=="administrador") {
+                                console.log ("entra admin...");
+                                $location.path('/admin/home');
+                            }
+                            else{
+                                $location.path('/app/home');
+                            }
 
                         })
                         .error(function (data) {
@@ -162,52 +206,43 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             // Funcion para registrar a un usuario
             $scope.registerUser = function(newUser) {
                 if ((!newUser.name) && (!newUser.username) && (!newUser.email) && (!newUser.password)&& (!newUser.city)&& (!newUser.college)&&(!newUser.gender)) {
-                    swal("Opps!", "Faltan datos obligatorios!", "error")
+
                 }
                 else if (!newUser.name) {
 
-                    swal("Opps!", "Faltan datos obligatorios!", "error")
+
                 }
 
                 else if (!newUser.username) {
 
-                    swal("Opps!", "Faltan datos obligatorios!", "error")
+
                 }
                 else if (!newUser.email) {
 
-                    swal("Opps!", "Faltan datos obligatorios!", "error")
+
                 }
                 else if (!newUser.password) {
 
-                    swal("Opps!", "Faltan datos obligatorios!", "error")
+
                 }
                 else if (!newUser.city) {
 
-                    swal("Opps!", "Faltan datos obligatorios!", "error")
+
                 }
                 else if (!newUser.college) {
 
-                    swal("Opps!", "Faltan datos obligatorios!", "error")
+
                 }
                 else if (!newUser.gender) {
 
-                    swal("Opps!", "Faltan datos obligatorios!", "error")
+
                 }
                 else if (!$scope.file) {
 
                     swal("Opps!", "Debes elegir una imagen de perfil!", "error")
                 }
                 else{
-                swal({
-                        title: "¿Estas seguro de registrar?",
-                        text: "Una vez registrado se volvera a la pagina de inicio!",
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#6cdd55",
-                        confirmButtonText: "Si, registralo!",
-                        closeOnConfirm: true
-                    },
-                    function () {
+
                         var formData = new FormData();
                         var username = newUser.username;
                         var file = $scope.file;
@@ -235,7 +270,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                                 console.log('Error: ' + data);
                             });
 
-                    });
+
             }
 
 
@@ -294,8 +329,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                             $http.delete('/api/users/' + id)
                                  .success(function(data) {
                                     $scope.newUser = {};
-                                    location.href = '#/app/usuarios';
-                                    location.reload('#/app/usuarios');
+                                    location.href = '#/admin/usuarios';
+                                    location.reload('#/admin/usuarios');
                             })
                             .error(function(data) {
                             console.log('Error: ' + data);
@@ -358,7 +393,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                     $scope.user.ci = "El nombre de la ciudad es requerido";
                     $scope.user.uni = "El nobmre de tu universidad es requerido";
                     $scope.user.g = "Genero es requerido";
-                    swal("Opps!", "Faltan datos obligatorios!", "error")
+
                 }
                 else if (!newUser.name){
                     $scope.user.n = "Nombre Completo es requerido";
@@ -368,7 +403,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                     $scope.user.ci = "";
                     $scope.user.uni = "";
                     $scope.user.g = "";
-                    swal("Opps!", "Faltan datos obligatorios!", "error")
+
                 }
 
                 else if (!newUser.username){
@@ -379,7 +414,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                     $scope.user.ci = "";
                     $scope.user.uni = "";
                     $scope.user.g = "";
-                    swal("Opps!", "Faltan datos obligatorios!", "error")
+
                 }
                 else if (!newUser.email){
                     $scope.user.n = "";
@@ -389,7 +424,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                     $scope.user.ci = "";
                     $scope.user.uni = "";
                     $scope.user.g = "";
-                    swal("Opps!", "Faltan datos obligatorios!", "error")
+
                 }
                 else if (!newUser.po){
                     $scope.user.n = "";
@@ -399,7 +434,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                     $scope.user.uni = "";
                     $scope.user.g = "";
                     $scope.user.p = "Password es requerido";
-                    swal("Opps!", "Faltan datos obligatorios!", "error")
+
                 }
                 else if (!newUser.po){
                     $scope.user.n = "";
@@ -409,7 +444,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                     $scope.user.uni = "";
                     $scope.user.g = "";
                     $scope.user.p = "Password es requerido";
-                    swal("Opps!", "Faltan datos obligatorios!", "error")
+
                 }
                 else if (!newUser.city){
                     $scope.user.n = "";
@@ -419,7 +454,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                     $scope.user.uni = "";
                     $scope.user.g = "";
                     $scope.user.p = "";
-                    swal("Opps!", "Faltan datos obligatorios!", "error")
+
                 }
                 else if (!newUser.college){
                     $scope.user.n = "";
@@ -429,7 +464,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                     $scope.user.uni = "El nobmre de tu universidad es requerido";
                     $scope.user.g = "";
                     $scope.user.p = "";
-                    swal("Opps!", "Faltan datos obligatorios!", "error")
+
                 }
                 else if (!newUser.gender){
                     $scope.user.n = "";
@@ -439,7 +474,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                     $scope.user.uni = "";
                     $scope.user.g = "Genero es requerido";
                     $scope.user.p = "";
-                    swal("Opps!", "Faltan datos obligatorios!", "error")
+
                 }
                 else if (newUser.po!=newUser.pr){
 
@@ -454,16 +489,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 else {
                     newUser.password=newUser.po;
                     newUser.pr="";
-                    swal({
-                            title: "¿Estas seguro de editar tu cuenta?",
-                            text: "Una vez editada tu cuenta se volvera a tu perfil!",
-                            type: "warning",
-                            showCancelButton: true,
-                            confirmButtonColor: "#6cdd55",
-                            confirmButtonText: "Si, registralo!",
-                            closeOnConfirm: true
-                        },
-                        function () {
+
                             var formData = new FormData();
                             var username = newUser.username;
                             var file = $scope.file;
@@ -493,7 +519,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                                 .error(function (data) {
                                     console.log('Error: ' + data);
                                 });
-                        });
+
                 }
             };
 
@@ -503,17 +529,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             $scope.user = {};
             $scope.selected = false;
             var id = $cookieStore.get('idlogin');
-            var rol = $cookieStore.get('rol');
 
-            if (rol=="administrador"){
-
-               // $scope.customHtml = "input type='button' class='btn btn-wide btn-dark-blue";
-            }
             $scope.getProfile = function(id) {
                 console.log (id);
                 $cookieStore.put('id', id);
-                location.href = '#/app/profile';
-                location.reload('#/app/profile');
+                $location.path ('/app/profile');
 
             };
 
