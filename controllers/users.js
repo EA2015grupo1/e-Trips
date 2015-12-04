@@ -11,50 +11,66 @@ exports.findAllUsers = function(req, res) {
         res.status(200).jsonp(users);
     });
 };
-
 */
 exports.findAllUsers = function(req, res) {
+var count = req.query.count || 5;
+var page = req.query.page || 1;
 
-    var count = req.query.count || 5;
-    var page = req.query.page || 1;
-
-    var filter = {
-        filters: {
-            mandatory: {
-                contains: req.query.filter
-            }
+var filter = {
+    filters: {
+        mandatory: {
+            contains: req.query.filter
         }
-    };
-
-    var pagination = {
-        start: (page - 1) * count,
-        count: count
-    };
-
-    var sort = {
-        sort: {
-            desc: '_id'
-        }
-    };
-
-    User.find()
-        .filter(filter)
-        .order(sort)
-        .page(pagination, function(err, users) {
-            if (err) {
-                return res.send(400, {
-                  //  message: getErrorMessage(err)
-                });
-            } else {
-                res.jsonp(users);
-            }
-        });
-
+    }
 };
 
+var pagination = {
+    start: (page - 1) * count,
+    count: count
+};
+
+var sort = {
+    sort: {
+        desc: '_id'
+    }
+};
+
+User
+    .find()
+    .filter(filter)
+    .order(sort)
+    .page(pagination, function(err, users) {
+        if (err) {
+            return res.send(400, {
+                message: getErrorMessage(err)
+            });
+        } else {
+            res.jsonp(users);
+        }
+    });
+
+};
 //GET - Return a User with specified ID
 exports.findById = function(req, res) {
     User.findById(req.params.id, function(err, user) {
+        if(err) return res.send(500, err.message);
+
+        console.log('GET /user/' + req.params.id);
+        res.status(200).jsonp(user);
+    });
+};
+
+exports.findTwitter = function(req, res) {
+    User.findOne({provider:'twitter'}, function(err, user) {
+        if(err) return res.send(500, err.message);
+
+        console.log('GET /user/');
+        res.status(200).jsonp(user);
+    });
+};
+exports.findFacebook = function(req, res) {
+    var facebook="facebook";
+    User.findOne({provider:facebook}, function(err, user) {
         if(err) return res.send(500, err.message);
 
         console.log('GET /user/' + req.params.id);
@@ -161,7 +177,7 @@ function checkreg (u1, u2, filename ){
             email:   request.body.email,
             phone:  request.body.phone,
             gender: request.body.gender,
-           // zipCode: request.body.zipCode,
+            college: request.body.college,
             city: request.body.city,
             rol: "registrado",
 
@@ -201,7 +217,7 @@ exports.updateUser = function(req, res) {
         user.email  = req.body.email;
         user.phone = req.body.phone;
         user.gender= req.body.gender;
-        user.zipCode= req.body.zipCode;
+        user.college= req.body.college;
         user.city = req.body.city;
         user.rol = rol;
         user.imageUrl = req.body.imageUrl;

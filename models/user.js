@@ -8,7 +8,7 @@ var userSchema = new Schema({
     email:   { type: String },
     phone:   { type: String },
     gender:   { type: String },
-    zipCode:   { type: String },
+    college:   { type: String },
     city:   { type: String },
     rol: {type: String},
     provider: String,

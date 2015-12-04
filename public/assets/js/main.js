@@ -12,7 +12,7 @@ function ($rootScope, $state, $stateParams) {
     // GLOBAL APP SCOPE
     // set below basic information
     $rootScope.app = {
-        name: 'eR', // name of your project
+        name: 'e-Trips', // name of your project
         author: 'ClipTheme', // author's name or company name
         description: 'Travel', // brief description
         version: '1.0', // current version

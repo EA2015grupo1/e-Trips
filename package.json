@@ -16,5 +16,6 @@
     "serve-favicon": "~2.3.0",
     "formidable": "latest",
     "mongoose-middleware": "latest"
+
   }
 }

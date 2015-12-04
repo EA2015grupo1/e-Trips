@@ -25,7 +25,7 @@ module.exports = function(passport) {
     passport.deserializeUser(function(obj, done) {
         done(null, obj);
     });
-/*
+
     // Configuración del autenticado con Twitter
     passport.use(new TwitterStrategy({
         consumerKey : configAuth.twitterAuth.clientID,
@@ -35,6 +35,7 @@ module.exports = function(passport) {
         // Busca en la base de datos si el usuario ya se autenticó en otro
         // momento y ya está almacenado en ella
         User.findOne({provider_id: profile.id}, function(err, user) {
+
             if(err) throw(err);
             // Si existe en la Base de Datos, lo devuelve
             if(!err && user!= null) return done(null, user);
@@ -43,6 +44,7 @@ module.exports = function(passport) {
             var user = new User({
                 provider_id	: profile.id,
                 provider		 : profile.provider,
+                username:           profile.displayName,
                 name				 : profile.displayName,
                 imageUrl				: profile.photos[0].value,
                 rol:    "registrado",
@@ -54,7 +56,7 @@ module.exports = function(passport) {
             });
         });
     }));
-*/
+
     // Configuración del autenticado con Facebook
     passport.use(new FacebookStrategy({
         clientID : configAuth.facebookAuth.clientID,
@@ -68,6 +70,7 @@ module.exports = function(passport) {
         // un nombre diferente.
         // Passport esto lo sabe y nos lo pone más sencillo con ese campo
         User.findOne({provider_id: profile.id}, function(err, user) {
+
             if(err) throw(err);
             if(!err && user!= null) return done(null, user);
 
@@ -76,6 +79,7 @@ module.exports = function(passport) {
             var user = new User({
                 provider_id	: profile.id,
                 provider		 : profile.provider,
+                username:           profile.displayName,
                 name				 : profile.displayName,
                 imageUrl				: profile.photos[0].value,
                 email:                  profile.emails[0].value,

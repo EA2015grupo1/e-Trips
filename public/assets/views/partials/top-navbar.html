@@ -1,12 +1,13 @@
 <!-- start: TOP NAVBAR -->
 <!-- start: NAVBAR HEADER -->
 <body ng-controller="profileCtrl">
+
 <div class="navbar-header">
 	<a href="#" class="sidebar-mobile-toggler pull-left hidden-md hidden-lg" ng-click="toggle('sidebar')" class="btn btn-navbar sidebar-toggle">
 		<i class="ti-align-justify"></i>
 	</a>
 	<a class="navbar-brand" href="#">
-		<img ng-src="{{app.layout.logo}}" alt="{{app.name}}"/>
+		<img src="assets/images/logoea.png" width="195" height="80" alt="{{app.name}}">
 	</a>
 	<a href="#" class="sidebar-toggler pull-right visible-md visible-lg" ng-click="app.layout.isSidebarClosed = !app.layout.isSidebarClosed">
 		<i class="ti-align-justify"></i>
@@ -16,12 +17,15 @@
 		<i class="ti-view-grid"></i>
 	</a>
 </div>
+
 <!-- end: NAVBAR HEADER -->
 <!-- start: NAVBAR COLLAPSE -->
 <div class="navbar-collapse collapse" collapse="navbarCollapsed" ng-init="navbarCollapsed = true" off-click="navbarCollapsed = true" off-click-if='!navbarCollapsed' off-click-filter="#menu-toggler">
+
 	<ul class="nav navbar-right" ct-fullheight="window" data-ct-fullheight-exclusion="header" data-ct-fullheight-if="isSmallDevice">
-		<!-- start: MESSAGES DROPDOWN -->
+			<!-- start: MESSAGES DROPDOWN -->
 		<li class="dropdown" dropdown on-toggle="toggled(open)">
+
 			<a href class="dropdown-toggle" dropdown-toggle>
 				<span class="dot-badge partition-red"></span> <i class="ti-comment"></i> <span translate="topbar.messages.MAIN">MESSAGES</span>
 			</a>
@@ -157,7 +161,7 @@
 					</a>
 				</li>-->
 				<li>
-					<a ui-sref="login.signin">
+					<a  ng-click="salirUser()">
 						Cerrar Sesion
 					</a>
 				</li>

@@ -26,15 +26,20 @@
 						<i class="icon-envelope"></i>
 					</div>
 					<div class="append-icon">
-						<input type="password" name="password" id="password" class="form-control form-white password" ng-model="newUser.password" placeholder="Password" required>
+						<input type="password" class="form-control form-white password" ng-model="newUser.password" placeholder="Password" required>
 						<i class="icon-lock"></i>
 					</div>
 					<div class="append-icon">
-						<input type="password" name="password" id="password2" class="form-control form-white password2" ng-model="newUser.password" placeholder="Repite Password" required>
+						<input type="password"  class="form-control form-white password2" ng-model="newUser.password" placeholder="Repite Password" required>
 						<i class="icon-lock"></i>
 					</div>
 					<div class="append-icon">
 						<input type="text" name="city" id="city" class="form-control form-white lastname" ng-model="newUser.city" placeholder="Ciudad de origen" required>
+						<i class="icon-city"></i>
+					</div>
+					<br>
+					<div class="append-icon">
+						<input type="text" name="college" id="college" class="form-control form-white lastname" ng-model="newUser.college" placeholder="Nombre de tu universidad" required>
 						<i class="icon-city"></i>
 					</div>
 					<div class="clip-radio radio-primary">
@@ -53,22 +58,13 @@
 					</div>
 					<br>
 					<div class="user-edit-image-buttons">
-						<span class="btn btn-azure btn-file"><span class="fileinput-new"><i class="fa fa-picture"></i> Select image</span>
+						<span class="btn btn-azure btn-file"><span class="fileinput-new"><i class="fa fa-picture"></i> Elige imagen perfil</span>
 							<input type="file" name="file" uploader-model="file">
 						</span>
 
 					</div>
 					<button type="submit" id="submit-form" class="btn btn-lg btn-dark m-t-20" data-style="expand-left" ng-click="registerUser(newUser)">Registrar</button>
-					<div class="social-btn">
-						<div class="row">
-							<div class="col-sm-6">
-								<button type="button" class="btn btn-lg btn-block btn-primary"><i class="fa fa-facebook pull-left"></i>Registrate con Facebook</button>
-							</div>
-							<div class="col-sm-6">
-								<button type="button" class="btn btn-lg btn-block btn-blue"><i class="fa fa-twitter pull-left"></i>Registrate con Twitter</button>
-							</div>
-						</div>
-					</div>
+
 					<div class="clearfix">
 						<p class="pull-right m-t-20"><a href="#login/signin">¿Ya tienes una cuenta? Logeate</a></p>
 					</div>

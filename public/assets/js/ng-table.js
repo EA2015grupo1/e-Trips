@@ -2,7 +2,7 @@
     'use strict';
 
     if (typeof define === 'function' && define.amd) {
-        define(['../../../bower_components/angular/angular'], function(angular) {
+        define(['angular'], function(angular) {
             return factory(angular);
         });
     } else {

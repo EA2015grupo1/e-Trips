@@ -1,5 +1,4 @@
 
-
 	<style>
 		.angular-google-map-container {
 			position: absolute;
@@ -7,16 +6,18 @@
 			bottom: 0;
 			right: 0;
 			left: 0;
+			height: 520px;
 		}
 	</style>
+</head>
+<body ng-controller="MapCtrl">
 
-	<body ng-controller="MapCtrl">
 <google-map center="map.center"
 			zoom="map.zoom"
 			draggable="true"
 			options="map.options"
 			control="map.control">
-	<marker coords="marker.coords" options="marker.options" idkey="marker.id" ></marker>
 	<markers models="map.markers" coords="'self'" options="'options'" isLabel="true">
+	</markers>
 </google-map>
 </body>

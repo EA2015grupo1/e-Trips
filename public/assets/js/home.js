@@ -16,6 +16,6 @@ angular.module("clip-two", [
 	'duScroll',
 	'pascalprecht.translate',
 	'ngTable',
-	'ngResource',
-	'google-maps',
+	"ngResource",
+	"google-maps",
 ]);

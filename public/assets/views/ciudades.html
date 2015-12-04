@@ -1,0 +1,63 @@
+<section id="page-title" class="padding-top-15 padding-bottom-15">
+    <div class="row">
+        <div class="col-sm-7">
+            <p style="font-family: Impact, serif; font-size:20pt; font-style:bold">
+                Elige la Ciudad que vas de viaje
+            </p>
+            <div class="btn-group">
+                <button class="btn btn-red btn-lg dropdown-toggle"
+                        type="button" data-toggle="dropdown">
+                    Ciudades <span class="caret"></span>
+                </button>
+
+                <ul class="dropdown-menu">
+                    <li><a href="#">Barcelona</a></li>
+                    <li><a href="#">Paris</a></li>
+                    <li><a href="#">Berlin</a></li>
+                    <li><a href="#">Madrid</a></li>
+                    <li><a href="#">Sevilla</a></li>
+                    <li><a href="#">New York</a></li>
+                    <li><a href="#">Londres</a></li>
+                    <li><a href="#">Boston</a></li>
+
+                </ul>
+            </div>
+            <!-- 	<span class="mainDescription">overview &amp; stats </span>-->
+        </div>
+        <div class="col-sm-5">
+            <!-- start: MINI STATS WITH SPARKLINE -->
+            <ul class="mini-stats pull-right">
+                <li>
+                    <div class="sparkline-1">
+                        <span ></span>
+                    </div>
+                    <div class="values">
+
+                    </div>
+                </li>
+
+            </ul>
+            <!-- end: MINI STATS WITH SPARKLINE -->
+        </div>
+    </div>
+</section>
+
+<style>
+    .angular-google-map-container {
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        height: 480px;
+    }
+</style>
+<body ng-controller="MapCtrl">
+<google-map center="map.center"
+            zoom="map.zoom"
+            draggable="true"
+            options="map.options"
+            control="map.control">
+    <marker coords="marker.coords" options="marker.options" idkey="marker.id" ></marker>
+</google-map>
+
+</body>

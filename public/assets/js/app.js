@@ -41,308 +41,26 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             url: "/home",
             templateUrl: "assets/views/home.html",
             resolve: loadSequence('jquery-sparkline', 'sparkline', 'dashboardCtrl'),
-            title: 'Dashboard',
+            title: 'Mi posicion',
             ncyBreadcrumb: {
-                label: 'Dashboard'
+                label: 'Mi posicion'
             }
-        }).state('app.ui', {
-            url: '/ui',
-            template: '<div ui-view class="fade-in-up"></div>',
-            title: 'UI Elements',
+
+        }).state('app.usuarios', {
+            url: "/usuarios",
+            templateUrl: "assets/views/ausers.html",
+            title: "Usuarios",
+            controller: 'usersCtrl',
             ncyBreadcrumb: {
-                label: 'UI Elements'
+                label: 'Usuarios'
             }
-        }).state('app.ui.elements', {
-            url: '/elements',
-            templateUrl: "assets/views/ui_elements.html",
-            title: 'Elements',
-            icon: 'ti-layout-media-left-alt',
+        }).state('app.ciudades', {
+            url: "/ciudades",
+            templateUrl: "assets/views/ciudades.html",
+            title: "Ciudades",
+            controller: 'usersCtrl',
             ncyBreadcrumb: {
-                label: 'Elements'
-            }
-        }).state('app.ui.buttons', {
-            url: '/buttons',
-            templateUrl: "assets/views/ui_buttons.html",
-            title: 'Buttons',
-            resolve: loadSequence('spin', 'ladda', 'angular-ladda', 'laddaCtrl'),
-            ncyBreadcrumb: {
-                label: 'Buttons'
-            }
-        }).state('app.ui.links', {
-            url: '/links',
-            templateUrl: "assets/views/ui_links.html",
-            title: 'Link Effects',
-            ncyBreadcrumb: {
-                label: 'Link Effects'
-            }
-        }).state('app.ui.icons', {
-            url: '/icons',
-            templateUrl: "assets/views/ui_icons.html",
-            title: 'Font Awesome Icons',
-            ncyBreadcrumb: {
-                label: 'Font Awesome Icons'
-            },
-            resolve: loadSequence('iconsCtrl')
-        }).state('app.ui.lineicons', {
-            url: '/line-icons',
-            templateUrl: "assets/views/ui_line_icons.html",
-            title: 'Linear Icons',
-            ncyBreadcrumb: {
-                label: 'Linear Icons'
-            },
-            resolve: loadSequence('iconsCtrl')
-        }).state('app.ui.modals', {
-            url: '/modals',
-            templateUrl: "assets/views/ui_modals.html",
-            title: 'Modals',
-            ncyBreadcrumb: {
-                label: 'Modals'
-            },
-            resolve: loadSequence('asideCtrl')
-        }).state('app.ui.toggle', {
-            url: '/toggle',
-            templateUrl: "assets/views/ui_toggle.html",
-            title: 'Toggle',
-            ncyBreadcrumb: {
-                label: 'Toggle'
-            }
-        }).state('app.ui.tabs_accordions', {
-            url: '/accordions',
-            templateUrl: "assets/views/ui_tabs_accordions.html",
-            title: "Tabs & Accordions",
-            ncyBreadcrumb: {
-                label: 'Tabs & Accordions'
-            },
-            resolve: loadSequence('vAccordionCtrl')
-        }).state('app.ui.panels', {
-            url: '/panels',
-            templateUrl: "assets/views/ui_panels.html",
-            title: 'Panels',
-            ncyBreadcrumb: {
-                label: 'Panels'
-            }
-        }).state('app.ui.notifications', {
-            url: '/notifications',
-            templateUrl: "assets/views/ui_notifications.html",
-            title: 'Notifications',
-            ncyBreadcrumb: {
-                label: 'Notifications'
-            },
-            resolve: loadSequence('toasterCtrl', 'sweetAlertCtrl')
-        }).state('app.ui.treeview', {
-            url: '/treeview',
-            templateUrl: "assets/views/ui_tree.html",
-            title: 'TreeView',
-            ncyBreadcrumb: {
-                label: 'Treeview'
-            },
-            resolve: loadSequence('angularBootstrapNavTree', 'treeCtrl')
-        }).state('app.ui.media', {
-            url: '/media',
-            templateUrl: "assets/views/ui_media.html",
-            title: 'Media',
-            ncyBreadcrumb: {
-                label: 'Media'
-            }
-        }).state('app.ui.nestable', {
-            url: '/nestable2',
-            templateUrl: "assets/views/ui_nestable.html",
-            title: 'Nestable List',
-            ncyBreadcrumb: {
-                label: 'Nestable List'
-            },
-            resolve: loadSequence('jquery-nestable-plugin', 'ng-nestable', 'nestableCtrl')
-        }).state('app.ui.typography', {
-            url: '/typography',
-            templateUrl: "assets/views/ui_typography.html",
-            title: 'Typography',
-            ncyBreadcrumb: {
-                label: 'Typography'
-            }
-        }).state('app.table', {
-            url: '/table',
-            template: '<div ui-view class="fade-in-up"></div>',
-            title: 'Tables',
-            ncyBreadcrumb: {
-                label: 'Tables'
-            }
-        }).state('app.table.basic', {
-            url: '/basic',
-            templateUrl: "assets/views/table_basic.html",
-            title: 'Basic Tables',
-            ncyBreadcrumb: {
-                label: 'Basic'
-            }
-        }).state('app.table.responsive', {
-            url: '/responsive',
-            templateUrl: "assets/views/table_responsive.html",
-            title: 'Responsive Tables',
-            ncyBreadcrumb: {
-                label: 'Responsive'
-            }
-        }).state('app.table.data', {
-            url: '/data',
-            templateUrl: "assets/views/table_data.html",
-            title: 'ngTable',
-            ncyBreadcrumb: {
-                label: 'ngTable'
-            },
-            resolve: loadSequence('ngTable', 'ngTableCtrl')
-        }).state('app.table.export', {
-            url: '/export',
-            templateUrl: "assets/views/table_export.html",
-            title: 'Table'
-        }).state('app.form', {
-            url: '/form',
-            template: '<div ui-view class="fade-in-up"></div>',
-            title: 'Forms',
-            ncyBreadcrumb: {
-                label: 'Forms'
-            }
-        }).state('app.form.elements', {
-            url: '/elements',
-            templateUrl: "assets/views/form_elements.html",
-            title: 'Forms Elements',
-            ncyBreadcrumb: {
-                label: 'Elements'
-            },
-            resolve: loadSequence('ui.select', 'ui.mask', 'monospaced.elastic', 'touchspin-plugin', 'angular-bootstrap-touchspin', 'selectCtrl')
-        }).state('app.form.xeditable', {
-            url: '/xeditable',
-            templateUrl: "assets/views/form_xeditable.html",
-            title: 'Angular X-Editable',
-            ncyBreadcrumb: {
-                label: 'X-Editable'
-            },
-            resolve: loadSequence('xeditable', 'config-xeditable', 'checklist-model', 'xeditableCtrl')
-        }).state('app.form.texteditor', {
-            url: '/editor',
-            templateUrl: "assets/views/form_text_editor.html",
-            title: 'Text Editor',
-            ncyBreadcrumb: {
-                label: 'Text Editor'
-            },
-            resolve: loadSequence('ckeditor-plugin', 'ckeditor', 'ckeditorCtrl')
-        }).state('app.form.wizard', {
-            url: '/wizard',
-            templateUrl: "assets/views/form_wizard.html",
-            title: 'Form Wizard',
-            ncyBreadcrumb: {
-                label: 'Wizard'
-            },
-            resolve: loadSequence('wizardCtrl')
-        }).state('app.form.validation', {
-            url: '/validation',
-            templateUrl: "assets/views/form_validation.html",
-            title: 'Form Validation',
-            ncyBreadcrumb: {
-                label: 'Validation'
-            },
-            resolve: loadSequence('validationCtrl')
-        }).state('app.form.cropping', {
-            url: '/image-cropping',
-            templateUrl: "assets/views/form_image_cropping.html",
-            title: 'Image Cropping',
-            ncyBreadcrumb: {
-                label: 'Image Cropping'
-            },
-            resolve: loadSequence('ngImgCrop', 'cropCtrl')
-        }).state('app.form.upload', {
-            url: '/file-upload',
-            templateUrl: "assets/views/form_file_upload.html",
-            title: 'Multiple File Upload',
-            ncyBreadcrumb: {
-                label: 'File Upload'
-            },
-            resolve: loadSequence('angularFileUpload', 'uploadCtrl')
-        }).state('app.pages', {
-            url: '/pages',
-            template: '<div ui-view class="fade-in-up"></div>',
-            title: 'Pages',
-            ncyBreadcrumb: {
-                label: 'Pages'
-            }
-        }).state('app.pages.user', {
-            url: '/user',
-            templateUrl: "assets/views/pages_user_profile.html",
-            title: 'User Profile',
-            ncyBreadcrumb: {
-                label: 'User Profile'
-            },
-            resolve: loadSequence('flow', 'userCtrl')
-        }).state('app.pages.invoice', {
-            url: '/invoice',
-            templateUrl: "assets/views/pages_invoice.html",
-            title: 'Invoice',
-            ncyBreadcrumb: {
-                label: 'Invoice'
-            }
-        }).state('app.pages.timeline', {
-            url: '/timeline',
-            templateUrl: "assets/views/pages_timeline.html",
-            title: 'Timeline',
-            ncyBreadcrumb: {
-                label: 'Timeline'
-            },
-            resolve: loadSequence('ngMap')
-        }).state('app.pages.calendar', {
-            url: '/calendar',
-            templateUrl: "assets/views/pages_calendar.html",
-            title: 'Calendar',
-            ncyBreadcrumb: {
-                label: 'Calendar'
-            },
-            resolve: loadSequence('moment', 'mwl.calendar', 'calendarCtrl')
-        }).state('app.pages.messages', {
-            url: '/messages',
-            templateUrl: "assets/views/pages_messages.html",
-            resolve: loadSequence('truncate', 'htmlToPlaintext', 'inboxCtrl')
-        }).state('app.pages.messages.inbox', {
-            url: '/inbox/:inboxID',
-            templateUrl: "assets/views/pages_inbox.html",
-            controller: 'ViewMessageCrtl'
-        }).state('app.pages.blank', {
-            url: '/blank',
-            templateUrl: "assets/views/pages_blank_page.html",
-            ncyBreadcrumb: {
-                label: 'Starter Page'
-            }
-        }).state('app.utilities', {
-            url: '/utilities',
-            template: '<div ui-view class="fade-in-up"></div>',
-            title: 'Utilities',
-            ncyBreadcrumb: {
-                label: 'Utilities'
-            }
-        }).state('app.utilities.search', {
-            url: '/search',
-            templateUrl: "assets/views/utility_search_result.html",
-            title: 'Search Results',
-            ncyBreadcrumb: {
-                label: 'Search Results'
-            }
-        }).state('app.utilities.pricing', {
-            url: '/pricing',
-            templateUrl: "assets/views/utility_pricing_table.html",
-            title: 'Pricing Table',
-            ncyBreadcrumb: {
-                label: 'Pricing Table'
-            }
-        }).state('app.maps', {
-            url: "/maps",
-            templateUrl: "assets/views/maps.html",
-            resolve: loadSequence('ngMap', 'mapsCtrl'),
-            title: "Maps",
-            ncyBreadcrumb: {
-                label: 'Maps'
-            }
-        }).state('app.register', {
-            url: "/register",
-            templateUrl: "assets/views/register.html",
-            title: "Register",
-            controller: 'loginCtrl',
-            ncyBreadcrumb: {
-                label: 'Register'
+                label: 'Usuarios'
             }
         }).state('app.update', {
             url: "/update",
@@ -409,10 +127,25 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             }
             // Funcion para logear un usuario
             $scope.loginUser = function (newUser) {
+                if ((!newUser.username) && (!newUser.password)){
+                    $scope.user.u = "Usuario es requerido";
+                    $scope.user.p = "Password es requerido";
+                }
+                else if (!newUser.username){
+                    $scope.user.u = "Usuario es requerido";
+                    $scope.user.p = "";
+                }
+                else if (!newUser.password){
+                    $scope.user.u = "";
+                    $scope.user.p = "Password es requerido";
+                }
+                else {
 
                     $http.post('/api/users/login', newUser)
                         .success(function (data) {
-                            console.log (data.user[0].imageUrl);
+                            console.log(data);
+                            console.log(data.user[0].imageUrl);
+                            $cookieStore.put('rol', data.user[0].rol);
                             $cookieStore.put('idlogin', data.user[0]._id);
                             $location.path('/app/home');
 
@@ -421,88 +154,135 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                             swal("Opps!", "Usuario o password incorrecto!", "error")
                             console.log(data);
 
-                        });
+                        })
+                }
 
 
             };
             // Funcion para registrar a un usuario
             $scope.registerUser = function(newUser) {
-                swal({   title: "¿Estas seguro de registrar?",
+                if ((!newUser.name) && (!newUser.username) && (!newUser.email) && (!newUser.password)&& (!newUser.city)&& (!newUser.college)&&(!newUser.gender)) {
+                    swal("Opps!", "Faltan datos obligatorios!", "error")
+                }
+                else if (!newUser.name) {
+
+                    swal("Opps!", "Faltan datos obligatorios!", "error")
+                }
+
+                else if (!newUser.username) {
+
+                    swal("Opps!", "Faltan datos obligatorios!", "error")
+                }
+                else if (!newUser.email) {
+
+                    swal("Opps!", "Faltan datos obligatorios!", "error")
+                }
+                else if (!newUser.password) {
+
+                    swal("Opps!", "Faltan datos obligatorios!", "error")
+                }
+                else if (!newUser.city) {
+
+                    swal("Opps!", "Faltan datos obligatorios!", "error")
+                }
+                else if (!newUser.college) {
+
+                    swal("Opps!", "Faltan datos obligatorios!", "error")
+                }
+                else if (!newUser.gender) {
+
+                    swal("Opps!", "Faltan datos obligatorios!", "error")
+                }
+                else if (!$scope.file) {
+
+                    swal("Opps!", "Debes elegir una imagen de perfil!", "error")
+                }
+                else{
+                swal({
+                        title: "¿Estas seguro de registrar?",
                         text: "Una vez registrado se volvera a la pagina de inicio!",
                         type: "warning",
                         showCancelButton: true,
                         confirmButtonColor: "#6cdd55",
                         confirmButtonText: "Si, registralo!",
-                        closeOnConfirm: true },
-                    function(){
-                         var formData = new FormData();
-                         var username= newUser.username;
-                         var file = $scope.file;
+                        closeOnConfirm: true
+                    },
+                    function () {
+                        var formData = new FormData();
+                        var username = newUser.username;
+                        var file = $scope.file;
                         formData.append("file", file);
-                            $http.post('/api/users',newUser)
-                                  .success(function (data) {
-
-                                })
-                            .error(function (data) {
-                            console.log('Error: ' + data);
-                            });
-
-                        $http.put('/api/users/upload/'+ username, formData, {
-                            headers: {
-                                "Content-type": undefined
-                            },
-                             transformRequest: angular.identity}
-                            )
+                        $http.post('/api/users', newUser)
                             .success(function (data) {
 
-                                   $location.path('/app/signin');
                             })
                             .error(function (data) {
-                            console.log('Error: ' + data);
+                                console.log('Error: ' + data);
+                            });
+
+                        $http.put('/api/users/upload/' + username, formData, {
+                                headers: {
+                                    "Content-type": undefined
+                                },
+                                transformRequest: angular.identity
+                            }
+                        )
+                            .success(function (data) {
+
+                                $location.path('/app/signin');
+                            })
+                            .error(function (data) {
+                                console.log('Error: ' + data);
                             });
 
                     });
+            }
+
 
             };
 
 
         }]);
-        app.factory('User',function($resource){ //Step 2
-            //Step 3
-            return $resource('/api/users');
-        })
-        app.controller('usersCtrl',['$scope', '$location', '$cookies', '$cookieStore', '$http','ngTableParams', 'User', function($scope, $location,$cookies, $cookieStore, $http, ngTableParams, User) {
+        app.factory("Users", function ($resource) {
+            return $resource('/api/users'); //la url donde queremos consumir
+        });
+        app.controller('usersCtrl',['$scope', '$location', '$cookies', '$cookieStore', '$http', 'ngTableParams','Users',  function($scope, $location,$cookies, $cookieStore, $http, ngTableParams, Users) {
+            $scope.newUser = {};
+            $scope.user = {};
+            $scope.selected = false;
+
+            // Obtenemos todos los datos de la base de datos
+         /*   $http.get('/api/users').success(function (data) {
+                $scope.users = data;
+
+            })
+                .error(function (data) {
+                    console.log('Error: ' + data);
+                });
+                */
 
             var params = {
                 page: 1,
-                count: 5
+                count: 3
             };
 
             var settings = {
                 total: 0,
                 counts: [5, 10, 15],
                 getData: function($defer, params) {
-                    User.get(params.url(), function(response) {
+                   Users.get(params.url(), function(response) {
+                        console.log (response);
                         params.total(response.total);
+                       $scope.tregistros= response.total;
                         $defer.resolve(response.results);
                     });
                 }
             };
 
             $scope.tableParams = new ngTableParams(params, settings);
-            /*
-            $scope.newUser = {};
-            $scope.user = {};
-            $scope.selected = false;
-            // Obtenemos todos los datos de la base de datos
-            $http.get('/api/users').success(function (data) {
-                $scope.users = data;
-                console.log(data);
-            })
-                .error(function (data) {
-                    console.log('Error: ' + data);
-                });*/
-            // Funci�n que borra un objeto usuario conocido su id
+
+
+            // Funcion que borra un objeto usuario conocido su id
             $scope.deleteUser = function(id) {
                 swal({   title: "¿Estas seguro?",
                         type: "warning",
@@ -514,15 +294,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                             $http.delete('/api/users/' + id)
                                  .success(function(data) {
                                     $scope.newUser = {};
-                                    location.href = '#/app/home';
-                                    location.reload('#/app/home');
+                                    location.href = '#/app/usuarios';
+                                    location.reload('#/app/usuarios');
                             })
                             .error(function(data) {
                             console.log('Error: ' + data);
                             });
                     });
             };
-            // Funci�n que obtiene un objeto usuario conocido su id
+            // Funcion que obtiene un objeto usuario conocido su id
             $scope.getUser = function(id) {
                 console.log (id);
                 $cookieStore.put('id', id);
@@ -544,16 +324,17 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             var id = $cookieStore.get('id');
 
 
-// Funci�n que obtiene un objeto usuario conocido su id
+        // Funcion que obtiene un objeto usuario conocido su id
             $http.get('/api/users/' + id)
                 .success(function(data) {
                     $scope.user._id = data._id;
                     $scope.user.username = data.username;
                     $scope.user.name = data.name;
                     $scope.user.email = data.email;
+                    $scope.user.password = data.password;
                     $scope.user.phone = data.phone;
                     $scope.user.gender = data.gender;
-                    $scope.user.zipCode = data.zipCode;
+                    $scope.user.college = data.college;
                     $scope.user.city = data.city;
                     $scope.user.rol = data.rol;
                     $scope.user.imageUrl = data.imageUrl;
@@ -562,16 +343,21 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 .error(function(data) {
                     console.log('Error: ' + data);
                 });
-            // Funci�n para editar los datos de un usuario
-            $scope.updateUser = function(newUser) {
+            // Funcion para editar los datos de un usuario
+            $scope.updateUser = function(newUser, po, pr) {
                 newUser.rol= $scope.user.rol;
                 newUser.imageUrl= $scope.user.imageUrl;
                 console.log (newUser);
-                if ((!newUser.name) && (!newUser.username) && (!newUser.email) && (!newUser.password)){
+                console.log (newUser.po);
+                console.log (newUser.pr);
+                if ((!newUser.name) && (!newUser.username) && (!newUser.email) && (!newUser.po)&&(!newUser.pr)&& (!newUser.city)&& (!newUser.college)&&(!newUser.gender)){
                     $scope.user.n = "Nombre Completo es requerido";
                     $scope.user.e = "Correo Electronico es requerido";
                     $scope.user.u = "Usuario es requerido";
                     $scope.user.p = "Password es requerido";
+                    $scope.user.ci = "El nombre de la ciudad es requerido";
+                    $scope.user.uni = "El nobmre de tu universidad es requerido";
+                    $scope.user.g = "Genero es requerido";
                     swal("Opps!", "Faltan datos obligatorios!", "error")
                 }
                 else if (!newUser.name){
@@ -579,6 +365,9 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                     $scope.user.u = "";
                     $scope.user.e = "";
                     $scope.user.p = "";
+                    $scope.user.ci = "";
+                    $scope.user.uni = "";
+                    $scope.user.g = "";
                     swal("Opps!", "Faltan datos obligatorios!", "error")
                 }
 
@@ -587,6 +376,9 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                     $scope.user.u = "Usuario es requerido";
                     $scope.user.e = "";
                     $scope.user.p = "";
+                    $scope.user.ci = "";
+                    $scope.user.uni = "";
+                    $scope.user.g = "";
                     swal("Opps!", "Faltan datos obligatorios!", "error")
                 }
                 else if (!newUser.email){
@@ -594,37 +386,129 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                     $scope.user.u = "";
                     $scope.user.e = "Correo Electronico es requerido";
                     $scope.user.p = "";
+                    $scope.user.ci = "";
+                    $scope.user.uni = "";
+                    $scope.user.g = "";
                     swal("Opps!", "Faltan datos obligatorios!", "error")
                 }
-                else if (!newUser.password){
+                else if (!newUser.po){
                     $scope.user.n = "";
                     $scope.user.u = "";
                     $scope.user.e = "";
+                    $scope.user.ci = "";
+                    $scope.user.uni = "";
+                    $scope.user.g = "";
                     $scope.user.p = "Password es requerido";
                     swal("Opps!", "Faltan datos obligatorios!", "error")
                 }
+                else if (!newUser.po){
+                    $scope.user.n = "";
+                    $scope.user.u = "";
+                    $scope.user.e = "";
+                    $scope.user.ci = "";
+                    $scope.user.uni = "";
+                    $scope.user.g = "";
+                    $scope.user.p = "Password es requerido";
+                    swal("Opps!", "Faltan datos obligatorios!", "error")
+                }
+                else if (!newUser.city){
+                    $scope.user.n = "";
+                    $scope.user.u = "";
+                    $scope.user.e = "";
+                    $scope.user.ci = "El nombre de la ciudad es requerido";
+                    $scope.user.uni = "";
+                    $scope.user.g = "";
+                    $scope.user.p = "";
+                    swal("Opps!", "Faltan datos obligatorios!", "error")
+                }
+                else if (!newUser.college){
+                    $scope.user.n = "";
+                    $scope.user.u = "";
+                    $scope.user.e = "";
+                    $scope.user.ci = "";
+                    $scope.user.uni = "El nobmre de tu universidad es requerido";
+                    $scope.user.g = "";
+                    $scope.user.p = "";
+                    swal("Opps!", "Faltan datos obligatorios!", "error")
+                }
+                else if (!newUser.gender){
+                    $scope.user.n = "";
+                    $scope.user.u = "";
+                    $scope.user.e = "";
+                    $scope.user.ci = "";
+                    $scope.user.uni = "";
+                    $scope.user.g = "Genero es requerido";
+                    $scope.user.p = "";
+                    swal("Opps!", "Faltan datos obligatorios!", "error")
+                }
+                else if (newUser.po!=newUser.pr){
+
+                    swal("Opps!", "Los passwords no son iguales!", "error")
+                }
+                else if (!$scope.file){
+
+                    swal("Opps!", "Debes elegir una imagen de perfil!", "error")
+                }
+
 
                 else {
-                    $http.put('/api/users/' + $scope.user._id, newUser)
-                        .success(function (data) {
-                            $scope.users = data;
-                            console.log(data);
-                           location.href = '#/app/home';
-                           location.reload('#/app/home');
-                        })
-                        .error(function (data) {
-                            console.log('Error: ' + data);
+                    newUser.password=newUser.po;
+                    newUser.pr="";
+                    swal({
+                            title: "¿Estas seguro de editar tu cuenta?",
+                            text: "Una vez editada tu cuenta se volvera a tu perfil!",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#6cdd55",
+                            confirmButtonText: "Si, registralo!",
+                            closeOnConfirm: true
+                        },
+                        function () {
+                            var formData = new FormData();
+                            var username = newUser.username;
+                            var file = $scope.file;
+                            formData.append("file", file);
+                            $http.put('/api/users/' + $scope.user._id, newUser)
+                                .success(function (data) {
+                                    $scope.users = data;
+                                    console.log(data);
+                                    location.href = '#/app/home';
+                                    location.reload('#/app/home');
+                                })
+                                .error(function (data) {
+                                    console.log('Error: ' + data);
+                                });
+                            $http.put('/api/users/upload/' + username, formData, {
+                                    headers: {
+                                        "Content-type": undefined
+                                    },
+                                    transformRequest: angular.identity
+                                }
+                            )
+                                .success(function (data) {
+
+                                    location.href = '#/app/profile';
+                                    location.reload('#/app/profile');
+                                })
+                                .error(function (data) {
+                                    console.log('Error: ' + data);
+                                });
                         });
                 }
             };
 
         }]);
-        app.controller('profileCtrl',['$scope', '$location', '$cookies', '$cookieStore', '$http', function($scope, $location,$cookies, $cookieStore, $http) {
+        app.controller('profileCtrl',['$scope', '$sce', '$location', '$cookies', '$cookieStore', '$http', function($scope,$sce, $location,$cookies, $cookieStore, $http) {
             $scope.newUser = {};
             $scope.user = {};
             $scope.selected = false;
             var id = $cookieStore.get('idlogin');
+            var rol = $cookieStore.get('rol');
 
+            if (rol=="administrador"){
+
+               // $scope.customHtml = "input type='button' class='btn btn-wide btn-dark-blue";
+            }
             $scope.getProfile = function(id) {
                 console.log (id);
                 $cookieStore.put('id', id);
@@ -632,61 +516,89 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 location.reload('#/app/profile');
 
             };
-// Funci�n que obtiene un objeto usuario conocido su id
-            $http.get('/api/users/' + id)
-                .success(function(data) {
-                    $scope.user._id = data._id;
-                    $scope.user.username = data.username;
-                    $scope.user.name = data.name;
-                    $scope.user.email = data.email;
-                    $scope.user.phone = data.phone;
-                    $scope.user.gender = data.gender;
-                    $scope.user.ziCode = data.zipCode;
-                    $scope.user.city = data.city;
-                    $scope.user.rol = data.rol;
-                    $scope.user.imageUrl = data.imageUrl;
-                    console.log (data);
-                })
-                .error(function(data) {
-                    console.log('Error: ' + data);
-                });
 
+            if (id==undefined) {
 
+                $http.get('/api/users/provider/twitter')
+                    .success(function (data) {
+                        $scope.user._id = data._id;
+                        $scope.user.username = data.username;
+                        $scope.user.name = data.name;
+                        $scope.user.email = data.email;
+                        $scope.user.phone = data.phone;
+                        $scope.user.gender = data.gender;
+                        $scope.user.college= data.college;
+                        $scope.user.city = data.city;
+                        $scope.user.rol = data.rol;
+                        $scope.user.imageUrl = data.imageUrl;
+                        console.log(data);
+                    })
+                    .error(function (data) {
+                        console.log('Error: ' + data);
+                    });
+                $http.get('/api/users/provider/facebook')
+                    .success(function (data) {
+                        $scope.user._id = data._id;
+                        $scope.user.username = data.username;
+                        $scope.user.name = data.name;
+                        $scope.user.email = data.email;
+                        $scope.user.phone = data.phone;
+                        $scope.user.gender = data.gender;
+                        $scope.user.college = data.college;
+                        $scope.user.city = data.city;
+                        $scope.user.rol = data.rol;
+                        $scope.user.imageUrl = data.imageUrl;
+                        console.log(data);
+                    })
+                    .error(function (data) {
+                        console.log('Error: ' + data);
+                    });
+            }
+            else{
+                // Funcion que obtiene un objeto usuario conocido su id
+                $http.get('/api/users/' + id)
+                    .success(function (data) {
+                        $scope.user._id = data._id;
+                        $scope.user.username = data.username;
+                        $scope.user.name = data.name;
+                        $scope.user.email = data.email;
+                        $scope.user.phone = data.phone;
+                        $scope.user.gender = data.gender;
+                        $scope.user.college = data.college;
+                        $scope.user.city = data.city;
+                        $scope.user.rol = data.rol;
+                        $scope.user.imageUrl = data.imageUrl;
+                        console.log(data);
+                    })
+                    .error(function (data) {
+                        console.log('Error: ' + data);
+                    });
+            }
+
+            $scope.salirUser = function() {
+                console.log ("hola vamonos");
+                $cookieStore.remove('idlogin');
+                $cookieStore.remove('id');
+                $cookieStore.remove('rol');
+                $location.path ('/login/signin');
+            }
         }]);
 
-       /* app.controller('MapCtrl', ['$scope', function ($scope) {
-
-            $scope.map = {
-                center: {
-                    latitude: 40.454018,
-                    longitude: -3.509205
-                },
-                zoom: 12,
-                options : {
-                    scrollwheel: false
-                },
-                control: {}
-            };
-            $scope.marker = {
-                id: 0,
-                coords: {
-                    latitude: 40.454018,
-                    longitude: -3.509205
-                },
-                options: {
-                    draggable: true
+        app.directive('uploaderModel', ["$parse", function ($parse) {
+            return {
+                restrict: 'A',
+                link: function (scope, iElement, iAttrs)
+                {
+                    iElement.on("change", function(e)
+                    {
+                        $parse(iAttrs.uploaderModel).assign(scope, iElement[0].files[0]);
+                    });
                 }
             };
-        }]);
-        */
-        app.controller('MapCtrl', ['$scope', function ($scope) {
+        }])
+        app.factory('MarkerCreatorService', function () {
 
             var markerId = 0;
-
-            function refresh(marker) {
-                $scope.map.control.refresh({latitude: marker.latitude,
-                    longitude: marker.longitude});
-            }
 
             function create(latitude, longitude) {
                 var marker = {
@@ -713,11 +625,48 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 invokeSuccessCallback(successCallback, marker);
             }
 
-            createByCoords(40.454018, -3.509205, function (marker) {
-                marker.options.labelContent = 'Autentia';
+            function createByAddress(address, successCallback) {
+                var geocoder = new google.maps.Geocoder();
+                geocoder.geocode({'address' : address}, function (results, status) {
+                    if (status === google.maps.GeocoderStatus.OK) {
+                        var firstAddress = results[0];
+                        var latitude = firstAddress.geometry.location.lat();
+                        var longitude = firstAddress.geometry.location.lng();
+                        var marker = create(latitude, longitude);
+                        invokeSuccessCallback(successCallback, marker);
+                    } else {
+                        alert("Unknown address: " + address);
+                    }
+                });
+            }
+
+            function createByCurrentLocation(successCallback) {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        var marker = create(position.coords.latitude, position.coords.longitude);
+                        invokeSuccessCallback(successCallback, marker);
+                    });
+                } else {
+                    alert('Unable to locate current position');
+                }
+            }
+
+            return {
+                createByCoords: createByCoords,
+                createByAddress: createByAddress,
+                createByCurrentLocation: createByCurrentLocation
+            };
+
+        });
+
+        app.controller('MapCtrl', ['MarkerCreatorService', '$scope',  function (MarkerCreatorService, $scope) {
+
+            MarkerCreatorService.createByCoords(40.454018, -3.509205, function (marker) {
                 $scope.autentiaMarker = marker;
-                refresh(marker);
             });
+
+            $scope.address = '';
+
             $scope.map = {
                 center: {
                     latitude: $scope.autentiaMarker.latitude,
@@ -733,20 +682,21 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
 
             $scope.map.markers.push($scope.autentiaMarker);
 
-        }]);
 
-        app.directive('uploaderModel', ["$parse", function ($parse) {
-            return {
-                restrict: 'A',
-                link: function (scope, iElement, iAttrs)
-                {
-                    iElement.on("change", function(e)
-                    {
-                        $parse(iAttrs.uploaderModel).assign(scope, iElement[0].files[0]);
-                    });
-                }
-            };
-        }])
+                MarkerCreatorService.createByCurrentLocation(function (marker) {
+                    marker.options.labelContent = 'Estas aqui';
+                    $scope.map.markers.push(marker);
+                    refresh(marker);
+                });
+
+
+
+            function refresh(marker) {
+                $scope.map.control.refresh({latitude: marker.latitude,
+                    longitude: marker.longitude});
+            }
+
+        }]);
         // Generates a resolve object previously configured in constant.JS_REQUIRES (config.constant.js)
         function loadSequence() {
             var _args = arguments;

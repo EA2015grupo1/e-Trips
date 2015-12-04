@@ -12,7 +12,9 @@ var express         = require("express"),// Express: Framework HTTP para Node.js
     passport = require('passport'); // Passport: Middleware de Node que facilita la autenticación de usuarios
     session = require('express-session');
     formidable = require('formidable'),
-    require('mongoose-middleware').initialize(mongoose);
+
+
+require('mongoose-middleware').initialize(mongoose);
 // Conexión a la base de datos de MongoDB que tenemos en local
 mongoose.connect('mongodb://localhost/users', function(err, res) {
     if(err) throw err;
@@ -95,12 +97,15 @@ users.route('/users/login')
     .post(UserCtrl.loginUser);
 users.route('/users/upload/:username')
     .put(UserCtrl.upload);
+users.route('/users/provider/facebook')
+    .get(UserCtrl.findFacebook);
+users.route('/users/provider/twitter')
+    .get(UserCtrl.findTwitter);
 app.use('/api', users);
 
 app.get('*', function(req, res) {
     res.sendfile('./public/index.html');
 });
-
 // Start server
 app.listen(3000, function() {
     console.log("Node server running on http://localhost:3000");

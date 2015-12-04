@@ -51,20 +51,36 @@
                                         <label class="control-label">
                                             Password (*)
                                         </label>
-                                        <input type="password"  placeholder="Introduce tu password" class="form-control" name="password" id="password" ng-model="user.password">
+                                        <input type="password" placeholder="Introduce tu password" class="form-control" name="password" id="password" ng-model="user.po">
+                                    </div>
+                                    <p style="color:red">	{{user.p}}</p>
+                                    <div class="form-group">
+                                        <label class="control-label">
+                                           Repite Password (*)
+                                        </label>
+                                        <input type="password"  placeholder="Repite tu password" class="form-control" name="password" id="password2" ng-model="user.pr">
                                     </div>
                                     <p style="color:red">{{user.p}}</p>
                                     <div class="form-group">
                                         <label class="control-label">
-                                            Telefono (Opcional)
+                                           Ciudad (*)
                                         </label>
-                                        <input type="text" placeholder="Introduce Telefono" value={{user.phone}} class="form-control" id="phone" name="phone" ng-model="user.phone">
+                                        <input type="text" placeholder="Ciudad de origen" value={{user.city}} class="form-control" id="city" name="city" ng-model="user.city">
                                     </div>
+                                    <p style="color:red">{{user.ci}}</p>
+                                    <div class="form-group">
+                                        <label class="control-label">
+                                           Universidad (*)
+                                        </label>
+                                        <input type="text" placeholder="Nombre de tu universidad" value={{user.college}} class="form-control" id="college" name="college" ng-model="user.college">
+                                    </div>
+                                    <p style="color:red">{{user.uni}}</p>
+
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="block">
-                                            Genero (Opcional)
+                                            Genero (*)
                                         </label>
                                         <div class="clip-radio radio-primary">
                                             <input type="radio" id="us-female" name="gender" value="Mujer" ng-model="user.gender">
@@ -75,6 +91,19 @@
                                             <label for="us-male">
                                                 Hombre
                                             </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">
+                                                Telefono (Opcional)
+                                            </label>
+                                            <input type="text" placeholder="Introduce Telefono" value={{user.phone}} class="form-control" id="phone" name="phone" ng-model="user.phone">
+                                        </div>
+                                        <div class="user-edit-image-buttons">
+						<span class="btn btn-azure btn-file">
+                            <span class="fileinput-new"><i class="fa fa-picture"></i> Elige imagen perfil</span>
+							<input type="file" name="file" uploader-model="file">
+						</span>
+
                                         </div>
                                     </div>
 
@@ -90,6 +119,7 @@
                 <div class="col-md-8">
                     <p>
                         (*) Campos Obligatorios
+                        <br>
                         Al hacer clic en Registrar, usted esta guardando el nuevo usuario en la base de datos.
                     </p>
                 </div>
