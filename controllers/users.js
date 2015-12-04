@@ -1,9 +1,9 @@
 //File: controllers/users.js
 var mongoose = require('mongoose');
 var User  = mongoose.model('User');
-/*
+
 //GET - Return all Users in the DB
-exports.findAllUsers = function(req, res) {
+exports.AllUsers = function(req, res) {
     User.find(function(err, users) {
         if(err) res.send(500, err.message);
 
@@ -11,7 +11,7 @@ exports.findAllUsers = function(req, res) {
         res.status(200).jsonp(users);
     });
 };
-*/
+
 exports.findAllUsers = function(req, res) {
 var count = req.query.count || 5;
 var page = req.query.page || 1;
@@ -180,6 +180,7 @@ function checkreg (u1, u2, filename ){
             college: request.body.college,
             city: request.body.city,
             rol: "registrado",
+            imageUrl: "http://localhost:3000/assets/images/admin.png"
 
         })
 

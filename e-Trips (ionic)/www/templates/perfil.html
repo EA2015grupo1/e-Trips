@@ -1,12 +1,16 @@
 <ion-view title="Perfil">
     <ion-content padding="'true'" class="has-header">
-      <img src={{user.imageUrl}} width="100%" height="20%" style="width: 100%; height: 20%;">
+      <img src={{user.imageUrl}} width="40%" height="120" style="width: 40%; height: 120px;">
         <ion-list>
             <ion-item menu-close="">{{user.name}}</ion-item>
             <ion-item menu-close="">{{user.username}}</ion-item>
             <ion-item menu-close="">{{user.rol}}</ion-item>
             <ion-item menu-close="">{{user.email}}</ion-item>
+          <ion-item menu-close="">{{user.city}}</ion-item>
+          <ion-item menu-close="">{{user.college}}</ion-item>
+          <ion-item menu-close="">{{user.gender}}</ion-item>
+          <ion-item menu-close="">{{user.phone}}</ion-item>
         </ion-list>
-        <a menu-close="" href="#/page2" class="button button-balanced button-block  icon-left ion-android-create button-full">Editar</a>
+      <a menu-close=""  class="button button-assertive button-block  icon-left ion-android-create button-full" ng-click="deleteUser()">Eliminar</a>
     </ion-content>
 </ion-view>

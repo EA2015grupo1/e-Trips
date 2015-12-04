@@ -7,18 +7,18 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'ngCordovaOauth'])
 
-.run(function($ionicPlatform, $rootScope, $ionicLoading, $location, $timeout) {
-  $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if(window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    }
-    if(window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
-    }
-  });
+  .run(function($ionicPlatform, $rootScope, $ionicLoading, $location, $timeout) {
+    $ionicPlatform.ready(function() {
+      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+      // for form inputs)
+      if(window.cordova && window.cordova.plugins.Keyboard) {
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      }
+      if(window.StatusBar) {
+        // org.apache.cordova.statusbar required
+        StatusBar.styleDefault();
+      }
+    });
     $rootScope.authktd = false;
 
     $rootScope.showLoading = function(msg) {
@@ -51,14 +51,15 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
         return $http.post(_base + '/api/users/login', user);
       },
       signup: function(user) {
-        return $http.post(_base + '/api/auth/signup', user);
+        return $http.post(_base + '/api/users', user);
       },
       getUser: function(id) {
         return $http.get(_base + '/api/users/', +id);
       },
       getTodos: function() {
-        return $http.get(_base + '/api/users');
+        return $http.get(_base + '/api/allusers');
       },
+
 
 
     };
@@ -80,7 +81,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       })
     }
     $scope.twitterLogin = function() {
-      $cordovaOauth.twitter("CLIENT_ID_HERE",  "CLIENT_SECRET_HERE").then(function(result) {
+      $cordovaOauth.twitter("CLIENT ID",  "CLIENT SECRET").then(function(result) {
         console.log(JSON.stringify(result));
       }, function(error) {
         console.log(JSON.stringify(error));
@@ -89,7 +90,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
 
     $scope.facebookLogin = function() {
       console.log ("hola");
-      $cordovaOauth.facebook("CLIENT_ID_HERE", ["email"], {"auth_type": "rerequest"}).then(function (result) {
+      $cordovaOauth.facebook("CLIENT ID", ["email"], {"auth_type": "rerequest"}).then(function (result) {
         console.log(JSON.stringify(result));
       }, function (error) {
         console.log(JSON.stringify(error));
@@ -100,7 +101,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
   }]).controller('usuariosCtrl', ['$rootScope', '$location', '$scope', 'API', function($rootScope, $location, $scope, api) {
 
 
-   api.getTodos().success(function (data) {
+    api.getTodos().success(function (data) {
       $scope.users = data;
 
     })
@@ -115,7 +116,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
     $scope.user = {};
     $scope.selected = false;
     var id= localStorage.getItem("id");
-console.log (id);
+    console.log (id);
 // Funci�n que obtiene un objeto usuario conocido su id
     $http.get('http://147.83.7.156:3000/api/users/' + id)
       .success(function(data) {
@@ -125,7 +126,7 @@ console.log (id);
         $scope.user.email = data.email;
         $scope.user.phone = data.phone;
         $scope.user.gender = data.gender;
-        $scope.user.zipCode = data.zipCode;
+        $scope.user.college = data.college;
         $scope.user.city = data.city;
         $scope.user.rol = data.rol;
         $scope.user.imageUrl = data.imageUrl;
@@ -134,6 +135,45 @@ console.log (id);
       .error(function(data) {
         console.log('Error: ' + data);
       });
+
+    $scope.deleteUser = function() {
+
+      $rootScope.showLoading("Eliminando..");
+      $http.delete('http://147.83.7.156:3000/api/users/' + id)
+        .success(function(data)  {
+         $location.path('/page7');
+        $rootScope.hideLoading();
+      }).error(function(data) {
+        $rootScope.hideLoading();
+
+      })
+    }
+
+
+  }]).controller('registroCtrl', ['$rootScope', '$location', '$scope', '$cordovaOauth','API', function($rootScope, $location, $scope, $cordovaOauth, api) {
+
+    $scope.user = {
+      name: '',
+      username: '',
+      email: '',
+      password: '',
+      city:'',
+      college:'',
+      gender:'',
+      phone:''
+    }
+    $scope.registerUser = function() {
+
+      $rootScope.showLoading("Registrando..");
+      api.signup($scope.user).success(function(data) {
+        $location.path('/page1');
+        $rootScope.hideLoading();
+      }).error(function(data) {
+        $rootScope.hideLoading();
+
+      })
+    }
+
 
 
   }]);

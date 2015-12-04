@@ -84,7 +84,8 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook',
 ));
 // API routes
 var users = express.Router();
-
+users.route('/allusers')
+    .get(UserCtrl.AllUsers)
 users.route('/users')
     .get(UserCtrl.findAllUsers)
     .post(UserCtrl.addUser);
