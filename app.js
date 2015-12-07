@@ -64,6 +64,9 @@ require('./passport')(passport);
 console.log (models);
 // Example Route
 var router = express.Router();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
 router.get('/', function(req, res) {
     res.send("Hello world!");
 });
@@ -107,7 +110,37 @@ app.use('/api', users);
 app.get('*', function(req, res) {
     res.sendfile('./public/index.html');
 });
+var nicknames = {};
+io.on('connection', function(socket) {
+    console.log('Alguien se ha conectado con Sockets');
+    socket.on('sendMessage', function(data) {
+        console.log (data);
+        io.sockets.emit('newMessage', {msg: data, nick: socket.nickname});
+    });
+    socket.on('newUser', function(data, callback){
+       if (data in nicknames){
+           callback(false);
+
+       }else{
+           callback(true);
+           socket.nickname = data;
+           nicknames[socket.nickname]=1;
+           updateNickNames();
+       }
+
+    });
+    socket.on('disconnect', function(data){
+        console.log('Alguien se ha desconectado con Sockets');
+        if(!socket.nickname) return;
+        delete nicknames[socket.nickname];
+        updateNickNames();
+    });
+    function updateNickNames(){
+        io.sockets.emit('usernames', nicknames);
+    }
+});
 // Start server
-app.listen(3000, function() {
+server.listen(3000, function() {
     console.log("Node server running on http://localhost:3000");
 });
+

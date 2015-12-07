@@ -1,0 +1,182 @@
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+<style>
+	#content{
+		display: none;
+	}
+	#chatContent{
+		float: left;
+	}
+	#chat{
+		position: relative;
+		width: 100%;
+		float: left;
+		min-height: 500px;
+		height: 90%;
+		overflow: auto;
+	}
+</style>
+<div class="container">
+
+	<div class="page-header">
+		<h1>Chat <small> Developed by <img src="assets/images/logoea.png"></small></h1>
+	</div>
+	<div class="col-sm-6 col-md-4 col-md-offset-4" id="nickContainer">
+		<i class="user-img icons-faces-users-03"></i>
+		<div class="account-wall">
+			<form class="form-signin" role="form">
+				<p style="color:red">	{{user.u}}</p>
+					<div class="append-icon">
+					<input type="text" name="name" id="nickname" class="form-control form-white username" placeholder="Username" required ng-model="newUser.username">
+					<i class="icon-user"></i>
+				</div>
+				<br>
+				<p style="color:red">	{{user.p}}</p>
+					<div class="append-icon m-b-20">
+					<input type="password" name="password" class="form-control form-white password" placeholder="Password" required ng-model="newUser.password">
+					<i class="icon-lock"></i>
+				</div>
+				<button type="submit"  class="btn btn-lg btn-primary btn-block ladda-button" data-style="expand-left" ng-click="loginUser(newUser)">Login in Chat</button>
+				<br>
+			</form>
+		</div>
+		<div class="alert fade in alert-danger alert-dismissible" data-dismiss="alert" id="login-error" style="display: none;">
+			<button type="button" class="close" id="closeAlert">x</button>
+			The username is alredy takes. Try again.
+		</div>
+	</div>
+
+	<div id="content" class="row" sytle="height: 70%">
+		<div id="chatContent" class="col-md-6">
+			<div class="panel panel-success">
+				<div class="panel-heading">
+					CHAT
+				</div>
+				<div id="chat" class="panel-body"></div>
+			</div>
+			<div>
+				<form id="sendMessage" class="input-group" style="text-align:center; margin:0 auto;">
+					<input id="message" class="form-control input-lg" type="text">
+					<span class="input-group-btn">
+						<button class="btn btn-lg btn-primary" type="submit">Enviar</button>
+					</span>
+				</form>
+			</div>
+		</div>
+		<div class="col-md-2">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					Usuarios
+				</div>
+				<div class="panel-body" id="users"></div>
+			</div>
+		</div>
+		<div class="col-md-2">
+			<button class="btn btn-lg btn-danger" type="submit" ng-click="closeChat()">Salir del Chat</button>
+		</div>
+	</div>
+
+</div>
+<script>
+	var name;
+	var socket = io.connect('http://localhost:3000', { 'forceNew': true });
+	app.controller('ChatCtrl',['$scope', '$location', '$cookies', '$cookieStore','$http', function($scope, $location, $cookies, $cookieStore, $http) {
+		name = $cookieStore.get('conectado');
+		console.log (name);
+		var nickname=$('#nickname');
+		$scope.closeChat = function() {
+			if (socket) {
+				socket.close();
+				$cookieStore.remove('conectado');
+				$location.path('/login/signin');
+			}
+		};
+		// Funcion para logear un usuario
+		$scope.loginUser = function (newUser) {
+			if ((!newUser.username) && (!newUser.password)){
+				$scope.user.u = "Usuario es requerido";
+				$scope.user.p = "Password es requerido";
+			}
+			else if (!newUser.username){
+				$scope.user.u = "Usuario es requerido";
+				$scope.user.p = "";
+			}
+			else if (!newUser.password){
+				$scope.user.u = "";
+				$scope.user.p = "Password es requerido";
+			}
+			else  if (nickname.val()==name) {
+				socket.emit('newUser', nickname.val(), function (data) {
+					if (data) {
+						$('#nickContainer').hide();
+						$('#content').show();
+
+					}
+					else {
+						$('#login-error').show();
+					}
+				});
+			}
+			else{
+
+				$http.post('/api/users/login', newUser)
+						.success(function (data) {
+							console.log(data);
+							$cookieStore.put('conectado', data.user[0].username);
+							socket.emit('newUser', nickname.val(), function (data) {
+								if (data) {
+									console.log ("Entrando");
+									$('#nickContainer').hide();
+									$('#content').show();
+
+								}
+								else {
+									$('#login-error').show();
+								}
+							});
+
+						})
+						.error(function (data) {
+							swal("Opps!", "Usuario o password incorrecto!", "error")
+							console.log(data);
+
+						})
+			}
+
+
+		};
+
+	}]);
+	jQuery(function(s){
+
+		var $messageForm = $('#sendMessage');
+		var $message = $('#message');
+		var $chat = $('#chat');
+		var users= $("#users");
+		var nickname=$('#nickname');
+		var setNick =$('#setNick');
+		var closeChat =$('#closeChat');
+
+		closeChat.click (function(e){
+
+
+		});
+		$messageForm.submit(function(e){
+			e.preventDefault();
+			if($message.val()!='')socket.emit('sendMessage',$message.val());
+			$message.val('');
+		});
+		socket.on('newMessage', function(data){
+			$chat.append(data.nick+': '+data.msg+"<br/>");
+		});
+		socket.on('usernames', function(data){
+			var usernamesString='';
+			for (var username in data){
+				usernamesString += username + '<br/>';
+			}
+			users.html(usernamesString);
+
+		});
+	});
+</script>

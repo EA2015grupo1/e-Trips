@@ -46,7 +46,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         }).state('admin.home', {
             url: "/home",
             templateUrl: "assets/views/home.html",
-            resolve: loadSequence('jquery-sparkline', 'sparkline', 'dashboardCtrl'),
             title: 'Mi posicion',
             ncyBreadcrumb: {
                 label: 'Mi posicion'
@@ -56,6 +55,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             url: "/usuarios",
             templateUrl: "assets/views/ausers.html",
             title: "Usuarios",
+            resolve: loadSequence('usersCtrl'),
             controller: 'usersCtrl',
             ncyBreadcrumb: {
                 label: 'Usuarios'
@@ -64,6 +64,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             url: "/ciudades",
             templateUrl: "assets/views/ciudades.html",
             title: "Ciudades",
+            resolve: loadSequence('usersCtrl'),
             controller: 'usersCtrl',
             ncyBreadcrumb: {
                 label: 'Usuarios'
@@ -72,6 +73,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             url: "/update",
             templateUrl: "assets/views/update.html",
             title: "Update",
+            resolve: loadSequence('updateCtrl'),
             controller: 'updateCtrl',
             ncyBreadcrumb: {
                 label: 'Update'
@@ -80,6 +82,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             url: "/profile",
             templateUrl: "assets/views/profile.html",
             title: "Profile",
+            resolve: loadSequence('updateCtrl'),
             controller: 'updateCtrl',
             ncyBreadcrumb: {
                 label: 'Profile'
@@ -87,7 +90,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         }).state('app.home', {
             url: "/home",
             templateUrl: "assets/views/home.html",
-            resolve: loadSequence('jquery-sparkline', 'sparkline', 'dashboardCtrl'),
             title: 'Mi posicion',
             ncyBreadcrumb: {
                 label: 'Mi posicion'
@@ -97,13 +99,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             url: "/ciudades",
             templateUrl: "assets/views/ciudades.html",
             title: "Ciudades",
+            resolve: loadSequence('usersCtrl'),
             controller: 'usersCtrl',
             ncyBreadcrumb: {
-                label: 'Usuarios'
+                label: 'Ciudades'
             }
         }).state('app.update', {
             url: "/update",
             templateUrl: "assets/views/update.html",
+            resolve: loadSequence('updateCtrl'),
             title: "Update",
             controller: 'updateCtrl',
             ncyBreadcrumb: {
@@ -113,6 +117,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             url: "/profile",
             templateUrl: "assets/views/profile.html",
             title: "Profile",
+            resolve: loadSequence('updateCtrl'),
             controller: 'updateCtrl',
             ncyBreadcrumb: {
                 label: 'Profile'
@@ -124,7 +129,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'Documentation'
             }
-
         }).state('error', {
             url: '/error',
             template: '<div ui-view class="fade-in-up"></div>'
@@ -145,6 +149,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             }).state('login.signin', {
                 url: '/signin',
                 templateUrl: "assets/views/login_login.html",
+                resolve: loadSequence('loginCtrl'),
                 controller: 'loginCtrl'
             }).state('login.forgot', {
                 url: '/forgot',
@@ -152,378 +157,26 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             }).state('login.registration', {
                 url: '/registration',
                 templateUrl: "assets/views/login_registration.html",
+            resolve: loadSequence('loginCtrl'),
                 controller: 'loginCtrl'
             }).state('login.lockscreen', {
                 url: '/lock',
                 templateUrl: "assets/views/login_lock_screen.html"
-            });
-        app.controller('loginCtrl',['$scope', '$location', '$cookies', '$cookieStore','$http', function($scope, $location, $cookies, $cookieStore,$http) {
-            $scope.newUser = {};
-            $scope.user = {};
-            $scope.selected = false;
-            $scope.uploadFile = function() {
-                var file = $scope.file;
-                console.log (file);
-            }
-            // Funcion para logear un usuario
-            $scope.loginUser = function (newUser) {
-                if ((!newUser.username) && (!newUser.password)){
-                    $scope.user.u = "Usuario es requerido";
-                    $scope.user.p = "Password es requerido";
+            }).state('application', {
+                url: '/application',
+                template: '<div ui-view class="fade-in-right-big smooth"></div>',
+                 abstract: true
+            }).state('application.chat', {
+                url: '/chat',
+                templateUrl: "assets/views/chat.html",
+                controller: 'ChatCtrl',
+                title: "Chat",
+                ncyBreadcrumb: {
+                    label: 'Chat'
                 }
-                else if (!newUser.username){
-                    $scope.user.u = "Usuario es requerido";
-                    $scope.user.p = "";
-                }
-                else if (!newUser.password){
-                    $scope.user.u = "";
-                    $scope.user.p = "Password es requerido";
-                }
-                else {
-
-                    $http.post('/api/users/login', newUser)
-                        .success(function (data) {
-                            console.log(data);
-                            $cookieStore.put('idlogin', data.user[0]._id);
-                            if (data.user[0].rol=="administrador") {
-                                console.log ("entra admin...");
-                                $location.path('/admin/home');
-                            }
-                            else{
-                                $location.path('/app/home');
-                            }
-
-                        })
-                        .error(function (data) {
-                            swal("Opps!", "Usuario o password incorrecto!", "error")
-                            console.log(data);
-
-                        })
-                }
-
-
-            };
-            // Funcion para registrar a un usuario
-            $scope.registerUser = function(newUser) {
-                if ((!newUser.name) && (!newUser.username) && (!newUser.email) && (!newUser.password)&& (!newUser.city)&& (!newUser.college)&&(!newUser.gender)) {
-
-                }
-                else if (!newUser.name) {
-
-
-                }
-
-                else if (!newUser.username) {
-
-
-                }
-                else if (!newUser.email) {
-
-
-                }
-                else if (!newUser.password) {
-
-
-                }
-                else if (!newUser.city) {
-
-
-                }
-                else if (!newUser.college) {
-
-
-                }
-                else if (!newUser.gender) {
-
-
-                }
-                else if (!$scope.file) {
-
-                    swal("Opps!", "Debes elegir una imagen de perfil!", "error")
-                }
-                else{
-
-                        var formData = new FormData();
-                        var username = newUser.username;
-                        var file = $scope.file;
-                        formData.append("file", file);
-                        $http.post('/api/users', newUser)
-                            .success(function (data) {
-
-                            })
-                            .error(function (data) {
-                                console.log('Error: ' + data);
-                            });
-
-                        $http.put('/api/users/upload/' + username, formData, {
-                                headers: {
-                                    "Content-type": undefined
-                                },
-                                transformRequest: angular.identity
-                            }
-                        )
-                            .success(function (data) {
-
-                                $location.path('/app/signin');
-                            })
-                            .error(function (data) {
-                                console.log('Error: ' + data);
-                            });
-
-
-            }
-
-
-            };
-
-
-        }]);
-        app.factory("Users", function ($resource) {
-            return $resource('/api/users'); //la url donde queremos consumir
         });
-        app.controller('usersCtrl',['$scope', '$location', '$cookies', '$cookieStore', '$http', 'ngTableParams','Users',  function($scope, $location,$cookies, $cookieStore, $http, ngTableParams, Users) {
-            $scope.newUser = {};
-            $scope.user = {};
-            $scope.selected = false;
-
-            // Obtenemos todos los datos de la base de datos
-         /*   $http.get('/api/users').success(function (data) {
-                $scope.users = data;
-
-            })
-                .error(function (data) {
-                    console.log('Error: ' + data);
-                });
-                */
-
-            var params = {
-                page: 1,
-                count: 3
-            };
-
-            var settings = {
-                total: 0,
-                counts: [5, 10, 15],
-                getData: function($defer, params) {
-                   Users.get(params.url(), function(response) {
-                        console.log (response);
-                        params.total(response.total);
-                       $scope.tregistros= response.total;
-                        $defer.resolve(response.results);
-                    });
-                }
-            };
-
-            $scope.tableParams = new ngTableParams(params, settings);
 
 
-            // Funcion que borra un objeto usuario conocido su id
-            $scope.deleteUser = function(id) {
-                swal({   title: "¿Estas seguro?",
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Si, eliminarlo!",
-                        closeOnConfirm: false },
-                    function(){
-                            $http.delete('/api/users/' + id)
-                                 .success(function(data) {
-                                    $scope.newUser = {};
-                                    location.href = '#/admin/usuarios';
-                                    location.reload('#/admin/usuarios');
-                            })
-                            .error(function(data) {
-                            console.log('Error: ' + data);
-                            });
-                    });
-            };
-            // Funcion que obtiene un objeto usuario conocido su id
-            $scope.getUser = function(id) {
-                console.log (id);
-                $cookieStore.put('id', id);
-               $location.path ('/app/update');
-            };
-            $scope.getProfile = function(id) {
-                console.log (id);
-                $cookieStore.put('id', id);
-                $location.path ('/app/profile');
-
-            };
-
-        }]);
-
-        app.controller('updateCtrl',['$scope', '$location', '$cookies', '$cookieStore', '$http', function($scope, $location,$cookies, $cookieStore, $http) {
-            $scope.newUser = {};
-            $scope.user = {};
-            $scope.selected = false;
-            var id = $cookieStore.get('id');
-
-
-        // Funcion que obtiene un objeto usuario conocido su id
-            $http.get('/api/users/' + id)
-                .success(function(data) {
-                    $scope.user._id = data._id;
-                    $scope.user.username = data.username;
-                    $scope.user.name = data.name;
-                    $scope.user.email = data.email;
-                    $scope.user.password = data.password;
-                    $scope.user.phone = data.phone;
-                    $scope.user.gender = data.gender;
-                    $scope.user.college = data.college;
-                    $scope.user.city = data.city;
-                    $scope.user.rol = data.rol;
-                    $scope.user.imageUrl = data.imageUrl;
-                    console.log (data);
-                })
-                .error(function(data) {
-                    console.log('Error: ' + data);
-                });
-            // Funcion para editar los datos de un usuario
-            $scope.updateUser = function(newUser, po, pr) {
-                newUser.rol= $scope.user.rol;
-                newUser.imageUrl= $scope.user.imageUrl;
-                console.log (newUser);
-                console.log (newUser.po);
-                console.log (newUser.pr);
-                if ((!newUser.name) && (!newUser.username) && (!newUser.email) && (!newUser.po)&&(!newUser.pr)&& (!newUser.city)&& (!newUser.college)&&(!newUser.gender)){
-                    $scope.user.n = "Nombre Completo es requerido";
-                    $scope.user.e = "Correo Electronico es requerido";
-                    $scope.user.u = "Usuario es requerido";
-                    $scope.user.p = "Password es requerido";
-                    $scope.user.ci = "El nombre de la ciudad es requerido";
-                    $scope.user.uni = "El nobmre de tu universidad es requerido";
-                    $scope.user.g = "Genero es requerido";
-
-                }
-                else if (!newUser.name){
-                    $scope.user.n = "Nombre Completo es requerido";
-                    $scope.user.u = "";
-                    $scope.user.e = "";
-                    $scope.user.p = "";
-                    $scope.user.ci = "";
-                    $scope.user.uni = "";
-                    $scope.user.g = "";
-
-                }
-
-                else if (!newUser.username){
-                    $scope.user.n = "";
-                    $scope.user.u = "Usuario es requerido";
-                    $scope.user.e = "";
-                    $scope.user.p = "";
-                    $scope.user.ci = "";
-                    $scope.user.uni = "";
-                    $scope.user.g = "";
-
-                }
-                else if (!newUser.email){
-                    $scope.user.n = "";
-                    $scope.user.u = "";
-                    $scope.user.e = "Correo Electronico es requerido";
-                    $scope.user.p = "";
-                    $scope.user.ci = "";
-                    $scope.user.uni = "";
-                    $scope.user.g = "";
-
-                }
-                else if (!newUser.po){
-                    $scope.user.n = "";
-                    $scope.user.u = "";
-                    $scope.user.e = "";
-                    $scope.user.ci = "";
-                    $scope.user.uni = "";
-                    $scope.user.g = "";
-                    $scope.user.p = "Password es requerido";
-
-                }
-                else if (!newUser.po){
-                    $scope.user.n = "";
-                    $scope.user.u = "";
-                    $scope.user.e = "";
-                    $scope.user.ci = "";
-                    $scope.user.uni = "";
-                    $scope.user.g = "";
-                    $scope.user.p = "Password es requerido";
-
-                }
-                else if (!newUser.city){
-                    $scope.user.n = "";
-                    $scope.user.u = "";
-                    $scope.user.e = "";
-                    $scope.user.ci = "El nombre de la ciudad es requerido";
-                    $scope.user.uni = "";
-                    $scope.user.g = "";
-                    $scope.user.p = "";
-
-                }
-                else if (!newUser.college){
-                    $scope.user.n = "";
-                    $scope.user.u = "";
-                    $scope.user.e = "";
-                    $scope.user.ci = "";
-                    $scope.user.uni = "El nobmre de tu universidad es requerido";
-                    $scope.user.g = "";
-                    $scope.user.p = "";
-
-                }
-                else if (!newUser.gender){
-                    $scope.user.n = "";
-                    $scope.user.u = "";
-                    $scope.user.e = "";
-                    $scope.user.ci = "";
-                    $scope.user.uni = "";
-                    $scope.user.g = "Genero es requerido";
-                    $scope.user.p = "";
-
-                }
-                else if (newUser.po!=newUser.pr){
-
-                    swal("Opps!", "Los passwords no son iguales!", "error")
-                }
-                else if (!$scope.file){
-
-                    swal("Opps!", "Debes elegir una imagen de perfil!", "error")
-                }
-
-
-                else {
-                    newUser.password=newUser.po;
-                    newUser.pr="";
-
-                            var formData = new FormData();
-                            var username = newUser.username;
-                            var file = $scope.file;
-                            formData.append("file", file);
-                            $http.put('/api/users/' + $scope.user._id, newUser)
-                                .success(function (data) {
-                                    $scope.users = data;
-                                    console.log(data);
-                                    location.href = '#/app/home';
-                                    location.reload('#/app/home');
-                                })
-                                .error(function (data) {
-                                    console.log('Error: ' + data);
-                                });
-                            $http.put('/api/users/upload/' + username, formData, {
-                                    headers: {
-                                        "Content-type": undefined
-                                    },
-                                    transformRequest: angular.identity
-                                }
-                            )
-                                .success(function (data) {
-
-                                    location.href = '#/app/profile';
-                                    location.reload('#/app/profile');
-                                })
-                                .error(function (data) {
-                                    console.log('Error: ' + data);
-                                });
-
-                }
-            };
-
-        }]);
         app.controller('profileCtrl',['$scope', '$sce', '$location', '$cookies', '$cookieStore', '$http', function($scope,$sce, $location,$cookies, $cookieStore, $http) {
             $scope.newUser = {};
             $scope.user = {};
@@ -541,34 +194,38 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
 
                 $http.get('/api/users/provider/twitter')
                     .success(function (data) {
-                        $scope.user._id = data._id;
-                        $scope.user.username = data.username;
-                        $scope.user.name = data.name;
-                        $scope.user.email = data.email;
-                        $scope.user.phone = data.phone;
-                        $scope.user.gender = data.gender;
-                        $scope.user.college= data.college;
-                        $scope.user.city = data.city;
-                        $scope.user.rol = data.rol;
-                        $scope.user.imageUrl = data.imageUrl;
-                        console.log(data);
+                        if (data!=null) {
+                            $scope.user._id = data._id;
+                            $scope.user.username = data.username;
+                            $scope.user.name = data.name;
+                            $scope.user.email = data.email;
+                            $scope.user.phone = data.phone;
+                            $scope.user.gender = data.gender;
+                            $scope.user.college = data.college;
+                            $scope.user.city = data.city;
+                            $scope.user.rol = data.rol;
+                            $scope.user.imageUrl = data.imageUrl;
+                            console.log(data);
+                        }
                     })
                     .error(function (data) {
                         console.log('Error: ' + data);
                     });
                 $http.get('/api/users/provider/facebook')
                     .success(function (data) {
-                        $scope.user._id = data._id;
-                        $scope.user.username = data.username;
-                        $scope.user.name = data.name;
-                        $scope.user.email = data.email;
-                        $scope.user.phone = data.phone;
-                        $scope.user.gender = data.gender;
-                        $scope.user.college = data.college;
-                        $scope.user.city = data.city;
-                        $scope.user.rol = data.rol;
-                        $scope.user.imageUrl = data.imageUrl;
-                        console.log(data);
+                        if (data!=null) {
+                            $scope.user._id = data._id;
+                            $scope.user.username = data.username;
+                            $scope.user.name = data.name;
+                            $scope.user.email = data.email;
+                            $scope.user.phone = data.phone;
+                            $scope.user.gender = data.gender;
+                            $scope.user.college = data.college;
+                            $scope.user.city = data.city;
+                            $scope.user.rol = data.rol;
+                            $scope.user.imageUrl = data.imageUrl;
+                            console.log(data);
+                        }
                     })
                     .error(function (data) {
                         console.log('Error: ' + data);
@@ -578,17 +235,20 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 // Funcion que obtiene un objeto usuario conocido su id
                 $http.get('/api/users/' + id)
                     .success(function (data) {
-                        $scope.user._id = data._id;
-                        $scope.user.username = data.username;
-                        $scope.user.name = data.name;
-                        $scope.user.email = data.email;
-                        $scope.user.phone = data.phone;
-                        $scope.user.gender = data.gender;
-                        $scope.user.college = data.college;
-                        $scope.user.city = data.city;
-                        $scope.user.rol = data.rol;
-                        $scope.user.imageUrl = data.imageUrl;
-                        console.log(data);
+
+                            $scope.user._id = data._id;
+                            $scope.user.username = data.username;
+                            $scope.user.name = data.name;
+                            $scope.user.email = data.email;
+                            $scope.user.phone = data.phone;
+                            $scope.user.gender = data.gender;
+                            $scope.user.college = data.college;
+                            $scope.user.city = data.city;
+                            $scope.user.rol = data.rol;
+                            $scope.user.imageUrl = data.imageUrl;
+                            console.log(data);
+
+
                     })
                     .error(function (data) {
                         console.log('Error: ' + data);
@@ -596,13 +256,12 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             }
 
             $scope.salirUser = function() {
-                console.log ("hola vamonos");
                 $cookieStore.remove('idlogin');
-                $cookieStore.remove('id');
-                $cookieStore.remove('rol');
+                $cookieStore.remove('conectado');
                 $location.path ('/login/signin');
             }
         }]);
+
 
         app.directive('uploaderModel', ["$parse", function ($parse) {
             return {
@@ -703,11 +362,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             $scope.map.markers.push($scope.autentiaMarker);
 
 
-                MarkerCreatorService.createByCurrentLocation(function (marker) {
-                    marker.options.labelContent = 'Estas aqui';
-                    $scope.map.markers.push(marker);
-                    refresh(marker);
-                });
+            MarkerCreatorService.createByCurrentLocation(function (marker) {
+                marker.options.labelContent = 'Estas aqui';
+                $scope.map.markers.push(marker);
+                refresh(marker);
+            });
 
 
 
@@ -717,6 +376,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             }
 
         }]);
+
         // Generates a resolve object previously configured in constant.JS_REQUIRES (config.constant.js)
         function loadSequence() {
             var _args = arguments;

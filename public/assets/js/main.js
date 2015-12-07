@@ -14,7 +14,7 @@ function ($rootScope, $state, $stateParams) {
     $rootScope.app = {
         name: 'e-Trips', // name of your project
         author: 'ClipTheme', // author's name or company name
-        description: 'Travel', // brief description
+        description: 'Login', // brief description
         version: '1.0', // current version
         year: ((new Date()).getFullYear()), // automatic current year (for copyright information)
         isMobile: (function () {// true if the browser is a mobile device
