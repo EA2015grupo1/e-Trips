@@ -16,7 +16,7 @@ var express         = require("express"),// Express: Framework HTTP para Node.js
 
 require('mongoose-middleware').initialize(mongoose);
 // Conexión a la base de datos de MongoDB que tenemos en local
-mongoose.connect('mongodb://localhost/users', function(err, res) {
+mongoose.connect('mongodb://localhost/etrips', function(err, res) {
     if(err) throw err;
     console.log('Conectado con éxito a la Base de Datos');
 });
@@ -58,7 +58,9 @@ app.use(passport.session());
 
 // Importamos Models and controllers
 var models     = require('./models/user')(app, mongoose);
+var models = require('./models/city')(app, mongoose);
 var UserCtrl = require('./controllers/users');
+var CityCtrl = require('./controllers/cities');
 // Importamos el modelo usuario y la configuración de passport
 require('./passport')(passport);
 console.log (models);
@@ -87,6 +89,15 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook',
 ));
 // API routes
 var users = express.Router();
+var cities = express.Router();
+
+cities.route('/cities')
+    .get(CityCtrl.AllCities)
+cities.route('/cities')
+    .post(CityCtrl.addCity)
+cities.route('/cities/:id')
+    .delete(CityCtrl.deleteCity)
+
 users.route('/allusers')
     .get(UserCtrl.AllUsers)
 users.route('/users')
@@ -106,6 +117,7 @@ users.route('/users/provider/facebook')
 users.route('/users/provider/twitter')
     .get(UserCtrl.findTwitter);
 app.use('/api', users);
+app.use('/api', cities);
 
 app.get('*', function(req, res) {
     res.sendfile('./public/index.html');
