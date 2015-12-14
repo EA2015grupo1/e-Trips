@@ -1,0 +1,9 @@
+{"_id":{"$oid":"566b27ef747cfb38bc2830fd"},"city":"Madrid"}
+{"_id":{"$oid":"566b27ef747cfb38bc2830fe"},"city":"Barcelona"}
+{"_id":{"$oid":"566b27ef747cfb38bc2830ff"},"city":"Bruselas"}
+{"_id":{"$oid":"566b27ef747cfb38bc283100"},"city":"Londres"}
+{"_id":{"$oid":"566b27ef747cfb38bc283101"},"city":"Estocolmo"}
+{"_id":{"$oid":"566b27ef747cfb38bc283102"},"city":"Munich"}
+{"_id":{"$oid":"566b27ef747cfb38bc283103"},"city":"Berlin"}
+{"_id":{"$oid":"566b27ef747cfb38bc283104"},"city":"Milan"}
+{"_id":{"$oid":"566b27ef747cfb38bc283105"},"city":"Lisboa"}

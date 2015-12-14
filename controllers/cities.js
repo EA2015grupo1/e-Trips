@@ -1,12 +1,10 @@
 
 var mongoose = require('mongoose');
 var City  = mongoose.model('City');
-
 //GET - Return all Users in the DB
 exports.AllCities = function(req, res) {
+    var ciudades={};
     City.find(function(err, cities) {
-        if(err) res.send(500, err.message);
-
         console.log('GET /cities')
         res.status(200).jsonp(cities);
     });
@@ -17,12 +15,10 @@ exports.addCity = function(req, res) {
     console.log(req.body);
     var city = new City({
         city:    req.body.city,
-        college: 	  req.body.college,
-        url:   req.body.url
 
     })
 
-    city.save(function(err, user) {
+    city.save(function(err, city) {
         if(err) return res.send(500, err.message);
         res.status(200).jsonp(city);
     });

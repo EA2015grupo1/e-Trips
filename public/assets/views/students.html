@@ -1,9 +1,9 @@
 <!-- start: DASHBOARD TITLE -->
 <section id="page-title" class="padding-top-15 padding-bottom-15">
     <div class="row">
-        <div class="col-sm-7">
+        <div class="col-sm-12">
             <p style="font-family: Impact, serif; font-size:20pt; font-style:bold">
-                {{tregistros}} Registros
+                {{tregistros}} Estudiantes en la Universidad {{college}}
             </p>
             <!-- 	<span class="mainDescription">overview &amp; stats </span>-->
         </div>
@@ -37,7 +37,8 @@
                 <tr>
                     <th class="center">Foto</th>
                     <th>Nombre Completo</th>
-                    <th class="hidden-xs">Rol</th>
+                    <th class="hidden-xs">Universidad</th>
+                    <th class="hidden-xs">Ciudad</th>
                     <th class="hidden-xs">Usuario</th>
                     <th class="hidden-xs">Email</th>
                     <th></th>
@@ -47,32 +48,19 @@
 
                     <td><img src={{user.imageUrl}} width="50" height="50" class="img-rounded" alt="image"/></td>
                     <td>{{user.name}}</td>
-                    <td class="hidden-xs">{{user.rol}}</td>
-                    <td class="hidden-xs"> {{user.username}}</td>
+                    <td class="hidden-xs">{{user.college}}</td>
+                    <td class="hidden-xs">{{user.city}}</td>
+                    <td class="hidden-xs">
+                        <a href="#" rel="nofollow" target="_blank" ng-click="getProfile(user._id)">
+                            {{user.username}}
+                        </a></td>
                     <td class="hidden-xs">{{user.email}}</td>
                     <td class="center">
                         <div class="visible-md visible-lg hidden-sm hidden-xs">
-                            <a href="#" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="Eliminar" ng-click="deleteUser(user._id)"><i class="fa fa-times fa fa-white"></i></a>
+                            <a href="#" class="btn btn-o btn-primary"  ng-click="deleteUser(user._id)">Añadir Amigo</a>
+                            <a href="#" class="btn btn-o btn-info"  ng-click="deleteUser(user._id)">Enviar Mensaje</a>
                         </div>
                         <div class="visible-xs visible-sm hidden-md hidden-lg">
-                            <div class="btn-group" dropdown>
-                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" dropdown-toggle>
-                                    <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu pull-right dropdown-light" role="menu">
-                                    <li>
-                                        <a href="">
-                                            Editar Usuario
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#">
-                                            Eliminar Usuario
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
                         </div></td>
                 </tr>
             </table>

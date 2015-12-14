@@ -2,7 +2,7 @@
   * declare 'clip-two' module with dependencies
 */
 'use strict';
-angular.module("clip-two", [
+angular.module("e-trips", [
 	'ngAnimate',
 	'ngCookies',
 	'ngStorage',

@@ -33,6 +33,10 @@ app.constant('JS_REQUIRES', {
         'profileCtrl': 'assets/js/controllers/profileCtrl.js',
         'updateCtrl': 'assets/js/controllers/updateCtrl.js',
         'usersCtrl': 'assets/js/controllers/usersCtrl.js',
+        'cityCtrl': 'assets/js/controllers/cityCtrl.js',
+        'positionCtrl': 'assets/js/controllers/positionCtrl.js',
+        'studentsCtrl': 'assets/js/controllers/studentsCtrl.js',
+        'profile-studentCtrl': 'assets/js/controllers/profile-studentCtrl.js',
         //*** Filters
         'htmlToPlaintext': 'assets/js/filters/htmlToPlaintext.js'
     },

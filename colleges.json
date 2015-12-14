@@ -1,0 +1,32 @@
+{"_id":{"$oid":"566b279b747cfb38bc2830dd"},"city":"Madrid","college":"Universidad Politécnica de Madrid"}
+{"_id":{"$oid":"566b279b747cfb38bc2830de"},"city":"Barcelona","college":"Facultat d'informatica de Barcelona"}
+{"_id":{"$oid":"566b279b747cfb38bc2830df"},"city":"Barcelona","college":"EETAC Castelldefels"}
+{"_id":{"$oid":"566b279b747cfb38bc2830e0"},"city":"Barcelona","college":"Universitat Pompeu Fabra"}
+{"_id":{"$oid":"566b279b747cfb38bc2830e1"},"city":"Barcelona","college":"Universitat de Barcelona"}
+{"_id":{"$oid":"566b279b747cfb38bc2830e2"},"city":"Madrid","college":"Universidad Rey Juan Carlos"}
+{"_id":{"$oid":"566b279b747cfb38bc2830e3"},"city":"Madrid","college":"Universidad Complutense de Madrid"}
+{"_id":{"$oid":"566b279b747cfb38bc2830e4"},"city":"Madrid","college":"Universidad Europea de Madrid"}
+{"_id":{"$oid":"566b279b747cfb38bc2830e5"},"city":"Bruselas","college":"Catholic University of Leuven"}
+{"_id":{"$oid":"566b279b747cfb38bc2830e6"},"city":"Bruselas","college":"Universite Libre de Bruxelles"}
+{"_id":{"$oid":"566b279b747cfb38bc2830e7"},"city":"Bruselas","college":"Universite Saint-Louis-Bruxelles"}
+{"_id":{"$oid":"566b279b747cfb38bc2830e8"},"city":"Londres","college":"University of Oxford London"}
+{"_id":{"$oid":"566b279b747cfb38bc2830e9"},"city":"Londres","college":"University of Cambridge London"}
+{"_id":{"$oid":"566b279b747cfb38bc2830ea"},"city":"Londres","college":"University College London"}
+{"_id":{"$oid":"566b279b747cfb38bc2830eb"},"city":"Londres","college":"University of Manchester London"}
+{"_id":{"$oid":"566b279b747cfb38bc2830ec"},"city":"Estocolmo","college":"Stockholms universitet Estocolmo"}
+{"_id":{"$oid":"566b279b747cfb38bc2830ed"},"city":"Estocolmo","college":"Kungliga Tekniska högskolan"}
+{"_id":{"$oid":"566b279b747cfb38bc2830ee"},"city":"Estocolmo","college":"Handelshögskolan i Stockholm"}
+{"_id":{"$oid":"566b279b747cfb38bc2830ef"},"city":"Munich","college":" Ludwig-Maximilians-Universität München"}
+{"_id":{"$oid":"566b279b747cfb38bc2830f0"},"city":"Munich","college":"Technische Universität München"}
+{"_id":{"$oid":"566b279b747cfb38bc2830f1"},"city":"Munich","college":"Universitat der Bundeswehr Munchen"}
+{"_id":{"$oid":"566b279b747cfb38bc2830f2"},"city":"Munich","college":"Munich Business School"}
+{"_id":{"$oid":"566b279b747cfb38bc2830f3"},"city":"Berlin","college":"Freie Universität Berlin"}
+{"_id":{"$oid":"566b279b747cfb38bc2830f4"},"city":"Berlin","college":"Technische Universität Berlin"}
+{"_id":{"$oid":"566b279b747cfb38bc2830f5"},"city":"Berlin","college":"Technische Fachhochschule Berlin"}
+{"_id":{"$oid":"566b279b747cfb38bc2830f6"},"city":"Milan","college":"Politecnico di Milano"}
+{"_id":{"$oid":"566b279b747cfb38bc2830f7"},"city":"Milan","college":"Università degli Studi di Milano"}
+{"_id":{"$oid":"566b279b747cfb38bc2830f8"},"city":"Milan","college":" Università degli Studi di Milano - Bicocca"}
+{"_id":{"$oid":"566b279b747cfb38bc2830f9"},"city":"Lisboa","college":"  Universidade Nova de Lisboa"}
+{"_id":{"$oid":"566b279b747cfb38bc2830fa"},"city":"Lisboa","college":" Universidade Tecnica de Lisboa"}
+{"_id":{"$oid":"566b279b747cfb38bc2830fb"},"city":"Lisboa","college":" Universidade de Lisboa"}
+{"_id":{"$oid":"566b279b747cfb38bc2830fc"},"city":"Lisboa","college":" Universidade Catolica Portuguesa"}

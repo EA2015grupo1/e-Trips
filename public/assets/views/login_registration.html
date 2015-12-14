@@ -1,77 +1,107 @@
 <!-- start: REGISTRATION -->
 <!-- BEGIN LOGIN BOX -->
 <link rel="stylesheet" href="assets/css/style.css">
-<link rel="stylesheet"  href="assets/plugins/icheck/skins/all.css"/>
+<link rel="stylesheet" href="assets/plugins/icheck/skins/all.css"/>
 <body class="account separate-inputs boxed" data-page="signup" ng-controller="loginCtrl">
-<div class="container" id="login-block">
-	<div class="row">
-		<div class="col-sm-6 col-md-6 col-md-offset-3">
-			<div class="account-wall">
-				<i class="user-img icons-faces-users-03"></i>
-				<form class="form-signup"  role="form">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-6 col-md-offset-3">
+            <div class="account-wall">
+                <i class="user-img icons-faces-users-03"></i>
 
-							<div class="append-icon">
-								<input type="text" name="name" id="firstname" class="form-control form-white firstname" ng-model="newUser.name" placeholder="Nombre" required autofocus>
-								<i class="icon-user"></i>
-							</div>
+                <form class="form-signup" role="form">
+
+                    <div class="append-icon">
+                        <input type="text" title="Se necesita un nombre" name="name" id="firstname"
+                               class="form-control form-white firstname" ng-model="newUser.name" placeholder="Nombre"
+                               required autofocus>
+                        <i class="icon-user"></i>
+                    </div>
 
 
-							<div class="append-icon">
-								<input type="text" name="username" id="lastname" class="form-control form-white lastname" ng-model="newUser.username" placeholder="Usuario" required>
-								<i class="icon-user"></i>
-							</div>
+                    <div class="append-icon">
+                        <input type="text" title="Se necesita un nombre de usuario" name="username" id="lastname"
+                               class="form-control form-white lastname" ng-model="newUser.username"
+                               placeholder="Usuario" required>
+                        <i class="icon-user"></i>
+                    </div>
 
-					<div class="append-icon">
-						<input type="email" name="email" id="email" class="form-control form-white email" ng-model="newUser.email" placeholder="Email" required>
-						<i class="icon-envelope"></i>
-					</div>
-					<div class="append-icon">
-						<input type="password" class="form-control form-white password" ng-model="newUser.password" placeholder="Password" required>
-						<i class="icon-lock"></i>
-					</div>
-					<div class="append-icon">
-						<input type="password"  class="form-control form-white password2" ng-model="newUser.password" placeholder="Repite Password" required>
-						<i class="icon-lock"></i>
-					</div>
-					<div class="append-icon">
-						<input type="text" name="city" id="city" class="form-control form-white lastname" ng-model="newUser.city" placeholder="Ciudad de origen" required>
-						<i class="icon-city"></i>
-					</div>
-					<br>
-					<div class="append-icon">
-						<input type="text" name="college" id="college" class="form-control form-white lastname" ng-model="newUser.college" placeholder="Nombre de tu universidad" required>
-						<i class="icon-city"></i>
-					</div>
-					<div class="clip-radio radio-primary">
-						<input type="radio" id="us-female" name="gender" value="Mujer" ng-model="newUser.gender">
-						<label for="us-female">
-							Mujer
-						</label>
-						<input type="radio" id="us-male" name="gender" value="Hombre" ng-model="newUser.gender">
-						<label for="us-male">
-							Hombre
-						</label>
-					</div>
-					<div class="append-icon">
-						<input type="text" name="phone" id="phone" class="form-control form-white lastname" ng-model="newUser.phone" placeholder="Telefono (Opcional)" required>
-						<i class="icon-city"></i>
-					</div>
-					<br>
-					<div class="user-edit-image-buttons">
+                    <div class="append-icon">
+                        <input type="email" title="Se necesita correo electronico" name="email" id="email"
+                               class="form-control form-white email" ng-model="newUser.email" placeholder="Email"
+                               required>
+                        <i class="icon-envelope"></i>
+                    </div>
+                    <div class="append-icon">
+                        <input type="password" title="Se necesita un password" class="form-control form-white password"
+                               ng-model="newUser.p1" placeholder="Password" required>
+                        <i class="icon-lock"></i>
+                    </div>
+                    <div class="append-icon">
+                        <input type="password" title="Se necesita repetir el password"
+                               class="form-control form-white password2" ng-model="newUser.p2"
+                               placeholder="Repite Password">
+                        <i class="icon-lock"></i>
+                    </div>
+                    <div class="clip-radio radio-primary">
+                        <input type="radio" id="us-female" name="gender" value="Mujer" ng-model="newUser.gender">
+                        <label for="us-female">
+                            Mujer
+                        </label>
+                        <input type="radio" id="us-male" name="gender" value="Hombre" ng-model="newUser.gender">
+                        <label for="us-male">
+                            Hombre
+                        </label>
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="btn btn-green btn-md dropdown-toggle"
+                                type="button" data-toggle="dropdown">
+                            {{cityselectedItem}} <span class="caret"></span>
+                        </button>
+
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="city in cities"><a ng-click="cityitemselected(city.city)">{{city.city}}</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-green btn-md dropdown-toggle"
+                                type="button" data-toggle="dropdown">
+                            {{collegeselectedItem}}<span class="caret"></span>
+                        </button>
+
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="college in colleges"><a ng-click="collegeitemselected(college.college)">{{college.college}}</a>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <br><br>
+
+                    <div class="user-edit-image-buttons">
 						<span class="btn btn-azure btn-file"><span class="fileinput-new"><i class="fa fa-picture"></i> Elige imagen perfil</span>
 							<input type="file" name="file" uploader-model="file">
 						</span>
 
-					</div>
-					<button type="submit" id="submit-form" class="btn btn-lg btn-dark m-t-20" data-style="expand-left" ng-click="registerUser(newUser)">Registrar</button>
+                    </div>
+                    <button type="submit" id="submit-form" class="btn btn-lg btn-dark m-t-20" data-style="expand-left"
+                            ng-click="registerUser(newUser, city, college)">Registrar
+                    </button>
 
-					<div class="clearfix">
-						<p class="pull-right m-t-20"><a href="#login/signin">¿Ya tienes una cuenta? Logeate</a></p>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+                    <div class="clearfix">
+                        <p class="pull-right m-t-20"><a href="#login/signin">¿Ya tienes una cuenta? Logeate</a></p>
+                    </div>
+
+                    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+                        {{alert.msg}}
+                    </alert>
+                </form>
+            </div>
+        </div>
+    </div>
 
 
 </div>

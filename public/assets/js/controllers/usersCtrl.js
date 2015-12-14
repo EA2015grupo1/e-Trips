@@ -21,7 +21,7 @@ app.controller('usersCtrl',['$scope', '$location', '$cookies', '$cookieStore', '
 
     var params = {
         page: 1,
-        count: 3
+        count: 7
     };
 
     var settings = {

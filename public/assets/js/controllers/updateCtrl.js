@@ -2,11 +2,46 @@
  * Created by Javi on 05/12/2015.
  */
 'use strict'
-app.controller('updateCtrl',['$scope', '$location', '$cookies', '$cookieStore', '$http', function($scope, $location,$cookies, $cookieStore, $http) {
+app.controller('updateCtrl',['$scope', '$state', '$cookies', '$cookieStore', '$http', function($scope, $state,$cookies, $cookieStore, $http) {
     $scope.newUser = {};
     $scope.user = {};
     $scope.selected = false;
     var id = $cookieStore.get('id');
+    $scope.cityselectedItem = "Ciudades";
+    $scope.collegeselectedItem = "Universidades";
+    var city;
+    var college
+    $http.get('/api/cities').success(function (data) {
+            $scope.cities = data;
+
+        })
+        .error(function (data) {
+            console.log('Error: ' + data);
+        });
+    $scope.cityitemselected = function (item) {
+        $scope.collegeselectedItem = "Universidades";
+        city = item;
+
+        $scope.cityselectedItem = item;
+        $http.get('/api/colleges/' + item)
+            .success(function(data) {
+                $scope.colleges = data;
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+            })
+    }
+    $scope.collegeitemselected = function (item) {
+        college = item;
+        $scope.collegeselectedItem = item;
+        $http.get('/api/colleges/' + city)
+            .success(function(data) {
+                $scope.colleges = data;
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+            })
+    }
 
 
     // Funcion que obtiene un objeto usuario conocido su id
@@ -19,8 +54,11 @@ app.controller('updateCtrl',['$scope', '$location', '$cookies', '$cookieStore', 
             $scope.user.password = data.password;
             $scope.user.phone = data.phone;
             $scope.user.gender = data.gender;
-            $scope.user.college = data.college;
-            $scope.user.city = data.city;
+            if (data.college!=null & data.city!=null ){
+                $scope.collegeselectedItem  = data.college;
+                $scope.cityselectedItem  = data.city;
+            }
+
             $scope.user.rol = data.rol;
             $scope.user.imageUrl = data.imageUrl;
             console.log (data);
@@ -33,9 +71,7 @@ app.controller('updateCtrl',['$scope', '$location', '$cookies', '$cookieStore', 
         newUser.rol= $scope.user.rol;
         newUser.imageUrl= $scope.user.imageUrl;
         console.log (newUser);
-        console.log (newUser.po);
-        console.log (newUser.pr);
-        if ((!newUser.name) && (!newUser.username) && (!newUser.email) && (!newUser.po)&&(!newUser.pr)&& (!newUser.city)&& (!newUser.college)&&(!newUser.gender)){
+        if ((!newUser.name) && (!newUser.username) && (!newUser.email) && (!newUser.p1)&&(!newUser.p2)&&(!newUser.gender)){
             $scope.user.n = "Nombre Completo es requerido";
             $scope.user.e = "Correo Electronico es requerido";
             $scope.user.u = "Usuario es requerido";
@@ -50,8 +86,6 @@ app.controller('updateCtrl',['$scope', '$location', '$cookies', '$cookieStore', 
             $scope.user.u = "";
             $scope.user.e = "";
             $scope.user.p = "";
-            $scope.user.ci = "";
-            $scope.user.uni = "";
             $scope.user.g = "";
 
         }
@@ -61,8 +95,6 @@ app.controller('updateCtrl',['$scope', '$location', '$cookies', '$cookieStore', 
             $scope.user.u = "Usuario es requerido";
             $scope.user.e = "";
             $scope.user.p = "";
-            $scope.user.ci = "";
-            $scope.user.uni = "";
             $scope.user.g = "";
 
         }
@@ -71,74 +103,97 @@ app.controller('updateCtrl',['$scope', '$location', '$cookies', '$cookieStore', 
             $scope.user.u = "";
             $scope.user.e = "Correo Electronico es requerido";
             $scope.user.p = "";
-            $scope.user.ci = "";
-            $scope.user.uni = "";
             $scope.user.g = "";
 
         }
-        else if (!newUser.po){
+        else if (!newUser.p1){
             $scope.user.n = "";
             $scope.user.u = "";
             $scope.user.e = "";
-            $scope.user.ci = "";
-            $scope.user.uni = "";
             $scope.user.g = "";
             $scope.user.p = "Password es requerido";
 
         }
-        else if (!newUser.po){
+        else if (!newUser.p2){
             $scope.user.n = "";
             $scope.user.u = "";
             $scope.user.e = "";
-            $scope.user.ci = "";
-            $scope.user.uni = "";
             $scope.user.g = "";
             $scope.user.p = "Password es requerido";
 
         }
-        else if (!newUser.city){
+
+        else if (newUser.p1!=newUser.p2){
             $scope.user.n = "";
             $scope.user.u = "";
             $scope.user.e = "";
-            $scope.user.ci = "El nombre de la ciudad es requerido";
-            $scope.user.uni = "";
             $scope.user.g = "";
             $scope.user.p = "";
+            $('#login-error').show();
+            $scope.mensaje = "Error los passwords no son iguales";
 
         }
-        else if (!newUser.college){
+        else if (!city&& !$scope.cityselectedItem) {
             $scope.user.n = "";
             $scope.user.u = "";
             $scope.user.e = "";
-            $scope.user.ci = "";
-            $scope.user.uni = "El nobmre de tu universidad es requerido";
             $scope.user.g = "";
             $scope.user.p = "";
+            $scope.alerts = [{
+                type: 'danger',
+                msg: 'Error debes seleccionar una ciudad!'
+            }];
 
         }
-        else if (!newUser.gender){
+        else if (!college && ! $scope.collegeselectedItem) {
             $scope.user.n = "";
             $scope.user.u = "";
             $scope.user.e = "";
-            $scope.user.ci = "";
-            $scope.user.uni = "";
-            $scope.user.g = "Genero es requerido";
+            $scope.user.g = "";
             $scope.user.p = "";
+            $scope.alerts = [{
+                type: 'danger',
+                msg: 'Error debes seleccionar una universidad!'
+            }];
 
         }
-        else if (newUser.po!=newUser.pr){
+        else if (!newUser.gender) {
+            $scope.user.n = "";
+            $scope.user.u = "";
+            $scope.user.e = "";
+            $scope.user.g = "";
+            $scope.user.p = "";
+            $scope.alerts = [{
+                type: 'danger',
+                msg: 'Error debes seleccionar un genero!'
+            }];
 
-            swal("Opps!", "Los passwords no son iguales!", "error")
         }
-        else if (!$scope.file){
-
-            swal("Opps!", "Debes elegir una imagen de perfil!", "error")
+        else if (!$scope.file) {
+            $scope.user.n = "";
+            $scope.user.u = "";
+            $scope.user.e = "";
+            $scope.user.g = "";
+            $scope.user.p = "";
+            $scope.alerts = [{
+                type: 'danger',
+                msg: 'Error debes elegir una imagen de perfil!'
+            }];
+            // swal("Opps!", "Debes elegir una imagen de perfil!", "error")
         }
 
 
         else {
-            newUser.password=newUser.po;
-            newUser.pr="";
+            newUser.password=newUser.p1;
+            newUser.p2="";
+            if (!city&&!college){
+                newUser.city=$scope.cityselectedItem;
+                newUser.college =$scope.collegeselectedItem;
+            }
+            else{
+                newUser.city= city;
+                newUser.college =college;
+            }
 
             var formData = new FormData();
             var username = newUser.username;
@@ -148,8 +203,9 @@ app.controller('updateCtrl',['$scope', '$location', '$cookies', '$cookieStore', 
                 .success(function (data) {
                     $scope.users = data;
                     console.log(data);
-                    location.href = '#/app/home';
-                    location.reload('#/app/home');
+                   location.href = '#/app/home';
+                   location.reload('#/app/home');
+
                 })
                 .error(function (data) {
                     console.log('Error: ' + data);
@@ -163,8 +219,9 @@ app.controller('updateCtrl',['$scope', '$location', '$cookies', '$cookieStore', 
                 )
                 .success(function (data) {
 
-                    location.href = '#/app/profile';
-                    location.reload('#/app/profile');
+                location.href = '#/app/home';
+                location.reload('#/app/home');
+
                 })
                 .error(function (data) {
                     console.log('Error: ' + data);

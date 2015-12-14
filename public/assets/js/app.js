@@ -36,34 +36,17 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             templateUrl: "assets/views/admin.html",
             resolve: loadSequence('modernizr', 'moment', 'angularMoment', 'uiSwitch', 'perfect-scrollbar-plugin', 'perfect_scrollbar', 'toaster', 'ngAside', 'vAccordion', 'sweet-alert', 'chartjs', 'tc.chartjs', 'oitozero.ngSweetAlert', 'chatCtrl'),
             abstract: true,
-            controller: 'MapCtrl'
+
         }).state('app', {
             url: "/app",
             templateUrl: "assets/views/app.html",
-            resolve: loadSequence('modernizr', 'moment', 'angularMoment', 'uiSwitch', 'perfect-scrollbar-plugin', 'perfect_scrollbar', 'toaster', 'ngAside', 'vAccordion', 'sweet-alert', 'chartjs', 'tc.chartjs', 'oitozero.ngSweetAlert', 'chatCtrl'),
+            resolve: loadSequence('modernizr', 'moment', 'angularMoment', 'uiSwitch', 'perfect-scrollbar-plugin', 'perfect_scrollbar', 'toaster', 'ngAside', 'vAccordion', 'sweet-alert', 'chartjs', 'tc.chartjs', 'oitozero.ngSweetAlert', 'chatCtrl', 'positionCtrl'),
             abstract: true,
-            controller: 'MapCtrl'
+            controller: 'positionCtrl',
         }).state('admin.home', {
             url: "/home",
-            templateUrl: "assets/views/home.html",
-            title: 'Mi posicion',
-            ncyBreadcrumb: {
-                label: 'Mi posicion'
-            }
-
-        }).state('admin.usuarios', {
-            url: "/usuarios",
             templateUrl: "assets/views/ausers.html",
             title: "Usuarios",
-            resolve: loadSequence('usersCtrl'),
-            controller: 'usersCtrl',
-            ncyBreadcrumb: {
-                label: 'Usuarios'
-            }
-        }).state('admin.ciudades', {
-            url: "/ciudades",
-            templateUrl: "assets/views/ciudades.html",
-            title: "Ciudades",
             resolve: loadSequence('usersCtrl'),
             controller: 'usersCtrl',
             ncyBreadcrumb: {
@@ -90,6 +73,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         }).state('app.home', {
             url: "/home",
             templateUrl: "assets/views/home.html",
+            resolve: loadSequence('positionCtrl'),
             title: 'Mi posicion',
             ncyBreadcrumb: {
                 label: 'Mi posicion'
@@ -99,8 +83,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             url: "/ciudades",
             templateUrl: "assets/views/ciudades.html",
             title: "Ciudades",
-            resolve: loadSequence('usersCtrl'),
-            controller: 'usersCtrl',
+            resolve: loadSequence('cityCtrl'),
+            controller: 'cityCtrl',
             ncyBreadcrumb: {
                 label: 'Ciudades'
             }
@@ -117,28 +101,46 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             url: "/profile",
             templateUrl: "assets/views/profile.html",
             title: "Profile",
-            resolve: loadSequence('updateCtrl'),
-            controller: 'updateCtrl',
+            resolve: loadSequence('profileCtrl'),
+            controller: 'profileCtrl',
             ncyBreadcrumb: {
                 label: 'Profile'
             }
-        }).state('app.documentation', {
-            url: "/documentation",
-            templateUrl: "assets/views/documentation.html",
-            title: "Documentation",
+        }).state('app.profile-student', {
+            url: "/profile-student",
+            templateUrl: "assets/views/profile-student.html",
+            title: "Profile-Student",
+            resolve: loadSequence('profile-studentCtrl'),
+            controller: 'profile-studentCtrl',
             ncyBreadcrumb: {
-                label: 'Documentation'
+                label: 'Profile-Student'
             }
-        }).state('error', {
+        }).state('app.students', {
+            url: "/students/:college",
+            templateUrl: "assets/views/students.html",
+            resolve: loadSequence('studentsCtrl'),
+            title: "Students",
+            controller: 'studentsCtrl',
+            ncyBreadcrumb: {
+                    label: 'Students'
+            }
+        }).state('app.documentation', {
+                url: "/documentation",
+                templateUrl: "assets/views/documentation.html",
+                title: "Documentation",
+                ncyBreadcrumb: {
+                    label: 'Documentation'
+                }
+            }).state('error', {
             url: '/error',
             template: '<div ui-view class="fade-in-up"></div>'
         }).state('error.404', {
             url: '/404',
             templateUrl: "assets/views/utility_404.html",
         }).state('error.500', {
-            url: '/500',
-            templateUrl: "assets/views/utility_500.html",
-        })
+                url: '/500',
+                templateUrl: "assets/views/utility_500.html",
+            })
 
             // Login routes
 
@@ -147,54 +149,54 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 template: '<div ui-view class="fade-in-right-big smooth"></div>',
                 abstract: true
             }).state('login.signin', {
-                url: '/signin',
-                templateUrl: "assets/views/login_login.html",
-                resolve: loadSequence('loginCtrl'),
-                controller: 'loginCtrl'
-            }).state('login.forgot', {
-                url: '/forgot',
-                templateUrl: "assets/views/login_forgot.html"
-            }).state('login.registration', {
-                url: '/registration',
-                templateUrl: "assets/views/login_registration.html",
+            url: '/signin',
+            templateUrl: "assets/views/login_login.html",
             resolve: loadSequence('loginCtrl'),
-                controller: 'loginCtrl'
-            }).state('login.lockscreen', {
-                url: '/lock',
-                templateUrl: "assets/views/login_lock_screen.html"
-            }).state('application', {
-                url: '/application',
-                template: '<div ui-view class="fade-in-right-big smooth"></div>',
-                 abstract: true
-            }).state('application.chat', {
-                url: '/chat',
-                templateUrl: "assets/views/chat.html",
-                controller: 'ChatCtrl',
-                title: "Chat",
-                ncyBreadcrumb: {
-                    label: 'Chat'
-                }
+            controller: 'loginCtrl'
+        }).state('login.forgot', {
+            url: '/forgot',
+            templateUrl: "assets/views/login_forgot.html"
+        }).state('login.registration', {
+            url: '/registration',
+            templateUrl: "assets/views/login_registration.html",
+            resolve: loadSequence('loginCtrl'),
+            controller: 'loginCtrl'
+        }).state('login.lockscreen', {
+            url: '/lock',
+            templateUrl: "assets/views/login_lock_screen.html"
+        }).state('application', {
+            url: '/application',
+            template: '<div ui-view class="fade-in-right-big smooth"></div>',
+            abstract: true
+        }).state('application.chat', {
+            url: '/chat',
+            templateUrl: "assets/views/chat.html",
+            controller: 'ChatCtrl',
+            title: "Chat",
+            ncyBreadcrumb: {
+                label: 'Chat'
+            }
         });
 
 
-        app.controller('profileCtrl',['$scope', '$sce', '$location', '$cookies', '$cookieStore', '$http', function($scope,$sce, $location,$cookies, $cookieStore, $http) {
+        app.controller('profileCtrl', ['$scope', '$sce', '$location', '$cookies', '$cookieStore', '$http', function ($scope, $sce, $location, $cookies, $cookieStore, $http) {
             $scope.newUser = {};
             $scope.user = {};
             $scope.selected = false;
             var id = $cookieStore.get('idlogin');
 
-            $scope.getProfile = function(id) {
+            $scope.getProfile = function (id) {
                 console.log (id);
                 $cookieStore.put('id', id);
                 $location.path ('/app/profile');
 
             };
 
-            if (id==undefined) {
+            if (id == undefined) {
 
                 $http.get('/api/users/provider/twitter')
                     .success(function (data) {
-                        if (data!=null) {
+                        if (data != null) {
                             $scope.user._id = data._id;
                             $scope.user.username = data.username;
                             $scope.user.name = data.name;
@@ -213,7 +215,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                     });
                 $http.get('/api/users/provider/facebook')
                     .success(function (data) {
-                        if (data!=null) {
+                        if (data != null) {
                             $scope.user._id = data._id;
                             $scope.user.username = data.username;
                             $scope.user.name = data.name;
@@ -231,22 +233,22 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                         console.log('Error: ' + data);
                     });
             }
-            else{
+            else {
                 // Funcion que obtiene un objeto usuario conocido su id
                 $http.get('/api/users/' + id)
                     .success(function (data) {
 
-                            $scope.user._id = data._id;
-                            $scope.user.username = data.username;
-                            $scope.user.name = data.name;
-                            $scope.user.email = data.email;
-                            $scope.user.phone = data.phone;
-                            $scope.user.gender = data.gender;
-                            $scope.user.college = data.college;
-                            $scope.user.city = data.city;
-                            $scope.user.rol = data.rol;
-                            $scope.user.imageUrl = data.imageUrl;
-                            console.log(data);
+                        $scope.user._id = data._id;
+                        $scope.user.username = data.username;
+                        $scope.user.name = data.name;
+                        $scope.user.email = data.email;
+                        $scope.user.phone = data.phone;
+                        $scope.user.gender = data.gender;
+                        $scope.user.college = data.college;
+                        $scope.user.city = data.city;
+                        $scope.user.rol = data.rol;
+                        $scope.user.imageUrl = data.imageUrl;
+                        console.log(data);
 
 
                     })
@@ -255,127 +257,26 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                     });
             }
 
-            $scope.salirUser = function() {
+            $scope.salirUser = function () {
                 $cookieStore.remove('idlogin');
                 $cookieStore.remove('conectado');
+                $cookieStore.remove('college');
                 $location.path ('/login/signin');
-            }
+            };
         }]);
 
 
         app.directive('uploaderModel', ["$parse", function ($parse) {
             return {
                 restrict: 'A',
-                link: function (scope, iElement, iAttrs)
-                {
-                    iElement.on("change", function(e)
-                    {
+                link: function (scope, iElement, iAttrs) {
+                    iElement.on("change", function (e) {
                         $parse(iAttrs.uploaderModel).assign(scope, iElement[0].files[0]);
                     });
                 }
             };
-        }])
-        app.factory('MarkerCreatorService', function () {
-
-            var markerId = 0;
-
-            function create(latitude, longitude) {
-                var marker = {
-                    options: {
-                        animation: 1,
-                        labelAnchor: "28 -5",
-                        labelClass: 'markerlabel'
-                    },
-                    latitude: latitude,
-                    longitude: longitude,
-                    id: ++markerId
-                };
-                return marker;
-            }
-
-            function invokeSuccessCallback(successCallback, marker) {
-                if (typeof successCallback === 'function') {
-                    successCallback(marker);
-                }
-            }
-
-            function createByCoords(latitude, longitude, successCallback) {
-                var marker = create(latitude, longitude);
-                invokeSuccessCallback(successCallback, marker);
-            }
-
-            function createByAddress(address, successCallback) {
-                var geocoder = new google.maps.Geocoder();
-                geocoder.geocode({'address' : address}, function (results, status) {
-                    if (status === google.maps.GeocoderStatus.OK) {
-                        var firstAddress = results[0];
-                        var latitude = firstAddress.geometry.location.lat();
-                        var longitude = firstAddress.geometry.location.lng();
-                        var marker = create(latitude, longitude);
-                        invokeSuccessCallback(successCallback, marker);
-                    } else {
-                        alert("Unknown address: " + address);
-                    }
-                });
-            }
-
-            function createByCurrentLocation(successCallback) {
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(function (position) {
-                        var marker = create(position.coords.latitude, position.coords.longitude);
-                        invokeSuccessCallback(successCallback, marker);
-                    });
-                } else {
-                    alert('Unable to locate current position');
-                }
-            }
-
-            return {
-                createByCoords: createByCoords,
-                createByAddress: createByAddress,
-                createByCurrentLocation: createByCurrentLocation
-            };
-
-        });
-
-        app.controller('MapCtrl', ['MarkerCreatorService', '$scope',  function (MarkerCreatorService, $scope) {
-
-            MarkerCreatorService.createByCoords(40.454018, -3.509205, function (marker) {
-                $scope.autentiaMarker = marker;
-            });
-
-            $scope.address = '';
-
-            $scope.map = {
-                center: {
-                    latitude: $scope.autentiaMarker.latitude,
-                    longitude: $scope.autentiaMarker.longitude
-                },
-                zoom: 12,
-                markers: [],
-                control: {},
-                options: {
-                    scrollwheel: false
-                }
-            };
-
-            $scope.map.markers.push($scope.autentiaMarker);
-
-
-            MarkerCreatorService.createByCurrentLocation(function (marker) {
-                marker.options.labelContent = 'Estas aqui';
-                $scope.map.markers.push(marker);
-                refresh(marker);
-            });
-
-
-
-            function refresh(marker) {
-                $scope.map.control.refresh({latitude: marker.latitude,
-                    longitude: marker.longitude});
-            }
-
         }]);
+
 
         // Generates a resolve object previously configured in constant.JS_REQUIRES (config.constant.js)
         function loadSequence() {

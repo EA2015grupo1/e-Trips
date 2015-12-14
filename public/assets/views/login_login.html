@@ -13,18 +13,19 @@
 
 				<i class="user-img icons-faces-users-03"></i>
 				<form class="form-signin" role="form">
-					<p style="color:white">	{{user.u}}</p>
+
 					<div class="append-icon">
-						<input type="text" name="name" id="name" class="form-control form-white username" placeholder="Username" required ng-model="newUser.username">
+						<input type="text" title="Se necesita un nombre de usuario" name="name" id="name" class="form-control form-white username" placeholder="Username" required ng-model="newUser.username">
 						<i class="icon-user"></i>
 					</div>
 					<br>
-					<p style="color:white">	{{user.p}}</p>
 					<div class="append-icon m-b-20">
-						<input type="password" name="password" class="form-control form-white password" placeholder="Password" required ng-model="newUser.password">
+						<input type="password"title="Se necesita un password" name="password" class="form-control form-white password" placeholder="Password" required ng-model="newUser.password">
 						<i class="icon-lock"></i>
 					</div>
+					<form class="form" role="form">
 					<button type="submit" id="submit-form" class="btn btn-lg btn-danger btn-block ladda-button" data-style="expand-left" ng-click="loginUser(newUser)">Login</button>
+					</form>
 					<br>
 					<div class="login-options">
 						<ul class="social-icons">
@@ -38,6 +39,7 @@
 							</li>
 						</ul>
 					</div>
+					<button type="submit" class="btn btn-lg btn-primary btn-block ladda-button" data-style="expand-left" ng-click="enterChat()">Join chat e-Trips</button>
 					<div class="clearfix">
 						<p class="pull-left m-t-20"><a id="password" href="#">Se te olvidó tu contraseña?</a></p>
 						<p class="pull-right m-t-20"><a href="#login/registration">Registrarse</a></p>
@@ -53,8 +55,12 @@
 						<p class="pull-left m-t-20"><a id="login" href="#">Already got an account? Sign In</a></p>
 						<p class="pull-right m-t-20"><a href="user-signup-v1.html">New here? Sign up</a></p>
 					</div>
+
 				</form>
-				<button type="submit" class="btn btn-lg btn-primary btn-block ladda-button" data-style="expand-left" ng-click="enterChat()">Join chat e-Trips</button>
+				<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+					{{alert.msg}}
+				</alert>
+
 			</div>
 
 		</div>

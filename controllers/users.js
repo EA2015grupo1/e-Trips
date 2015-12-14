@@ -3,6 +3,53 @@ var mongoose = require('mongoose');
 var User  = mongoose.model('User');
 
 //GET - Return all Users in the DB
+/*exports.findCollegeUsers = function(req, res) {
+    console.log ("Entrando...");
+    User.find({college:req.params.college}, function(err, users) {
+        if(err) res.send(500, err.message);
+
+        console.log('GET /users-college')
+        res.status(200).jsonp(users);
+    });
+};*/
+exports.findCollegeUsers = function(req, res) {
+    var count = req.query.count || 5;
+    var page = req.query.page || 1;
+
+    var filter = {
+        filters: {
+            mandatory: {
+                contains: req.query.filter
+            }
+        }
+    };
+
+    var pagination = {
+        start: (page - 1) * count,
+        count: count
+    };
+
+    var sort = {
+        sort: {
+            desc: '_id'
+        }
+    };
+
+    User
+        .find({college:req.params.college})
+        .filter(filter)
+        .order(sort)
+        .page(pagination, function(err, users) {
+            if (err) {
+                return res.send(400, {
+                    message: getErrorMessage(err)
+                });
+            } else {
+                res.jsonp(users);
+            }
+        });
+
+};
 exports.AllUsers = function(req, res) {
     User.find(function(err, users) {
         if(err) res.send(500, err.message);
@@ -80,10 +127,11 @@ exports.findFacebook = function(req, res) {
 var resultado;
 var request;
 var username;
-//POST - Insert a new User in the DB
 var fs = require('fs');
 var filename;
 var imagen;
+
+//Funcion para subir la foto al servidor
 exports.upload = function(req, res) {
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
@@ -185,7 +233,7 @@ function checkreg (u1, u2, filename ){
         })
 
         user.save(function(err, user) {
-            if(err) return res.send(500, err.message);
+            if(err) return resultado.send(500, err.message);
             resultado.status(200).jsonp(user);
         });
 
@@ -229,6 +277,7 @@ exports.updateUser = function(req, res) {
         });
     });
 };
+
 //POST - login User
 exports.loginUser = function(req, res) {
     resultado = res;

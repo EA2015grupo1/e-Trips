@@ -59,8 +59,10 @@ app.use(passport.session());
 // Importamos Models and controllers
 var models     = require('./models/user')(app, mongoose);
 var models = require('./models/city')(app, mongoose);
+var models = require('./models/college')(app, mongoose);
 var UserCtrl = require('./controllers/users');
 var CityCtrl = require('./controllers/cities');
+var CollegeCtrl = require('./controllers/colleges');
 // Importamos el modelo usuario y la configuración de passport
 require('./passport')(passport);
 console.log (models);
@@ -88,7 +90,17 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook',
     { successRedirect: '/#app/home', failureRedirect: '/' }
 ));
 // API routes
-var users = express.Router();
+var colleges = express.Router();
+
+colleges.route('/colleges')
+    .get(CollegeCtrl.AllColleges)
+colleges.route('/colleges')
+    .post(CollegeCtrl.addCollege)
+colleges.route('/colleges/:city')
+    .get(CollegeCtrl.findByCity)
+colleges.route('/colleges/:id')
+    .delete(CollegeCtrl.deleteCollege)
+
 var cities = express.Router();
 
 cities.route('/cities')
@@ -96,8 +108,9 @@ cities.route('/cities')
 cities.route('/cities')
     .post(CityCtrl.addCity)
 cities.route('/cities/:id')
-    .delete(CityCtrl.deleteCity)
+    .delete(CityCtrl.deleteCity);
 
+var users = express.Router();
 users.route('/allusers')
     .get(UserCtrl.AllUsers)
 users.route('/users')
@@ -116,9 +129,11 @@ users.route('/users/provider/facebook')
     .get(UserCtrl.findFacebook);
 users.route('/users/provider/twitter')
     .get(UserCtrl.findTwitter);
+users.route('/users/college/:college')
+    .get(UserCtrl.findCollegeUsers);
 app.use('/api', users);
 app.use('/api', cities);
-
+app.use('/api', colleges);
 app.get('*', function(req, res) {
     res.sendfile('./public/index.html');
 });

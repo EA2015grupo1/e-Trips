@@ -1,4 +1,4 @@
-var app = angular.module('clipApp', ['clip-two']);
+var app = angular.module('etrips', ['e-trips']);
 app.run(['$rootScope', '$state', '$stateParams','$cookies', '$cookieStore',
 function ($rootScope, $state, $stateParams) {
 
