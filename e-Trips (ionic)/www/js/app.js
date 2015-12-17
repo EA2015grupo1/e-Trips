@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'ngCordovaOauth'])
+angular.module('starter', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'ngCordovaOauth'])
 
   .run(function($ionicPlatform, $rootScope, $ionicLoading, $location, $timeout) {
     $ionicPlatform.ready(function() {
@@ -74,7 +74,10 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       $rootScope.showLoading("Autenticando..");
       api.login($scope.login).success(function(data) {
         $location.path('/page7');
+       //$state.go('position',{},{reload:true});
+        //$window.location.reload(true);
         $rootScope.hideLoading();
+
       }).error(function(data) {
         $rootScope.hideLoading();
         $rootScope.toast('Usuario o password incorrecto');
@@ -98,19 +101,81 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
     }
 
 
-  }]).controller('usuariosCtrl', ['$rootScope', '$location', '$scope', 'API', function($rootScope, $location, $scope, api) {
+  }]).controller('MapCtrl', ['$rootScope', '$location', '$scope', 'API', function($rootScope, $location, $scope, api) {
 
+console.log ("hola mapa");
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: -34.397, lng: 150.644},
+      zoom: 16
+    });
+   // var infoWindow = new google.maps.InfoWindow({map: map});
 
-    api.getTodos().success(function (data) {
-      $scope.users = data;
+    // Try HTML5 geolocation.
 
-    })
-      .error(function (data) {
-        console.log('Error: ' + data);
+        navigator.geolocation.getCurrentPosition(function (pos) {
+          map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+          var myLocation = new google.maps.Marker({
+            position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
+            map: map,
+            title: "My Location"
+          });
+        });
+
+        $scope.map = map;
+    console.log("El mapa ya esta aquí!")
+ /*       infoWindow.setPosition(pos);
+        infoWindow.setContent('Aqui estas campeon/a!!');
+        map.setCenter(pos);
+      }, function() {
+        handleLocationError(true, infoWindow, map.getCenter());
       });
-    $scope.getUser = function(id) {
-      localStorage.setItem("id", id);
-    };
+    } else {
+      // Browser doesn't support Geolocation
+      handleLocationError(false, infoWindow, map.getCenter());
+    }
+
+*//*
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+      infoWindow.setPosition(pos);
+      infoWindow.setContent(browserHasGeolocation ?
+        'Error: The Geolocation service failed.' :
+        'Error: Your browser doesn\'t support geolocation.');
+    }
+
+      google.maps.event.addDomListener(window, 'load', function() {
+        var myLatlng = new google.maps.LatLng(37.3000, -120.4833);
+
+        var mapOptions = {
+          center: myLatlng,
+          zoom: 16,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+        navigator.geolocation.getCurrentPosition(function(pos) {
+          map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+          var myLocation = new google.maps.Marker({
+            position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
+            map: map,
+            title: "My Location"
+          });
+        });
+
+        $scope.map = map;
+      });
+*/
+    /* api.getTodos().success(function (data) {
+       $scope.users = data;
+
+     })
+       .error(function (data) {
+         console.log('Error: ' + data);
+       });
+     $scope.getUser = function(id) {
+       localStorage.setItem("id", id);
+     };*/
+
   }]).controller('perfilCtrl', ['$rootScope', '$location', '$scope', '$http',  'API', function($rootScope, $location, $scope, $http, api) {
 
     $scope.user = {};

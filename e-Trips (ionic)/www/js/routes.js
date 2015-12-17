@@ -30,10 +30,10 @@ angular.module('app.routes', [])
 
 
 
-    .state('usuarios', {
+    .state('position', {
       url: '/page7',
-      templateUrl: 'templates/usuarios.html',
-      controller: 'usuariosCtrl'
+      templateUrl: 'templates/position.html',
+      controller: 'MapCtrl'
     })
 
 
