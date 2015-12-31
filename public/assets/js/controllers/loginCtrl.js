@@ -2,7 +2,7 @@
  * Created by Javi on 05/12/2015.
  */
 'use strict'
-app.controller('loginCtrl',['$scope', '$location', '$cookies', '$cookieStore','$http', function($scope, $location, $cookies, $cookieStore,$http) {
+app.controller('loginCtrl',['$scope', '$state','$http', function($scope, $state, $http) {
 
     $scope.closeAlert = function (index) {
         $scope.alerts.splice(index, 1);
@@ -11,12 +11,11 @@ app.controller('loginCtrl',['$scope', '$location', '$cookies', '$cookieStore','$
     $scope.newUser = {};
     $scope.user = {};
     $scope.selected = false;
-    $cookieStore.remove('idlogin');
     $scope.cityselectedItem = "Ciudades";
     $scope.collegeselectedItem = "Universidades";
     var city;
     var college
-    $http.get('/api/cities').success(function (data) {
+    $http.get('/cities').success(function (data) {
             $scope.cities = data;
 
         })
@@ -27,7 +26,7 @@ app.controller('loginCtrl',['$scope', '$location', '$cookies', '$cookieStore','$
         $scope.collegeselectedItem = "Universidades";
         city = item;
         $scope.cityselectedItem = item;
-        $http.get('/api/colleges/' + item)
+        $http.get('/colleges/' + item)
             .success(function(data) {
                 $scope.colleges = data;
             })
@@ -39,7 +38,7 @@ app.controller('loginCtrl',['$scope', '$location', '$cookies', '$cookieStore','$
         college = item;
         $scope.collegeselectedItem = item;
         $scope.collegItem = item;
-        $http.get('/api/colleges/' + city)
+        $http.get('/colleges/' + city)
             .success(function(data) {
                 $scope.colleges = data;
             })
@@ -49,11 +48,8 @@ app.controller('loginCtrl',['$scope', '$location', '$cookies', '$cookieStore','$
     };
     $scope.uploadFile = function() {
         var file = $scope.file;
-        console.log (file);
     };
-    $scope.enterChat = function() {
-        $location.path('/application/chat');
-    };
+
     // Funcion para logear un usuario
     $scope.loginUser = function (newUser) {
         if ((!newUser.username) && (!newUser.password)){
@@ -64,19 +60,26 @@ app.controller('loginCtrl',['$scope', '$location', '$cookies', '$cookieStore','$
         }
         else{
 
-            $http.post('/api/users/login', newUser)
+            $http.post('/user/login', newUser)
                 .success(function (data) {
-                    console.log(data);
-                    $cookieStore.put('idlogin', data.user[0]._id);
-                    $cookieStore.put('conectado', data.user[0].username);
 
+                    var id= data.user[0]._id;
+                    var user= data.user[0].username;
+                   //  $cookieStore.put('id', data.user[0]._id);
+                    // $cookieStore.put('conectado', data.user[0].username);
                     if (data.user[0].rol=="administrador") {
-                        console.log ("entra admin...");
-                        $location.path('/admin/home');
+                        $state.go("admin.home", {
+                            user: user,
+                            id: id
+                        });
+
                     }
                     else{
-                        console.log ("entra register...");
-                        $location.path('/app/home');
+                        $state.go("app.home", {
+                            user: user,
+                            id: id
+                        });
+
                     }
 
                 })
@@ -86,7 +89,7 @@ app.controller('loginCtrl',['$scope', '$location', '$cookies', '$cookieStore','$
                         type: 'danger',
                         msg: 'Usuario o password incorrecto!'
                     }];
-                    console.log(data);
+
 
                 })
         }
@@ -157,9 +160,7 @@ app.controller('loginCtrl',['$scope', '$location', '$cookies', '$cookieStore','$
           // swal("Opps!", "Debes elegir una imagen de perfil!", "error")
         }
         else{
-            console.log (newUser);
-            console.log (city);
-            console.log (college);
+
             newUser.city= city;
             newUser.college =college;
             newUser.password=newUser.p1;
@@ -168,7 +169,7 @@ app.controller('loginCtrl',['$scope', '$location', '$cookies', '$cookieStore','$
             var username = newUser.username;
             var file = $scope.file;
             formData.append("file", file);
-            $http.post('/api/users', newUser)
+            $http.post('/user', newUser)
                 .success(function (data) {
 
                 })
@@ -176,7 +177,7 @@ app.controller('loginCtrl',['$scope', '$location', '$cookies', '$cookieStore','$
                     console.log('Error: ' + data);
                 });
 
-            $http.put('/api/users/upload/' + username, formData, {
+            $http.put('/upload/' + username, formData, {
                     headers: {
                         "Content-type": undefined
                     },
@@ -185,7 +186,7 @@ app.controller('loginCtrl',['$scope', '$location', '$cookies', '$cookieStore','$
                 )
                 .success(function (data) {
 
-                    $location.path('/app/signin');
+                    $state.go("app.signin");
                 })
                 .error(function (data) {
                     console.log('Error: ' + data);

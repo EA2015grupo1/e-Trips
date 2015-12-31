@@ -3599,9 +3599,9 @@ a.text-light:hover {
 }
 
 .panel-primary, .partition-primary {
-  background-color: #007AFF;
+  background-color: #f9f9f9;
   position: relative;
-  color: #ffffff;
+  color: #333333;
 }
 .panel-primary .panel-heading, .partition-primary .panel-heading {
   background-color: #007AFF;

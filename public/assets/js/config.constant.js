@@ -37,6 +37,12 @@ app.constant('JS_REQUIRES', {
         'positionCtrl': 'assets/js/controllers/positionCtrl.js',
         'studentsCtrl': 'assets/js/controllers/studentsCtrl.js',
         'profile-studentCtrl': 'assets/js/controllers/profile-studentCtrl.js',
+        'requestsCtrl': 'assets/js/controllers/requestsCtrl.js',
+        'friendsCtrl': 'assets/js/controllers/friendsCtrl.js',
+        'inboxCtrl': 'assets/js/controllers/inboxCtrl.js',
+        'girlCtrl': 'assets/js/controllers/girlCtrl.js',
+        'boyCtrl': 'assets/js/controllers/boyCtrl.js',
+
         //*** Filters
         'htmlToPlaintext': 'assets/js/filters/htmlToPlaintext.js'
     },

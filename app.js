@@ -30,13 +30,13 @@ app.all('/*', function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
+
 // Configuración (sistema de plantillas, directorio de vistas,...)
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(logger('dev'));
 
-// Middlewares de Express que nos permiten enrutar y poder
-// realizar peticiones HTTP (GET, POST, PUT, DELETE)
+// Middlewares de Express que nos permiten enrutar y poder realizar peticiones HTTP (GET, POST, PUT, DELETE)
 //Funciones importantes para subir archivos
 app.use(bodyParser());
 app.use(bodyParser({uploadDir:'./images'}));
@@ -44,128 +44,103 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(methodOverride());
 app.use(cookieParser());
+
+
 // Ruta de los archivos estáticos (HTML estáticos, JS, CSS,...)
 app.use(express.static(__dirname + '/public'));
 app.use('/bower_components',  express.static(__dirname + '/bower_components'));
-// Indicamos que use sesiones, para almacenar el objeto usuario
-// y que lo recuerde aunque abandonemos la página
+
+
+// Indicamos que use sesiones, para almacenar el objeto usuario y que lo recuerde aunque abandonemos la página
 app.use(session({ secret: 'zasentodalaboca' })); // session secret
+
+
 // Configuracion de Passport. Lo inicializamos y le indicamos que Passport maneje la Sesion
 app.use(passport.initialize());
 app.use(passport.session());
 
+// API Rutas
+routes = require('./routes/users')(app);
+routes = require('./routes/cities')(app);
+routes = require('./routes/colleges')(app);
+routes = require('./routes/friends')(app);
+routes = require('./routes/requests')(app);
+routes = require('./routes/messages')(app);
 
 
-// Importamos Models and controllers
-var models     = require('./models/user')(app, mongoose);
-var models = require('./models/city')(app, mongoose);
-var models = require('./models/college')(app, mongoose);
-var UserCtrl = require('./controllers/users');
-var CityCtrl = require('./controllers/cities');
-var CollegeCtrl = require('./controllers/colleges');
-// Importamos el modelo usuario y la configuración de passport
+
 require('./passport')(passport);
-console.log (models);
-// Example Route
 var router = express.Router();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-router.get('/', function(req, res) {
-    res.send("Hello world!");
-});
 app.use(router);
 // Ruta para autenticarse con Twitter (enlace de login)
 app.get('/auth/twitter', passport.authenticate('twitter'));
 // Ruta para autenticarse con Facebook (enlace de login)
 app.get('/auth/facebook', passport.authenticate('facebook'));
 // Ruta de callback, a la que redirigirá tras autenticarse con Twitter.
-// En caso de fallo redirige a otra vista '/login'
+// En caso de fallo redirige a otra vista '/'
 app.get('/auth/twitter/callback', passport.authenticate('twitter',
     { successRedirect: '/#app/home', failureRedirect: '/' }
 ));
 // Ruta de callback, a la que redirigirá tras autenticarse con Facebook.
-// En caso de fallo redirige a otra vista '/login'
+// En caso de fallo redirige a otra vista '/'
 app.get('/auth/facebook/callback', passport.authenticate('facebook',
     { successRedirect: '/#app/home', failureRedirect: '/' }
 ));
-// API routes
-var colleges = express.Router();
 
-colleges.route('/colleges')
-    .get(CollegeCtrl.AllColleges)
-colleges.route('/colleges')
-    .post(CollegeCtrl.addCollege)
-colleges.route('/colleges/:city')
-    .get(CollegeCtrl.findByCity)
-colleges.route('/colleges/:id')
-    .delete(CollegeCtrl.deleteCollege)
-
-var cities = express.Router();
-
-cities.route('/cities')
-    .get(CityCtrl.AllCities)
-cities.route('/cities')
-    .post(CityCtrl.addCity)
-cities.route('/cities/:id')
-    .delete(CityCtrl.deleteCity);
-
-var users = express.Router();
-users.route('/allusers')
-    .get(UserCtrl.AllUsers)
-users.route('/users')
-    .get(UserCtrl.findAllUsers)
-    .post(UserCtrl.addUser);
-
-users.route('/users/:id')
-    .get(UserCtrl.findById)
-    .put(UserCtrl.updateUser)
-    .delete(UserCtrl.deleteUser);
-users.route('/users/login')
-    .post(UserCtrl.loginUser);
-users.route('/users/upload/:username')
-    .put(UserCtrl.upload);
-users.route('/users/provider/facebook')
-    .get(UserCtrl.findFacebook);
-users.route('/users/provider/twitter')
-    .get(UserCtrl.findTwitter);
-users.route('/users/college/:college')
-    .get(UserCtrl.findCollegeUsers);
-app.use('/api', users);
-app.use('/api', cities);
-app.use('/api', colleges);
 app.get('*', function(req, res) {
     res.sendfile('./public/index.html');
 });
-var nicknames = {};
+
+
+
+//WebSockets
+var nicknames = [];
 io.on('connection', function(socket) {
     console.log('Alguien se ha conectado con Sockets');
     socket.on('sendMessage', function(data) {
         console.log (data);
-        io.sockets.emit('newMessage', {msg: data, nick: socket.nickname});
+        io.sockets.emit('newMessage', {msg: data.message, user: data.user, imageUrl: data.imageUrl, date: data.date});
     });
-    socket.on('newUser', function(data, callback){
-       if (data in nicknames){
-           callback(false);
+    socket.on('newUser', function(data){
 
-       }else{
-           callback(true);
-           socket.nickname = data;
-           nicknames[socket.nickname]=1;
-           updateNickNames();
-       }
+        var user_exists = false;
+        for (var i=0; i<nicknames.length; i++) {
+            if (nicknames[i].user == data.user) {
+                user_exists = true;
+                break;
+            }
+         }
+        if (!user_exists){
+            socket.user = data.user;
+            nicknames.push (data);
+
+        }
+        console.log (nicknames);
+        io.sockets.emit('usernames', nicknames);
+
 
     });
-    socket.on('disconnect', function(data){
+    socket.on('disconnect', function(){
         console.log('Alguien se ha desconectado con Sockets');
-        if(!socket.nickname) return;
-        delete nicknames[socket.nickname];
-        updateNickNames();
+        logout({'user': socket.user});
+        console.log(socket.user+ ' has disconnected');
     });
-    function updateNickNames(){
+    function logout (data) {
+        for (var i=0; i<nicknames.length; i++) {
+            if (nicknames[i].user == data.user) {
+                s = nicknames.splice(i, 1);
+                break;
+            }
+        }
+        console.log (nicknames);
         io.sockets.emit('usernames', nicknames);
     }
 });
+
+
 // Start server
 server.listen(3000, function() {
     console.log("Node server running on http://localhost:3000");

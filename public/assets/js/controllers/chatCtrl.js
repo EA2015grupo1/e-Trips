@@ -2,277 +2,129 @@
 /**
  * controller for Messages
  */
-app.controller('ChatCtrl', function ($scope) {
+var socket = io.connect('http://localhost:3000', { 'forceNew': true });
+app.controller('chatCtrl', function ($scope, $stateParams, $http, $modal) {
+    var id= $stateParams.id;
+    var u= $stateParams.user;
+    var user={};
+    $scope.message={};
+    $scope.open = function (size) {
+        $scope.message.receiver = size;
+        $scope.message.ids = id;
+        var modalInstance = $modal.open({
+            templateUrl: 'myModalContent.html',
+            controller: 'ModalInstanceCtrl',
+            size: size,
+            resolve: {
+                message: function () {
+                    return $scope.message;
+                }
+            }
+        });
 
-    $scope.selfIdUser = 50223456;
-    $scope.otherIdUser = 50223457;
-    $scope.setOtherId = function (value) {
-
-        $scope.otherIdUser = value;
+        modalInstance.result.then(function (selectedItem) {
+            $scope.selected = selectedItem;
+        }, function () {
+            //  $log.info('Modal dismissed at: ' + new Date());
+        });
     };
-    var exampleDate = new Date().setTime(new Date().getTime() - 240000 * 60);
+    $http.get('/user/' + id)
+        .success(function (data) {
 
-    $scope.chat = [{
-        "user": "Peter Clark",
-        "avatar": "assets/images/avatar-1.jpg",
-        "to": "Nicole Bell",
-        "date": exampleDate,
-        "content": "Hi, Nicole",
-        "idUser": 50223456,
-        "idOther": 50223457
-    }, {
-        "user": "Peter Clark",
-        "avatar": "assets/images/avatar-1.jpg",
-        "to": "Nicole Bell",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 1000 * 60),
-        "content": "How are you?",
-        "idUser": 50223456,
-        "idOther": 50223457
-    }, {
-        "user": "Nicole Bell",
-        "avatar": "assets/images/avatar-2.jpg",
-        "to": "Peter Clark",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 1000 * 60),
-        "content": "Hi, i am good",
-        "idUser": 50223457,
-        "idOther": 50223456
-    }, {
-        "user": "Peter Clark",
-        "avatar": "assets/images/avatar-1.jpg",
-        "to": "Nicole Bell",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 1000 * 60),
-        "content": "Glad to see you ;)",
-        "idUser": 50223456,
-        "idOther": 50223457
-    }, {
-        "user": "Nicole Bell",
-        "avatar": "assets/images/avatar-2.jpg",
-        "to": "Peter Clark",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 65000 * 60),
-        "content": "What do you think about my new Dashboard?",
-        "idUser": 50223457,
-        "idOther": 50223456
-    }, {
-        "user": "Nicole Bell",
-        "avatar": "assets/images/avatar-2.jpg",
-        "to": "Peter Clark",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 128000 * 60),
-        "content": "Alo...",
-        "idUser": 50223457,
-        "idOther": 50223456
-    }, {
-        "user": "Nicole Bell",
-        "avatar": "assets/images/avatar-2.jpg",
-        "to": "Peter Clark",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 128000 * 60),
-        "content": "Are you there?",
-        "idUser": 50223457,
-        "idOther": 50223456
-    }, {
-        "user": "Peter Clark",
-        "avatar": "assets/images/avatar-1.jpg",
-        "to": "Nicole Bell",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 1000 * 60),
-        "content": "Hi, i am here",
-        "idUser": 50223456,
-        "idOther": 50223457
-    }, {
-        "user": "Peter Clark",
-        "avatar": "assets/images/avatar-1.jpg",
-        "to": "Nicole Bell",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 1000 * 60),
-        "content": "Your Dashboard is great",
-        "idUser": 50223456,
-        "idOther": 50223457
-    }, {
-        "user": "Nicole Bell",
-        "avatar": "assets/images/avatar-2.jpg",
-        "to": "Peter Clark",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 230000 * 60),
-        "content": "How does the binding and digesting work in AngularJS?, Peter? ",
-        "idUser": 50223457,
-        "idOther": 50223456
-    }, {
-        "user": "Peter Clark",
-        "avatar": "assets/images/avatar-1.jpg",
-        "to": "Nicole Bell",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 238000 * 60),
-        "content": "oh that's your question?",
-        "idUser": 50223456,
-        "idOther": 50223457
-    }, {
-        "user": "Peter Clark",
-        "avatar": "assets/images/avatar-1.jpg",
-        "to": "Nicole Bell",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 238000 * 60),
-        "content": "little reduntant, no?",
-        "idUser": 50223456,
-        "idOther": 50223457
-    }, {
-        "user": "Peter Clark",
-        "avatar": "assets/images/avatar-1.jpg",
-        "to": "Nicole Bell",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 238000 * 60),
-        "content": "literally we get the question daily",
-        "idUser": 50223456,
-        "idOther": 50223457
-    }, {
-        "user": "Nicole Bell",
-        "avatar": "assets/images/avatar-2.jpg",
-        "to": "Peter Clark",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 238000 * 60),
-        "content": "I know. I, however, am not a nerd, and want to know",
-        "idUser": 50223457,
-        "idOther": 50223456
-    }, {
-        "user": "Peter Clark",
-        "avatar": "assets/images/avatar-1.jpg",
-        "to": "Nicole Bell",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 238000 * 60),
-        "content": "for this type of question, wouldn't it be better to try Google?",
-        "idUser": 50223456,
-        "idOther": 50223457
-    }, {
-        "user": "Nicole Bell",
-        "avatar": "assets/images/avatar-2.jpg",
-        "to": "Peter Clark",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 238000 * 60),
-        "content": "Lucky for us :)",
-        "idUser": 50223457,
-        "idOther": 50223456
-    }, {
-        "user": "Steven Thompson",
-        "avatar": "assets/images/avatar-3.jpg",
-        "to": "Peter Clark",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 1000 * 60),
-        "content": "Hi, Peter. I'd like to start using AngularJS.",
-        "idUser": 50223458,
-        "idOther": 50223456
-    }, {
-        "user": "Steven Thompson",
-        "avatar": "assets/images/avatar-3.jpg",
-        "to": "Peter Clark",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 1000 * 60),
-        "content": "There are many differences from jquery?",
-        "idUser": 50223458,
-        "idOther": 50223456
-    }, {
-        "user": "Peter Clark",
-        "avatar": "assets/images/avatar-1.jpg",
-        "to": "Steven Thompson",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 5000 * 60),
-        "content": "Enough!",
-        "idUser": 50223456,
-        "idOther": 50223458
-    }, {
-        "user": "Peter Clark",
-        "avatar": "assets/images/avatar-1.jpg",
-        "to": "Steven Thompson",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 5000 * 60),
-        "content": "In jQuery, you design a page, and then you make it dynamic...",
-        "idUser": 50223456,
-        "idOther": 50223458
-    }, {
-        "user": "Peter Clark",
-        "avatar": "assets/images/avatar-1.jpg",
-        "to": "Steven Thompson",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 5000 * 60),
-        "content": "but in AngularJS, you must start from the ground up with your architecture in mind",
-        "idUser": 50223456,
-        "idOther": 50223458
-    }, {
-        "user": "Steven Thompson",
-        "avatar": "assets/images/avatar-3.jpg",
-        "to": "Peter Clark",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 7000 * 60),
-        "content": "ok!",
-        "idUser": 50223458,
-        "idOther": 50223456
-    }, {
-        "user": "Steven Thompson",
-        "avatar": "assets/images/avatar-3.jpg",
-        "to": "Peter Clark",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 7000 * 60),
-        "content": "could you give me some lessons?",
-        "idUser": 50223458,
-        "idOther": 50223456
-    }, {
-        "user": "Peter Clark",
-        "avatar": "assets/images/avatar-1.jpg",
-        "to": "Steven Thompson",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 7000 * 60),
-        "content": "sure!",
-        "idUser": 50223456,
-        "idOther": 50223458
-    }, {
-        "user": "Steven Thompson",
-        "avatar": "assets/images/avatar-3.jpg",
-        "to": "Peter Clark",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 7000 * 60),
-        "content": "Thanks a lot!",
-        "idUser": 50223458,
-        "idOther": 50223456
-    }, {
-        "user": "Ella Patterson",
-        "avatar": "assets/images/avatar-4.jpg",
-        "to": "Peter Clark",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 16700 * 60),
-        "content": "Peter what can you tell me about the new marketing project?",
-        "idUser": 50223459,
-        "idOther": 50223456
-    }, {
-        "user": "Peter Clark",
-        "avatar": "assets/images/avatar-1.jpg",
-        "to": "Steven Thompson",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 18000 * 60),
-        "content": "Well, there is a lot to say. Are you free tomorrow?",
-        "idUser": 50223456,
-        "idOther": 50223459
-    }, {
-        "user": "Ella Patterson",
-        "avatar": "assets/images/avatar-4.jpg",
-        "to": "Peter Clark",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 19700 * 60),
-        "content": "Yes",
-        "idUser": 50223459,
-        "idOther": 50223456
-    }, {
-        "user": "Peter Clark",
-        "avatar": "assets/images/avatar-1.jpg",
-        "to": "Steven Thompson",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate).getTime() + 19700 * 60),
-        "content": "OK, we will have a meeting tomorrow afternoon",
-        "idUser": 50223456,
-        "idOther": 50223459
-    }, {
-        "user": "Kenneth Ross",
-        "avatar": "assets/images/avatar-5.jpg",
-        "to": "Peter Clark",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate)),
-        "content": "Mr. Clark, congratulations for your new project",
-        "idUser": 50223460,
-        "idOther": 50223456
-    }, {
-        "user": "Peter Clark",
-        "avatar": "assets/images/avatar-1.jpg",
-        "to": "Kenneth Ross",
-        "date": new Date(exampleDate).setTime(new Date(exampleDate)),
-        "content": "Thank You very much Mr. Ross",
-        "idUser": 50223456,
-        "idOther": 50223460
-    }];
+            user.imageUrl = data.imageUrl;
+            user.user = u;
+            user.city = data.city;
+            socket.emit('newUser', user, function (data) {
 
-    $scope.sendMessage = function () {
-        var newMessage = {
-            "user": "Peter Clark",
-            "avatar": "assets/images/avatar-1.jpg",
-            "date": new Date(),
-            "content": $scope.chatMessage,
-            "idUser": $scope.selfIdUser,
-            "idOther": $scope.otherIdUser
-        };
-        $scope.chat.push(newMessage);
-        $scope.chatMessage = '';
+            });
+            socket.on('usernames', function(data){
+                $scope.online = data;
 
+
+            });
+
+        })
+        .error(function (data) {
+            console.log('Error: ' + data);
+        });
+
+
+    //Obtenemos todos los datos de la base de datos
+     $http.get('/chat').success(function (data) {
+         $scope.users = data;
+
+     })
+     .error(function (data) {
+     console.log('Error: ' + data);
+     });
+
+
+    $scope.users =[];
+
+    $scope.submit = function() {
+        user.message = $scope.text;
+        user.date = new Date();
+        if ($scope.text) {
+            socket.emit('sendMessage', user);
+            $scope.text = '';
+            $http.post('/addchat', user)
+                .success(function (data) {
+
+                })
+                .error(function (data) {
+
+                })
+        }
+
+
+    };
+
+        socket.on('newMessage', function(data){
+            $scope.users.push(data);
+            console.log ($scope.users);
+        });
+
+    $scope.showUserModal = function(idx){
+        var user = $scope.users[idx].user;
+        var imageUrl = $scope.users[idx].imageUrl;
+        $scope.imageUrl = imageUrl;
+        $scope.username = user;
+        $('#myModalLabel').text(user);
+        $('#myModal').modal('show');
+    };
+    $scope.doPost = function() {
+
+        $http.get('http://api.randomuser.me/0.4/').success(function(data) {
+
+            console.log (data.results[0]);
+            var newUser = data.results[0];
+            newUser.user.text = $('#inputText').val();
+            newUser.date = new Date();
+            $scope.users.push(newUser);
+
+        }).error(function(data, status) {
+
+            alert('get data error!');
+
+        });
+
+    }
+});
+app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, $http, message) {
+    $scope.user.receive = message.receiver;
+    $scope.send = function (subject, text) {
+        message.subject = subject,
+            message.text = text;
+        $http.post('/addmessage', message)
+            .success(function (data) {
+                $modalInstance.dismiss('cancel');
+            })
+            .error(function (data) {
+
+            })
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
     };
 });

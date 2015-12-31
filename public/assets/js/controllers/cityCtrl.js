@@ -65,10 +65,12 @@ app.factory('MarkerCreatorService', function () {
     };
 
 });
-app.controller('cityCtrl',['MarkerCreatorService', '$scope', '$location', '$cookies', '$cookieStore','$http','toaster', function(MarkerCreatorService, $scope, $location, $cookies, $cookieStore,$http,  toaster) {
+app.controller('cityCtrl',['MarkerCreatorService', '$scope', '$state','$http','toaster','$stateParams', function(MarkerCreatorService, $scope, $state ,$http,  toaster,$stateParams) {
     $scope.newUser = {};
     $scope.user = {};
     $scope.selected = false;
+    var id= $stateParams.id;
+    var user=$stateParams.user;
     $scope.cityselectedItem = "Ciudades";
     $scope.collegeselectedItem = "Universidades";
     $scope.collegeItem = "de una ciudad";
@@ -88,7 +90,7 @@ app.controller('cityCtrl',['MarkerCreatorService', '$scope', '$location', '$cook
     var city;
     var college
 
-    $http.get('/api/cities').success(function (data) {
+    $http.get('/cities').success(function (data) {
             $scope.cities = data;
 
         })
@@ -100,7 +102,7 @@ app.controller('cityCtrl',['MarkerCreatorService', '$scope', '$location', '$cook
         city = item;
         $scope.cityselectedItem = item;
         $scope.collegeItem = item;
-        $http.get('/api/colleges/' + item)
+        $http.get('/colleges/' + item)
             .success(function(data) {
                 $scope.colleges = data;
             })
@@ -120,10 +122,10 @@ app.controller('cityCtrl',['MarkerCreatorService', '$scope', '$location', '$cook
     $scope.collegeitemselected = function (item) {
         college = item;
         $scope.collegeselectedItem = item;
-        $http.get('/api/colleges/' + city)
+        $http.get('/colleges/' + city)
             .success(function(data) {
                 $scope.colleges = data;
-                console.log (data);
+
             })
             .error(function(data) {
                 console.log('Error: ' + data);
@@ -144,8 +146,7 @@ app.controller('cityCtrl',['MarkerCreatorService', '$scope', '$location', '$cook
         }
         else {
             var colleges = {};
-            console.log (city);
-            $http.get('/api/colleges/' + city)
+            $http.get('/colleges/' + city)
                 .success(function (data) {
                     colleges = data;
                     var address = {};
@@ -173,9 +174,14 @@ app.controller('cityCtrl',['MarkerCreatorService', '$scope', '$location', '$cook
             toaster.pop($scope.toastercollege.type, $scope.toastercollege.title, $scope.toastercollege.text);
         }
         else {
-            location.href = '#/app/students/' + college;
-            location.reload('#/app/students/');
-            // $location.url ('app/students/'+college);
+            $state.go("app.students", {
+                user: user,
+                id: id,
+                college: college
+            });
+            //location.href = '#/app/students/' + college;
+            //location.reload('#/app/students/');
+
         }
     };
     MarkerCreatorService.createByCoords(40.454018, -3.509205, function (marker) {

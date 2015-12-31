@@ -3,7 +3,7 @@
  */
 'use strict'
 app.factory("Users", function ($resource) {
-    return $resource('/api/users'); //la url donde queremos consumir
+    return $resource('/users'); //la url donde queremos consumir
 });
 app.controller('usersCtrl',['$scope', '$location', '$cookies', '$cookieStore', '$http', 'ngTableParams','Users',  function($scope, $location,$cookies, $cookieStore, $http, ngTableParams, Users) {
     $scope.user = {};
@@ -29,7 +29,6 @@ app.controller('usersCtrl',['$scope', '$location', '$cookies', '$cookieStore', '
         counts: [5, 10, 15],
         getData: function($defer, params) {
             Users.get(params.url(), function(response) {
-                console.log (response);
                 params.total(response.total);
                 $scope.tregistros= response.total;
                 $defer.resolve(response.results);
@@ -63,12 +62,11 @@ app.controller('usersCtrl',['$scope', '$location', '$cookies', '$cookieStore', '
     };
     // Funcion que obtiene un objeto usuario conocido su id
     $scope.getUser = function(id) {
-        console.log (id);
+
         $cookieStore.put('id', id);
         $location.path ('/app/update');
     };
     $scope.getProfile = function(id) {
-        console.log (id);
         $cookieStore.put('id', id);
         $location.path ('/app/profile');
 

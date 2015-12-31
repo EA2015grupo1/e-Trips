@@ -2,16 +2,17 @@
  * Created by Javi on 05/12/2015.
  */
 'use strict'
-app.controller('updateCtrl',['$scope', '$state', '$cookies', '$cookieStore', '$http', function($scope, $state,$cookies, $cookieStore, $http) {
+;
+app.controller('updateCtrl',['$scope', '$state', '$http','$stateParams', function($scope, $state, $http,$stateParams) {
     $scope.newUser = {};
     $scope.user = {};
     $scope.selected = false;
-    var id = $cookieStore.get('id');
+    var id= $stateParams.id;
     $scope.cityselectedItem = "Ciudades";
     $scope.collegeselectedItem = "Universidades";
     var city;
-    var college
-    $http.get('/api/cities').success(function (data) {
+    var college;
+    $http.get('/cities').success(function (data) {
             $scope.cities = data;
 
         })
@@ -23,7 +24,7 @@ app.controller('updateCtrl',['$scope', '$state', '$cookies', '$cookieStore', '$h
         city = item;
 
         $scope.cityselectedItem = item;
-        $http.get('/api/colleges/' + item)
+        $http.get('/colleges/' + item)
             .success(function(data) {
                 $scope.colleges = data;
             })
@@ -34,7 +35,7 @@ app.controller('updateCtrl',['$scope', '$state', '$cookies', '$cookieStore', '$h
     $scope.collegeitemselected = function (item) {
         college = item;
         $scope.collegeselectedItem = item;
-        $http.get('/api/colleges/' + city)
+        $http.get('/colleges/' + city)
             .success(function(data) {
                 $scope.colleges = data;
             })
@@ -45,7 +46,7 @@ app.controller('updateCtrl',['$scope', '$state', '$cookies', '$cookieStore', '$h
 
 
     // Funcion que obtiene un objeto usuario conocido su id
-    $http.get('/api/users/' + id)
+    $http.get('/user/' + id)
         .success(function(data) {
             $scope.user._id = data._id;
             $scope.user.username = data.username;
@@ -61,7 +62,7 @@ app.controller('updateCtrl',['$scope', '$state', '$cookies', '$cookieStore', '$h
 
             $scope.user.rol = data.rol;
             $scope.user.imageUrl = data.imageUrl;
-            console.log (data);
+
         })
         .error(function(data) {
             console.log('Error: ' + data);
@@ -70,7 +71,6 @@ app.controller('updateCtrl',['$scope', '$state', '$cookies', '$cookieStore', '$h
     $scope.updateUser = function(newUser, po, pr) {
         newUser.rol= $scope.user.rol;
         newUser.imageUrl= $scope.user.imageUrl;
-        console.log (newUser);
         if ((!newUser.name) && (!newUser.username) && (!newUser.email) && (!newUser.p1)&&(!newUser.p2)&&(!newUser.gender)){
             $scope.user.n = "Nombre Completo es requerido";
             $scope.user.e = "Correo Electronico es requerido";
@@ -199,10 +199,9 @@ app.controller('updateCtrl',['$scope', '$state', '$cookies', '$cookieStore', '$h
             var username = newUser.username;
             var file = $scope.file;
             formData.append("file", file);
-            $http.put('/api/users/' + $scope.user._id, newUser)
+            $http.put('/user/' + $scope.user._id, newUser)
                 .success(function (data) {
                     $scope.users = data;
-                    console.log(data);
                    location.href = '#/app/home';
                    location.reload('#/app/home');
 
@@ -210,7 +209,7 @@ app.controller('updateCtrl',['$scope', '$state', '$cookies', '$cookieStore', '$h
                 .error(function (data) {
                     console.log('Error: ' + data);
                 });
-            $http.put('/api/users/upload/' + username, formData, {
+            $http.put('/upload/' + username, formData, {
                     headers: {
                         "Content-type": undefined
                     },

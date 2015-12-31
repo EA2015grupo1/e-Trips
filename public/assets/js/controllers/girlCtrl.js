@@ -1,13 +1,11 @@
-'use strict'
-var college;
-app.factory("Users", function ($resource, $stateParams) {
-    college = $stateParams.college;
-    return $resource('/college/'+ $stateParams.college); //la url donde queremos consumir
+
+app.factory("Users", function ($resource) {
+    var girl = "Mujer";
+    return $resource('/gender/'+ girl); //la url donde queremos consumir
 });
-app.controller('studentsCtrl',['$scope', '$state', '$http', 'ngTableParams','Users','$stateParams','$modal', function($scope, $state,$http, ngTableParams, Users,$stateParams, $modal) {
+app.controller('girlCtrl',['$scope', '$state', '$http', 'ngTableParams','Users','$stateParams','$modal', function($scope, $state,$http, ngTableParams, Users,$stateParams, $modal) {
     var user = {};
     $scope.message={};
-    $scope.college = college;
     var id= $stateParams.id;
     var u= $stateParams.user;
 
@@ -28,7 +26,7 @@ app.controller('studentsCtrl',['$scope', '$state', '$http', 'ngTableParams','Use
         modalInstance.result.then(function (selectedItem) {
             $scope.selected = selectedItem;
         }, function () {
-          //  $log.info('Modal dismissed at: ' + new Date());
+            //  $log.info('Modal dismissed at: ' + new Date());
         });
     };
     $scope.addRequest = function(username) {
@@ -36,8 +34,6 @@ app.controller('studentsCtrl',['$scope', '$state', '$http', 'ngTableParams','Use
         user.username= username;
         $http.post('/addrequest', user)
             .success(function (data) {
-                $('#request').show();
-                $('#addfriend').hide();
             })
             .error(function (data) {
 
@@ -76,8 +72,8 @@ app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, $http, mes
     $scope.user.receive = message.receiver;
     $scope.send = function (subject, text) {
         message.subject = subject,
-        message.text = text;
-         $http.post('/addmessage', message)
+            message.text = text;
+        $http.post('/addmessage', message)
             .success(function (data) {
                 $modalInstance.dismiss('cancel');
             })

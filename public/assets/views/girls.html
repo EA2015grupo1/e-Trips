@@ -1,15 +1,8 @@
-<!-- start: DASHBOARD TITLE -->
-<style>
-    #content{
-        display: none;
-    }
-
-</style>
 <section id="page-title" class="padding-top-15 padding-bottom-15">
     <div class="row">
         <div class="col-sm-12">
             <p style="font-family: Impact, serif; font-size:20pt; font-style:bold">
-                {{tregistros}} Estudiantes en la Universidad {{college}}
+                {{tregistros}} Chicas encontradas en e-Trips
             </p>
             <!-- 	<span class="mainDescription">overview &amp; stats </span>-->
         </div>
@@ -60,7 +53,6 @@
                         <a href="#" rel="nofollow" target="_blank" ng-click="getProfile(user._id)">
                             {{user.username}}
                         </a></td>
-                    <td class="hidden-xs">{{user.email}}</td>
                     <td class="center">
                         <div class="visible-md visible-lg hidden-sm hidden-xs">
                             <label id="request"  ng-click="addRequest(user.username)" style="display: none;">Solicitud Enviada</label>
@@ -81,13 +73,10 @@
     </div>
     <div class="modal-body">
         <textarea rows="1" cols="75" placeholder="Asunto" ng-model="user.subject"></textarea>
-      <textarea rows="7" cols="75" placeholder="Escribe tu mensaje" ng-model="user.text"></textarea>
+        <textarea rows="7" cols="75" placeholder="Escribe tu mensaje" ng-model="user.text"></textarea>
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" ng-click="send(user.subject, user.text)">Enviar</button>
         <button class="btn btn-primary btn-o" ng-click="cancel()">Cancel</button>
     </div>
 </script>
-
-
-

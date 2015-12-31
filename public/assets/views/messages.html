@@ -1,0 +1,43 @@
+<!-- start: MESSAGES -->
+<div ct-fullheight data-ct-fullheight-exclusion="header, footer">
+	<!-- /// controller:  'InboxCtrl' -  localtion: assets/js/controllers/inboxCtrl.js /// -->
+	<div class="inbox" id="inbox" ng-controller="InboxCtrl" toggleable active-class="message-open">
+
+		<!-- start: EMAIL LIST -->
+
+				<ul class="messages-list" perfect-scrollbar wheel-propagation="true" suppress-scroll-x="true">
+					<li ng-if="!messages.length">
+						<div class="col-sm-12">
+							No hay mensajes! Intenta enviar un mensaje.
+						</div>
+					</li>
+					<li class="messages-item"  ng-repeat="message in messages" ng-click="open(message.sender.username)">
+						<a message-item="{{message.id}}" ui-sref="app.pages.messages.inbox({ inboxID:message.id })" href>
+							<img alt="{{ message.sender.name }}" ng-src="{{ message.sender.imageUrl && message.sender.imageUrl || noAvatarImg }}" class="messages-item-avatar bordered border-primary">
+							<span class="messages-item-from">{{ message.sender.name }}</span>
+							<div class="messages-item-time">
+								<span class="text">{{ message.sender.createdAt | date: "MM/dd/yyyy 'at' h:mma" }}</span>
+							</div>
+							<span class="messages-item-subject">  {{ message.subject }}</span>
+							<span class="messages-item-content">{{ message.text | htmlToPlaintext | words:15 :true }}</span>
+						</a>
+					</li>
+				</ul>
+
+	</div>
+</div>
+<!-- end: MESSAGES -->
+
+<script type="text/ng-template" id="myModalContent.html">
+	<div class="modal-header">
+		<h3 class="modal-title">Enviar Mensaje a {{user.receive}} </h3>
+	</div>
+	<div class="modal-body">
+		<textarea rows="1" cols="75" placeholder="Asunto" ng-model="user.subject"></textarea>
+		<textarea rows="7" cols="75" placeholder="Escribe tu mensaje" ng-model="user.text"></textarea>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="send(user.subject, user.text)">Enviar</button>
+		<button class="btn btn-primary btn-o" ng-click="cancel()">Cancel</button>
+	</div>
+</script>

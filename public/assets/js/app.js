@@ -34,17 +34,17 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         $stateProvider.state('admin', {
             url: "/admin",
             templateUrl: "assets/views/admin.html",
-            resolve: loadSequence('modernizr', 'moment', 'angularMoment', 'uiSwitch', 'perfect-scrollbar-plugin', 'perfect_scrollbar', 'toaster', 'ngAside', 'vAccordion', 'sweet-alert', 'chartjs', 'tc.chartjs', 'oitozero.ngSweetAlert', 'chatCtrl'),
+            resolve: loadSequence('modernizr', 'moment', 'angularMoment', 'uiSwitch', 'perfect-scrollbar-plugin', 'perfect_scrollbar', 'toaster', 'ngAside', 'vAccordion', 'sweet-alert', 'chartjs', 'tc.chartjs', 'oitozero.ngSweetAlert', 'chatCtrl','profileCtrl'),
             abstract: true,
 
         }).state('app', {
             url: "/app",
             templateUrl: "assets/views/app.html",
-            resolve: loadSequence('modernizr', 'moment', 'angularMoment', 'uiSwitch', 'perfect-scrollbar-plugin', 'perfect_scrollbar', 'toaster', 'ngAside', 'vAccordion', 'sweet-alert', 'chartjs', 'tc.chartjs', 'oitozero.ngSweetAlert', 'chatCtrl', 'positionCtrl'),
+            resolve: loadSequence('modernizr', 'moment', 'angularMoment', 'uiSwitch', 'perfect-scrollbar-plugin', 'perfect_scrollbar', 'toaster', 'ngAside', 'vAccordion', 'sweet-alert', 'chartjs', 'tc.chartjs', 'oitozero.ngSweetAlert', 'chatCtrl', 'positionCtrl','profileCtrl'),
             abstract: true,
             controller: 'positionCtrl',
         }).state('admin.home', {
-            url: "/home",
+            url: "/home/:user/:id",
             templateUrl: "assets/views/ausers.html",
             title: "Usuarios",
             resolve: loadSequence('usersCtrl'),
@@ -53,7 +53,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Usuarios'
             }
         }).state('admin.update', {
-            url: "/update",
+            url: "/update/:user/:id",
             templateUrl: "assets/views/update.html",
             title: "Update",
             resolve: loadSequence('updateCtrl'),
@@ -62,7 +62,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Update'
             }
         }).state('admin.profile', {
-            url: "/profile",
+            url: "/profile/:user/:id",
             templateUrl: "assets/views/profile.html",
             title: "Profile",
             resolve: loadSequence('updateCtrl'),
@@ -71,7 +71,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Profile'
             }
         }).state('app.home', {
-            url: "/home",
+            url: "/home/:user/:id",
             templateUrl: "assets/views/home.html",
             resolve: loadSequence('positionCtrl'),
             title: 'Mi posicion',
@@ -80,7 +80,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             }
 
         }).state('app.ciudades', {
-            url: "/ciudades",
+            url: "/ciudades/:user/:id",
             templateUrl: "assets/views/ciudades.html",
             title: "Ciudades",
             resolve: loadSequence('cityCtrl'),
@@ -89,7 +89,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Ciudades'
             }
         }).state('app.update', {
-            url: "/update",
+            url: "/update/:user/:id",
             templateUrl: "assets/views/update.html",
             resolve: loadSequence('updateCtrl'),
             title: "Update",
@@ -98,7 +98,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Update'
             }
         }).state('app.profile', {
-            url: "/profile",
+            url: "/profile/:user/:id",
             templateUrl: "assets/views/profile.html",
             title: "Profile",
             resolve: loadSequence('profileCtrl'),
@@ -106,17 +106,18 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'Profile'
             }
+
         }).state('app.profile-student', {
-            url: "/profile-student",
-            templateUrl: "assets/views/profile-student.html",
-            title: "Profile-Student",
-            resolve: loadSequence('profile-studentCtrl'),
-            controller: 'profile-studentCtrl',
-            ncyBreadcrumb: {
-                label: 'Profile-Student'
-            }
+                url: "/profile-student/:user/:id",
+                templateUrl: "assets/views/profile-student.html",
+                title: "Profile-Student",
+                resolve: loadSequence('profileCtrl'),
+                controller: 'profileCtrl',
+                ncyBreadcrumb: {
+                    label: 'Profile-Student'
+                }
         }).state('app.students', {
-            url: "/students/:college",
+            url: "/students/:user/:id/:college",
             templateUrl: "assets/views/students.html",
             resolve: loadSequence('studentsCtrl'),
             title: "Students",
@@ -124,6 +125,55 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                     label: 'Students'
             }
+        }).state('app.requests', {
+            url: "/requests/:user/:id",
+            templateUrl: "assets/views/requests.html",
+            resolve: loadSequence('requestsCtrl'),
+            title: "Solicitudes",
+            controller: 'requestsCtrl',
+            ncyBreadcrumb: {
+                label: 'Solicitudes'
+            }
+        }).state('app.friends', {
+                url: "/friends/:user/:id",
+                templateUrl: "assets/views/friends.html",
+                resolve: loadSequence('friendsCtrl'),
+                title: "Friends",
+                controller: 'friendsCtrl',
+                ncyBreadcrumb: {
+                    label: 'Friends'
+                }
+        }).state('app.messages', {
+                url: '/messages/:user/:id',
+                templateUrl: "assets/views/messages.html",
+                resolve: loadSequence('truncate', 'htmlToPlaintext', 'inboxCtrl')
+        }).state('app.boys', {
+                url: '/boys/:user/:id',
+                templateUrl: "assets/views/boys.html",
+                resolve: loadSequence('boyCtrl'),
+                title: "Boys",
+                controller: 'boyCtrl',
+                ncyBreadcrumb: {
+                    label: 'Boys'
+                }
+        }).state('app.girls', {
+                url: '/girls/:user/:id',
+                templateUrl: "assets/views/girls.html",
+                resolve: loadSequence('girlCtrl'),
+                title: "Girls",
+                controller: 'girlCtrl',
+                ncyBreadcrumb: {
+                    label: 'Girls'
+                }
+        }).state('app.chat', {
+                url: '/chat/:user/:id',
+                templateUrl: "assets/views/chat.html",
+                resolve: loadSequence('chatCtrl'),
+                title: "Chat",
+                controller: 'chatCtrl',
+                ncyBreadcrumb: {
+                    label: 'Chat'
+                }
         }).state('app.documentation', {
                 url: "/documentation",
                 templateUrl: "assets/views/documentation.html",
@@ -140,7 +190,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         }).state('error.500', {
                 url: '/500',
                 templateUrl: "assets/views/utility_500.html",
-            })
+        })
 
             // Login routes
 
@@ -177,93 +227,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Chat'
             }
         });
-
-
-        app.controller('profileCtrl', ['$scope', '$sce', '$location', '$cookies', '$cookieStore', '$http', function ($scope, $sce, $location, $cookies, $cookieStore, $http) {
-            $scope.newUser = {};
-            $scope.user = {};
-            $scope.selected = false;
-            var id = $cookieStore.get('idlogin');
-
-            $scope.getProfile = function (id) {
-                console.log (id);
-                $cookieStore.put('id', id);
-                $location.path ('/app/profile');
-
-            };
-
-            if (id == undefined) {
-
-                $http.get('/api/users/provider/twitter')
-                    .success(function (data) {
-                        if (data != null) {
-                            $scope.user._id = data._id;
-                            $scope.user.username = data.username;
-                            $scope.user.name = data.name;
-                            $scope.user.email = data.email;
-                            $scope.user.phone = data.phone;
-                            $scope.user.gender = data.gender;
-                            $scope.user.college = data.college;
-                            $scope.user.city = data.city;
-                            $scope.user.rol = data.rol;
-                            $scope.user.imageUrl = data.imageUrl;
-                            console.log(data);
-                        }
-                    })
-                    .error(function (data) {
-                        console.log('Error: ' + data);
-                    });
-                $http.get('/api/users/provider/facebook')
-                    .success(function (data) {
-                        if (data != null) {
-                            $scope.user._id = data._id;
-                            $scope.user.username = data.username;
-                            $scope.user.name = data.name;
-                            $scope.user.email = data.email;
-                            $scope.user.phone = data.phone;
-                            $scope.user.gender = data.gender;
-                            $scope.user.college = data.college;
-                            $scope.user.city = data.city;
-                            $scope.user.rol = data.rol;
-                            $scope.user.imageUrl = data.imageUrl;
-                            console.log(data);
-                        }
-                    })
-                    .error(function (data) {
-                        console.log('Error: ' + data);
-                    });
-            }
-            else {
-                // Funcion que obtiene un objeto usuario conocido su id
-                $http.get('/api/users/' + id)
-                    .success(function (data) {
-
-                        $scope.user._id = data._id;
-                        $scope.user.username = data.username;
-                        $scope.user.name = data.name;
-                        $scope.user.email = data.email;
-                        $scope.user.phone = data.phone;
-                        $scope.user.gender = data.gender;
-                        $scope.user.college = data.college;
-                        $scope.user.city = data.city;
-                        $scope.user.rol = data.rol;
-                        $scope.user.imageUrl = data.imageUrl;
-                        console.log(data);
-
-
-                    })
-                    .error(function (data) {
-                        console.log('Error: ' + data);
-                    });
-            }
-
-            $scope.salirUser = function () {
-                $cookieStore.remove('idlogin');
-                $cookieStore.remove('conectado');
-                $cookieStore.remove('college');
-                $location.path ('/login/signin');
-            };
-        }]);
 
 
         app.directive('uploaderModel', ["$parse", function ($parse) {
