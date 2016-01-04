@@ -66,7 +66,7 @@ routes = require('./routes/colleges')(app);
 routes = require('./routes/friends')(app);
 routes = require('./routes/requests')(app);
 routes = require('./routes/messages')(app);
-
+routes = require('./routes/forums')(app);
 
 
 require('./passport')(passport);
