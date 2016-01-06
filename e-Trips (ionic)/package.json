@@ -1,7 +1,7 @@
 {
-  "name": "geo_location",
+  "name": "e-trips",
   "version": "1.1.1",
-  "description": "geo_location: An Ionic project",
+  "description": "e-Trips: An Ionic project",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^2.0.4",
@@ -20,7 +20,9 @@
     "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
-    "ionic-plugin-keyboard"
+    "ionic-plugin-keyboard",
+    "org.apache.cordova.file",
+    "org.apache.cordova.file-transfer"
   ],
   "cordovaPlatforms": [
     "android"

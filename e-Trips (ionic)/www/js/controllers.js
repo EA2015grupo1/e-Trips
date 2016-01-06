@@ -19,3 +19,10 @@ angular.module('app.controllers', [])
 .controller('editarCtrl', function($scope) {
 
 })
+
+.controller('posicionCtrl', function($scope) {
+
+})
+.controller('citiesCtrl', function($scope) {
+
+  })

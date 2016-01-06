@@ -16,34 +16,47 @@ angular.module('app.routes', [])
       controller: 'loginCtrl'
     })
 
-
+    .state('colleges', {
+      url: '/page14',
+      templateUrl: 'templates/colleges.html',
+      controller: 'collegesCtrl'
+    })
 
 
 
     .state('registro', {
       url: '/page3',
       templateUrl: 'templates/registro.html',
-      controller: 'registroCtrl'
+      controller: 'loginCtrl'
     })
 
 
 
 
 
-    .state('position', {
+
+    .state('menu.cities', {
       url: '/page7',
-      templateUrl: 'templates/position.html',
-      controller: 'MapCtrl'
+      views: {
+        'side-menu21': {
+          templateUrl: 'templates/cities.html',
+          controller: 'citiesCtrl'
+        }
+      }
     })
 
 
 
 
 
-    .state('perfil', {
+    .state('menu.perfil', {
       url: '/page12',
-      templateUrl: 'templates/perfil.html',
-      controller: 'perfilCtrl'
+      views: {
+        'side-menu21': {
+          templateUrl: 'templates/perfil.html',
+          controller: 'perfilCtrl'
+        }
+      }
     })
 
 
@@ -54,6 +67,28 @@ angular.module('app.routes', [])
       url: '/page2',
       templateUrl: 'templates/editar.html',
       controller: 'editarCtrl'
+    })
+
+
+
+
+    .state('menu', {
+      url: '/side-menu21',
+      abstract:true,
+      templateUrl: 'templates/menu.html'
+    })
+
+
+
+
+    .state('menu.posicion', {
+      url: '/page8',
+      views: {
+        'side-menu21': {
+          templateUrl: 'templates/posicion.html',
+          controller: 'posicionCtrl'
+        }
+      }
     })
 
 

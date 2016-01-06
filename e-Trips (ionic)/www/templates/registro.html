@@ -1,34 +1,82 @@
-<ion-view title="Registro">
-  <ion-content padding="'true'" scroll="false" class="has-header">
-    <form class="list">
-      <ion-list>
-        <label class="item item-input">
-          <input type="text" placeholder="Nombre Completo" ng-model="user.name">
-        </label>
-        <label class="item item-input">
-          <input type="text" placeholder="Nombre Usuario" ng-model="user.username">
-        </label>
-        <label class="item item-input">
-          <input type="text" placeholder="Correo Electronico" ng-model="user.email">
-        </label>
-        <label class="item item-input">
-          <input type="password" placeholder="Introduce Password" ng-model="user.password">
-        </label>
-      </ion-list>
+
+<ion-header-bar class="bar-positive">
+  <div class="title">Registrar</div>
+</ion-header-bar>
+<ion-content class="padding">
+  <div class="list">
+  </div>
+    <div class="list card padding">
       <label class="item item-input">
-        <input type="text" placeholder="Ciudad de origen"ng-model="user.city">
+        <input type="text" placeholder="Name" ng-model="user.name">
       </label>
       <label class="item item-input">
-        <input type="text" placeholder="Nombre de tu universidad" ng-model="user.college">
+        <input type="text" placeholder="Username" ng-model="user.username">
       </label>
       <label class="item item-input">
-        <input type="text" placeholder="Genero" ng-model="user.gender">
+        <input type="email" placeholder="Email" ng-model="user.email">
       </label>
       <label class="item item-input">
-        <input type="tel" placeholder="Telefono" ng-model="user.phone">
+        <input type="password" placeholder="Password" ng-model="user.password">
       </label>
-    </form>
-    <a menu-close=""  class="button button-calm button-block" ng-click="registerUser()" ng-disabled="!user.name || !user.username || !user.email || !user.password || !user.city || !user.college || !user.gender">Registrar</a>
-    <form class="list"></form>
-  </ion-content>
-</ion-view>
+      <br>
+
+      <div class="list">
+
+        <label class="item item-input item-select item-positive">
+          <div class="input-label">
+            Ciudades
+          </div>
+          <select ng-model="city.city" ng-change="cityitemselected(city.city)">
+            <option value="{{city.city}}" ng-repeat="city in cities">{{city.city}}</option>
+
+          </select>
+        </label>
+
+      </div>
+      <div class="list">
+
+        <label class="item item-input item-select item-positive">
+          <div class="input-label">
+           Universidades
+          </div>
+          <select ng-model="college.college" ng-change="collegeitemselected(college.college)">
+            <option ng-repeat="college in colleges" >{{college.college}}</option>
+          </select>
+        </label>
+
+      </div>
+      <div class="list">
+
+        <label class="item item-input item-select item-positive">
+          <div class="input-label">
+            Genero
+          </div>
+          <select ng-model="gender.gender" ng-change="genderitemselected(gender.gender)">
+            <option ng-repeat="gender in genders">{{gender.gender}}</option>
+          </select>
+        </label>
+
+      </div>
+      <label class="item item-input">
+        <input type="tel" placeholder="Phone (Opcional)" ng-model="user.phone">
+      </label>
+
+      <div class="button-bar social-login">
+        <button class="button button-calm button-block" ng-click="registerUser()" ng-disabled="!user.name || !user.username || !user.email || !user.password">Registrar</button>
+      </div>
+      <br><br>
+
+    </div>
+    </ion-content>
+    </ion-view>
+<script id="my-modal.html" type="text/ng-template">
+  <ion-modal-view>
+    <ion-header-bar>
+      <h1 class="title" align="center">Añadir Foto Perfil</h1>
+    </ion-header-bar>
+    <ion-content>
+      <button class="button button-full button-positive" ng-click="addMedia()">Elige Foto Perfil (Opcional)</button>
+      <button class="button button-full buttom-assertive" ng-click="closeRegister()">Cancel</button>
+    </ion-content>
+  </ion-modal-view>
+</script>
