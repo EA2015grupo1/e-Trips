@@ -1,0 +1,45 @@
+<ion-nav-bar class="bar bar-header bar-positive" align-title="center">
+  <ion-nav-back-button class="button-icon icon ion-ios-arrow-back">Back</ion-nav-back-button>
+</ion-nav-bar>
+<ion-view title="Perfil Estudiante">
+  <ion-content overflow-scroll="true" padding="true" class="has-header" align="center">
+    <img src="{{user.imageUrl}}" width="40%" height="120" style="width: 40%; height: 120px;">
+    <div class="list card padding">
+      <label class="item item-input">
+        <span class="input-label">Name</span>
+        <ion-item>{{user.name}}</ion-item>
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Username</span>
+        <ion-item>{{user.username}}</ion-item>
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Email</span>
+        <ion-item>{{user.email}}</ion-item>
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Ciudad</span>
+        <ion-item>{{user.city}}</ion-item>
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Universidad</span>
+        <ion-item>{{user.college}}</ion-item>
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Genero</span>
+        <ion-item>{{user.gender}}</ion-item>
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Telefono</span>
+        <ion-item>{{user.phone}}</ion-item>
+      </label>
+      <button ng-click="editUser()" class="button button-block button-balanced activated">
+       Añadir Amigo
+      </button>
+      <button ng-click="editUser()" class="button button-block button-balanced activated">
+       Enviar Mensaje
+      </button>
+    </div>
+  </ion-content>
+</ion-view>
+

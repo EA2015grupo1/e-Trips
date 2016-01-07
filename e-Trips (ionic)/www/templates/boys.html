@@ -1,0 +1,12 @@
+<ion-view title="Chicos">
+  <ion-content padding="'true'" class="has-header">
+    <ion-list ng-click="getProfile(boy._id)" ng-repeat="boy in boys">
+      <ion-item menu-close="" class="item-thumbnail-left" href="#/page16">
+        <img src={{boy.imageUrl}}  width="40%" height="120" style="width: 40%; height: 120px;">
+        <strong> {{boy.name}}</strong>
+        <p style="color:darkcyan"> {{boy.username}}</p>
+        <p>{{boy.college}}</p>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

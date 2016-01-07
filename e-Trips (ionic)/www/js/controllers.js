@@ -26,3 +26,14 @@ angular.module('app.controllers', [])
 .controller('citiesCtrl', function($scope) {
 
   })
+.controller('collegesCtrl', function($scope) {
+
+})
+
+.controller('girlsCtrl', function($scope) {
+
+})
+
+.controller('boysCtrl', function($scope) {
+
+})

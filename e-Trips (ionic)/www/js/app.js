@@ -6,6 +6,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 var idlogin;
+var idstudent;
 var _base = "http://192.168.1.183:3000";
 angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'ngCordovaOauth', 'ngCordova'])
 
@@ -65,8 +66,6 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
         return $http.get(_base + '/cities');
       },
 
-
-
     };
     return _api;
   }]).controller('loginCtrl', ['$rootScope', '$location', '$scope', '$cordovaOauth','API','$http', '$ionicModal', function($rootScope, $location, $scope, $cordovaOauth, api, $http, $ionicModal) {
@@ -86,13 +85,13 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
     $scope.loginUser = function() {
 
       if (($scope.login.username == '') && ($scope.login.password == '')) {
-        $rootScope.toast('Campo username y password vacios');
+        $rootScope.toast('Campo username y password vacíos');
       }
       else if ($scope.login.username == '') {
-        $rootScope.toast('Campo username vacio');
+        $rootScope.toast('Campo username vacío');
       }
       else if ($scope.login.password == '') {
-        $rootScope.toast('Campo password vacio');
+        $rootScope.toast('Campo password vacío');
       }
       else {
         $rootScope.showLoading("Autenticando..");
@@ -145,17 +144,18 @@ var username;
     $scope.register = function() {
       $location.path('/page3');
     }
-    $http.get(_base+'/api/cities').success(function (data) {
+    $http.get(_base+'/cities').success(function (data) {
       $scope.cities = data;
 
     })
       .error(function (data) {
         console.log('Error: ' + data);
       });
+
     $scope.cityitemselected = function (item) {
       city = item;
       console.log (city);
-      $http.get(_base+'/api/colleges/' + item)
+      $http.get(_base+'/colleges/' + item)
         .success(function(data) {
           $scope.colleges = data;
         })
@@ -167,6 +167,7 @@ var username;
       college = item;
       console.log (item);
     };
+
     $scope.genderitemselected = function (item) {
       gender = item;
       console.log (item);
@@ -175,7 +176,7 @@ var username;
     $scope.registerUser = function() {
 
       if ((city ==null) && (college ==null)&&(gender==null)) {
-        $rootScope.toast('Debes elegir una ciudad, una universidad y un genero');
+        $rootScope.toast('Debes elegir una ciudad, una universidad y un género');
       }
       else if (city ==null) {
         $rootScope.toast('Debes elegir una ciudad');
@@ -184,7 +185,7 @@ var username;
         $rootScope.toast('Debes elegir una universidad');
       }
       else if (gender == null) {
-        $rootScope.toast('Debes elegir un genero');
+        $rootScope.toast('Debes elegir un género');
       }
       else {
         $scope.user.city = city;
@@ -209,7 +210,7 @@ var username;
     $scope.addMedia = function() {
 
       navigator.camera.getPicture(uploadPhoto, function(message) {
-          $rootScope.toast('get picture failed');
+          $rootScope.toast('Error al obtener la foto');
         },{
           quality: 50,
           destinationType: navigator.camera.DestinationType.FILE_URI,
@@ -233,7 +234,7 @@ var username;
       options.chunkedMode = false;
 
       var ft = new FileTransfer();
-      ft.upload(imageURI, _base+"/api/users/upload/"+username, win, fail, options);
+      ft.upload(imageURI, _base+"/users/upload/"+username, win, fail, options);
     }
 
     function win(r) {
@@ -312,7 +313,7 @@ var username;
     //var id= localStorage.getItem("id");
     console.log (idlogin);
 // Funci�n que obtiene un objeto usuario conocido su id
-    $http.get(_base+'/api/users/' + idlogin)
+    $http.get(_base+'/user/' + idlogin)
       .success(function(data) {
         $scope.user._id = data._id;
         $scope.user.username = data.username;
@@ -334,7 +335,31 @@ var username;
       $location.path('/page2');
     }
 
-}]).controller('citiesCtrl', ['$rootScope', '$location', '$scope', 'API', function($rootScope, $location, $scope, api) {
+}]).controller('perfil-studentCtrl', ['$rootScope', '$location', '$scope', '$http',  'API','$stateParams', function($rootScope, $location, $scope, $http, $stateParams) {
+    console.log (idstudent);
+// Funci�n que obtiene un objeto usuario conocido su id
+    $http.get(_base+'/user/' + idstudent)
+      .success(function(data) {
+        $scope.user.username = data.username;
+        $scope.user.name = data.name;
+        $scope.user.email = data.email;
+        $scope.user.phone = data.phone;
+        $scope.user.gender = data.gender;
+        $scope.user.college = data.college;
+        $scope.user.city = data.city;
+        $scope.user.rol = data.rol;
+        $scope.user.imageUrl = data.imageUrl;
+        console.log (data);
+      })
+      .error(function(data) {
+        console.log('Error: ' + data);
+      });
+
+   /* $scope.editUser = function() {
+      $location.path('/page2');
+    }*/
+
+  }]).controller('citiesCtrl', ['$rootScope', '$location', '$scope', 'API', function($rootScope, $location, $scope, api) {
 
 
   api.getCities().success(function (data) {
@@ -350,7 +375,9 @@ var username;
       $location.path ('/page14');
 
     };
-  }]).controller('collegesCtrl', ['$rootScope', '$location', '$scope', 'API','$http', function($rootScope, $location, $scope, api,$http) {
+
+
+}]).controller('collegesCtrl', ['$rootScope', '$location', '$scope', 'API','$http', function($rootScope, $location, $scope, api,$http) {
 
     $http.get(_base+'/colleges/' + city)
       .success(function(data) {
@@ -360,6 +387,38 @@ var username;
       .error(function(data) {
         console.log('Error: ' + data);
       })
+
+}]).controller('girlsCtrl', ['$rootScope', '$location', '$scope', 'API','$http', function($rootScope, $location, $scope, api,$http) {
+    var gender ="Mujer";
+    $http.get(_base+'/gender-ionic/' + gender)
+      .success(function(data) {
+        console.log (data);
+        $scope.girls = data;
+      })
+      .error(function(data) {
+        console.log('Error: ' + data);
+      })
+    $scope.getProfile = function (item) {
+      idstudent = item;
+      $location.path ('/page16');
+
+    };
+
+}]).controller('boysCtrl', ['$rootScope', '$location', '$scope', 'API','$http', function($rootScope, $location, $scope, api,$http) {
+    var gender ="Hombre";
+    $http.get(_base+'/gender-ionic/' + gender)
+      .success(function(data) {
+        $scope.boys = data;
+      })
+      .error(function(data) {
+        console.log('Error: ' + data);
+      })
+    $scope.getProfile = function (item) {
+      console.log(item)
+      idstudent = item;
+      $location.path ('/page16');
+
+    };
 
 }]).controller('editarCtrl', ['$rootScope', '$location', '$scope', '$http',  'API', '$ionicModal',function($rootScope, $location, $scope, $http, api, $ionicModal) {
     var idput;
@@ -374,7 +433,7 @@ var username;
       $scope.modal = modal;
     });
 // Funci�n que obtiene un objeto usuario conocido su id
-    $http.get(_base+'/api/users/' + idlogin)
+    $http.get(_base+'/user/' + idlogin)
       .success(function(data) {
         idput = data._id;
         $scope.user.username = data.username;
@@ -413,7 +472,7 @@ var username;
       {gender: "Mujer"},
     ];
 
-    $http.get(_base+'/api/cities').success(function (data) {
+    $http.get(_base+'/cities').success(function (data) {
       $scope.cities = data;
 
     })
@@ -423,7 +482,7 @@ var username;
     $scope.cityitemselected = function (item) {
       city = item;
       console.log (city);
-      $http.get(_base+'/api/colleges/' + item)
+      $http.get(_base+'/colleges/' + item)
         .success(function(data) {
           $scope.colleges = data;
         })
@@ -442,7 +501,7 @@ var username;
 
     $scope.editUser = function() {
       if ((city ==null) && (college ==null)&&(gender==null)) {
-        $rootScope.toast('Debes elegir una ciudad, una universidad y un genero');
+        $rootScope.toast('Debes elegir una ciudad, una universidad y un género');
       }
       else if (city ==null) {
         $rootScope.toast('Debes elegir una ciudad');
@@ -451,7 +510,7 @@ var username;
         $rootScope.toast('Debes elegir una universidad');
       }
       else if (gender == null) {
-        $rootScope.toast('Debes elegir un genero');
+        $rootScope.toast('Debes elegir un género');
       }
       else {
         $scope.user._id = idput;
@@ -477,7 +536,7 @@ var username;
     $scope.addMedia = function() {
 
       navigator.camera.getPicture(uploadPhoto, function(message) {
-          $rootScope.toast('get picture failed');
+          $rootScope.toast('Error al cargar la foto');
         },{
           quality: 50,
           destinationType: navigator.camera.DestinationType.FILE_URI,

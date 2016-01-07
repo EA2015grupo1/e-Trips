@@ -59,6 +59,12 @@ angular.module('app.routes', [])
       }
     })
 
+    .state('prefil-student', {
+      url: '/page16',
+      templateUrl: 'templates/perfil-student.html',
+      controller: 'perfil-studentCtrl'
+    })
+
 
 
 
@@ -91,6 +97,25 @@ angular.module('app.routes', [])
       }
     })
 
+    .state('menu.girls', {
+      url: '/page15',
+      views: {
+        'side-menu21': {
+          templateUrl: 'templates/girls.html',
+          controller: 'girlsCtrl'
+        }
+      }
+    })
+
+    .state('menu.boys', {
+      url: '/page17',
+      views: {
+        'side-menu21': {
+          templateUrl: 'templates/boys.html',
+          controller: 'boysCtrl'
+        }
+      }
+    })
 
     ;
 
