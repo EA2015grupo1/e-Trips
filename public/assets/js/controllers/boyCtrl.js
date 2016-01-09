@@ -5,11 +5,35 @@ app.factory("Users", function ($resource) {
     var boy = "Hombre";
     return $resource('/gender/'+ boy); //la url donde queremos consumir
 });
-app.controller('boyCtrl',['$scope', '$state', '$http', 'ngTableParams','Users','$stateParams','$modal', function($scope, $state,$http, ngTableParams, Users,$stateParams, $modal) {
+app.controller('boyCtrl',['$scope', '$state', '$http', 'ngTableParams','Users','$stateParams','$modal', '$cookieStore', function($scope, $state,$http, ngTableParams, Users,$stateParams, $modal, $cookieStore) {
     var user = {};
     $scope.message={};
     var id= $stateParams.id;
     var u= $stateParams.user;
+
+    $scope.load=function() {
+        console.log("load de datos de la tabla!!!!");
+        var params = {
+            page: 1,
+            count: 7
+        };
+
+        var settings = {
+            total: 0,
+            counts: [5, 10, 15],
+            getData: function($defer, params) {
+                Users.get(params.url(), function(response) {
+                    params.total(response.total);
+                    $scope.tregistros= response.total;
+                    $defer.resolve(response.results);
+                });
+            }
+        };
+
+        $scope.tableParams = new ngTableParams(params, settings);
+
+
+    }
 
     $scope.open = function (size) {
         $scope.message.receiver = size;
@@ -41,26 +65,9 @@ app.controller('boyCtrl',['$scope', '$state', '$http', 'ngTableParams','Users','
 
             })
     };
-    var params = {
-        page: 1,
-        count: 7
-    };
 
-    var settings = {
-        total: 0,
-        counts: [5, 10, 15],
-        getData: function($defer, params) {
-            Users.get(params.url(), function(response) {
-                params.total(response.total);
-                $scope.tregistros= response.total;
-                $defer.resolve(response.results);
-            });
-        }
-    };
-
-    $scope.tableParams = new ngTableParams(params, settings);
-
-    $scope.getProfile = function(id) {
+    $scope.getProfile = function(idstudent) {
+        $cookieStore.put('idstudent', idstudent);
         $state.go("app.profile-student", {
             user: u,
             id: id

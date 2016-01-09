@@ -5,10 +5,12 @@
 app.factory("Users", function ($resource) {
     return $resource('/users'); //la url donde queremos consumir
 });
-app.controller('usersCtrl',['$scope', '$location', '$cookies', '$cookieStore', '$http', 'ngTableParams','Users',  function($scope, $location,$cookies, $cookieStore, $http, ngTableParams, Users) {
+app.controller('usersCtrl',['$scope', '$state', '$http', 'ngTableParams','Users','$stateParams', '$modal','$cookieStore',  function($scope, $state, $http, ngTableParams, Users, $stateParams, $modal,$cookieStore) {
     $scope.user = {};
+    $scope.message={};
     $scope.selected = false;
-
+    var u= $stateParams.user;
+    var id = $stateParams.id;
     // Obtenemos todos los datos de la base de datos
     /*   $http.get('/api/users').success(function (data) {
      $scope.users = data;
@@ -18,7 +20,26 @@ app.controller('usersCtrl',['$scope', '$location', '$cookies', '$cookieStore', '
      console.log('Error: ' + data);
      });
      */
+    $scope.open = function (size) {
+        $scope.message.receiver = size;
+        $scope.message.ids = id;
+        var modalInstance = $modal.open({
+            templateUrl: 'myModalContent.html',
+            controller: 'ModalInstanceCtrl',
+            size: size,
+            resolve: {
+                message: function () {
+                    return $scope.message;
+                }
+            }
+        });
 
+        modalInstance.result.then(function (selectedItem) {
+            $scope.selected = selectedItem;
+        }, function () {
+            //  $log.info('Modal dismissed at: ' + new Date());
+        });
+    };
     var params = {
         page: 1,
         count: 7
@@ -47,29 +68,46 @@ app.controller('usersCtrl',['$scope', '$location', '$cookies', '$cookieStore', '
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "Si, eliminarlo!",
                 closeOnConfirm: false },
-            function(){
-                $http.delete('/api/users/' + id)
-                    .success(function(data) {
-                        $scope.newUser = {};
-                        location.href = '#/admin/usuarios';
-                        location.reload('#/admin/usuarios');
-                    })
-                    .error(function(data) {
-                        console.log('Error: ' + data);
-                    });
+            function(isConfirm){
+                if (isConfirm) {
+                    $http.delete('/user/' + id)
+                        .success(function (data) {
+                            $scope.newUser = {};
+                            swal("Eliminado", "Usuario Eliminado de e-Trips.", "success");
+                            $state.go("admin.home", {}, { reload: true });
+                        })
+                        .error(function (data) {
+                            console.log('Error: ' + data);
+                        });
+                }
             });
 
     };
-    // Funcion que obtiene un objeto usuario conocido su id
-    $scope.getUser = function(id) {
 
-        $cookieStore.put('id', id);
-        $location.path ('/app/update');
-    };
-    $scope.getProfile = function(id) {
-        $cookieStore.put('id', id);
-        $location.path ('/app/profile');
-
+    $scope.getProfile = function(idstudent) {
+        $cookieStore.put('idstudent', idstudent);
+        $state.go("admin.profile-student", {
+            user: u,
+            id: id
+        });
     };
 
 }]);
+app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, $http, message) {
+    $scope.user.receive = message.receiver;
+    $scope.send = function (subject, text) {
+        message.subject = subject,
+            message.text = text;
+        $http.post('/addmessage', message)
+            .success(function (data) {
+                $modalInstance.dismiss('cancel');
+            })
+            .error(function (data) {
+
+            })
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+});

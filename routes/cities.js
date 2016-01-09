@@ -46,7 +46,7 @@ module.exports = function (app) {
     //endpoints
     app.get('/cities', AllCities);
     app.post('/cities', addCity);
-    app.delete('/cities/:id', deleteCity);
+    app.delete('/city/:id', deleteCity);
 
 }
 

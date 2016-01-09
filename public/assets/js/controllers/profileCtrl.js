@@ -1,10 +1,13 @@
 'use strict'
-app.controller('profileCtrl', ['$scope', '$sce', '$state',  '$http','$stateParams', function ($scope, $sce, $state, $http, $stateParams) {
+
+app.controller('profileCtrl', ['$scope', '$sce', '$state',  '$http','$stateParams','$cookieStore', function ($scope, $sce, $state, $http, $stateParams, $cookieStore) {
     $scope.newUser = {};
     $scope.user = {};
     $scope.selected = false;
     var id = $stateParams.id;
     var user = $stateParams.user;
+
+
 
     $http.get('/messages/'+user).success(function (data) {
             $scope.messages = data;
@@ -15,14 +18,36 @@ app.controller('profileCtrl', ['$scope', '$sce', '$state',  '$http','$stateParam
             console.log('Error: ' + data);
         });
 
-    $scope.getProfile = function () {
+    $scope.getProfileRegister = function () {
         $state.go("app.profile", {
             user: user,
             id: id
         });
     };
-    $scope.Update = function () {
+    $scope.getProfileAdmin = function () {
+        $state.go("admin.profile", {
+            user: user,
+            id: id
+        });
+    };
+    $scope.UpdateAdmin = function () {
+        console.log ("hola admin update");
+       $state.go("admin.update", {
+            user: user,
+            id: id
+        });
+    };
+    $scope.UpdateRegister = function () {
         $state.go("app.update", {
+            user: user,
+            id: id
+        });
+    };
+
+
+    $scope.getMessages = function () {
+
+        $state.go("app.messages", {
             user: user,
             id: id
         });

@@ -186,7 +186,7 @@ app.controller('loginCtrl',['$scope', '$state','$http', function($scope, $state,
                 )
                 .success(function (data) {
 
-                    $state.go("app.signin");
+                    $state.go("login.signin");
                 })
                 .error(function (data) {
                     console.log('Error: ' + data);

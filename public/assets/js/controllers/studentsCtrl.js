@@ -1,13 +1,12 @@
 'use strict'
-var college;
+
 app.factory("Users", function ($resource, $stateParams) {
-    college = $stateParams.college;
     return $resource('/college/'+ $stateParams.college); //la url donde queremos consumir
 });
-app.controller('studentsCtrl',['$scope', '$state', '$http', 'ngTableParams','Users','$stateParams','$modal', function($scope, $state,$http, ngTableParams, Users,$stateParams, $modal) {
+app.controller('studentsCtrl',['$scope', '$state', '$http', 'ngTableParams','Users','$stateParams','$modal', '$cookieStore', function($scope, $state,$http, ngTableParams, Users,$stateParams, $modal, $cookieStore) {
     var user = {};
     $scope.message={};
-    $scope.college = college;
+    $scope.college = $stateParams.college;
     var id= $stateParams.id;
     var u= $stateParams.user;
 
@@ -62,7 +61,8 @@ app.controller('studentsCtrl',['$scope', '$state', '$http', 'ngTableParams','Use
 
     $scope.tableParams = new ngTableParams(params, settings);
 
-    $scope.getProfile = function(id) {
+    $scope.getProfile = function(idstudent) {
+        $cookieStore.put('idstudent', idstudent);
         $state.go("app.profile-student", {
             user: u,
             id: id

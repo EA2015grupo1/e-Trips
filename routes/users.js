@@ -37,6 +37,9 @@ module.exports = function (app) {
                         message: getErrorMessage(err)
                     });
                 } else {
+
+                    // for
+
                     res.jsonp(users);
                 }
             });

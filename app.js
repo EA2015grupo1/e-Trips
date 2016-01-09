@@ -66,7 +66,9 @@ routes = require('./routes/colleges')(app);
 routes = require('./routes/friends')(app);
 routes = require('./routes/requests')(app);
 routes = require('./routes/messages')(app);
-routes = require('./routes/forums')(app);
+routes = require('./routes/releases')(app);
+routes = require('./routes/comments')(app);
+
 
 
 require('./passport')(passport);
@@ -82,12 +84,12 @@ app.get('/auth/facebook', passport.authenticate('facebook'));
 // Ruta de callback, a la que redirigirá tras autenticarse con Twitter.
 // En caso de fallo redirige a otra vista '/'
 app.get('/auth/twitter/callback', passport.authenticate('twitter',
-    { successRedirect: '/#app/home', failureRedirect: '/' }
+    { successRedirect: '/#app/enter', failureRedirect: '/' }
 ));
 // Ruta de callback, a la que redirigirá tras autenticarse con Facebook.
 // En caso de fallo redirige a otra vista '/'
 app.get('/auth/facebook/callback', passport.authenticate('facebook',
-    { successRedirect: '/#app/home', failureRedirect: '/' }
+    { successRedirect: '/#app/enter', failureRedirect: '/' }
 ));
 
 app.get('*', function(req, res) {
@@ -102,7 +104,7 @@ io.on('connection', function(socket) {
     console.log('Alguien se ha conectado con Sockets');
     socket.on('sendMessage', function(data) {
         console.log (data);
-        io.sockets.emit('newMessage', {msg: data.message, user: data.user, imageUrl: data.imageUrl, date: data.date});
+        io.sockets.emit('newMessage', {msg: data.message, user: data.user, imageUrl: data.imageUrl, date: data.date, city: data.city, college: data.college, email: data.email});
     });
     socket.on('newUser', function(data){
 

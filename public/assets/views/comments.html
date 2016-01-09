@@ -1,0 +1,29 @@
+<div ct-fullheight data-ct-fullheight-exclusion="header, footer">
+    <div class="col-sm-6">
+        <br>
+        <div>
+            <form class="input-group" style="text-align:center; margin:0 auto;">
+                <input class="form-control input-md" ng-model="text" type="text" placeholder="Escribe un comentario..." >
+					<span class="input-group-btn">
+						<button class="btn btn-md btn-primary" ng-click="doPost(text)">Publicar</button>
+					</span>
+            </form>
+        </div>
+    </div>
+    <div class="inbox" id="inbox" toggleable active-class="message-open">
+        <ul class="messages-list" perfect-scrollbar wheel-propagation="true" suppress-scroll-x="true">
+            <li ng-if="!comments.length">
+                <div class="col-sm-12">
+                    No hay Comentarios! Intenta escribir un comentario.
+                </div>
+            </li>
+            <li class="messages-item"  ng-repeat="comment in comments">
+                <a message-item="{{comment.id}}" ui-sref="app.pages.messages.inbox({ inboxID:message.id })" href>
+                    <img alt="{{ comment.user.name }}" ng-src="{{ comment.user.imageUrl && comment.user.imageUrl || noAvatarImg }}" class="messages-item-avatar bordered border-primary">
+                    <span class="messages-item-from">{{ comment.user.name }} publico el dia {{ comment.createdAt | date: "dd/MM/yyyy 'a las' HH:mma" }}</span>
+                    <span class="messages-item-content">{{ comment.comment}}</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

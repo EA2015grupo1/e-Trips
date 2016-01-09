@@ -7,6 +7,7 @@ app.controller('chatCtrl', function ($scope, $stateParams, $http, $modal) {
     var id= $stateParams.id;
     var u= $stateParams.user;
     var user={};
+    var users={};
     $scope.message={};
     $scope.open = function (size) {
         $scope.message.receiver = size;
@@ -34,12 +35,22 @@ app.controller('chatCtrl', function ($scope, $stateParams, $http, $modal) {
             user.imageUrl = data.imageUrl;
             user.user = u;
             user.city = data.city;
+            user.email = data.email;
+            user.college = data.college;
             socket.emit('newUser', user, function (data) {
 
             });
             socket.on('usernames', function(data){
-                $scope.online = data;
-
+                console.log (data.length);
+                users = data;
+                for (var i=0; i<users.length; i++){
+                    if (users[i].user == u){
+                        console.log ("encontrado");
+                        users.splice(i, 1);
+                        break;
+                    }
+                }
+                $scope.online = users;
 
             });
 
@@ -86,8 +97,11 @@ app.controller('chatCtrl', function ($scope, $stateParams, $http, $modal) {
 
     $scope.showUserModal = function(idx){
         var user = $scope.users[idx].user;
-        var imageUrl = $scope.users[idx].imageUrl;
-        $scope.imageUrl = imageUrl;
+
+        $scope.imageUrl = $scope.users[idx].imageUrl;
+        $scope.city = $scope.users[idx].city;
+        $scope.college = $scope.users[idx].college;
+        $scope.email = $scope.users[idx].email;
         $scope.username = user;
         $('#myModalLabel').text(user);
         $('#myModal').modal('show');

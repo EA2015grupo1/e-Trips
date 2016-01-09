@@ -37,7 +37,7 @@
                 <tr>
                     <th class="center">Foto</th>
                     <th>Nombre Completo</th>
-                    <th class="hidden-xs">Rol</th>
+                    <th class="hidden-xs">Ciudad</th>
                     <th class="hidden-xs">Usuario</th>
                     <th class="hidden-xs">Email</th>
                     <th></th>
@@ -47,32 +47,19 @@
 
                     <td><img src={{user.imageUrl}} width="50" height="50" class="img-rounded" alt="image"/></td>
                     <td>{{user.name}}</td>
-                    <td class="hidden-xs">{{user.rol}}</td>
-                    <td class="hidden-xs"> {{user.username}}</td>
+                    <td class="hidden-xs">{{user.city}}</td>
+                    <td class="hidden-xs">
+                        <a href="#" rel="nofollow" target="_blank" ng-click="getProfile(user._id)">
+                            {{user.username}}
+                        </a></td>
                     <td class="hidden-xs">{{user.email}}</td>
                     <td class="center">
                         <div class="visible-md visible-lg hidden-sm hidden-xs">
-                            <a href="#" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="Eliminar" ng-click="deleteUser(user._id)"><i class="fa fa-times fa fa-white"></i></a>
+                            <label></label>
+                            <a href="#" class="btn btn-o btn-warning" ng-click="open(user.username)">Enviar Mensaje</a>
+                            <a href="#" class="btn btn-o btn-danger" ng-click="deleteUser(user._id)">Eliminar</a>
                         </div>
                         <div class="visible-xs visible-sm hidden-md hidden-lg">
-                            <div class="btn-group" dropdown>
-                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" dropdown-toggle>
-                                    <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu pull-right dropdown-light" role="menu">
-                                    <li>
-                                        <a href="">
-                                            Editar Usuario
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#">
-                                            Eliminar Usuario
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
                         </div></td>
                 </tr>
             </table>
@@ -82,4 +69,16 @@
 </div>
 
 
-
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Enviar Mensaje a {{user.receive}} </h3>
+    </div>
+    <div class="modal-body">
+        <textarea rows="1" cols="75" placeholder="Asunto" ng-model="user.subject"></textarea>
+        <textarea rows="7" cols="75" placeholder="Escribe tu mensaje" ng-model="user.text"></textarea>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="send(user.subject, user.text)">Enviar</button>
+        <button class="btn btn-primary btn-o" ng-click="cancel()">Cancel</button>
+    </div>
+</script>

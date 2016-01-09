@@ -117,23 +117,16 @@
                                 <td>Usuario</td>
                                 <td>{{user.username}}</td>
                             </tr>
-                            <!--  <tr>
-                                  <td>Position</td>
-                                  <td>Senior Marketing Manager</td>
-                              </tr>
-                              <tr>
-                                  <td>Supervisor</td>
-                                  <td>
-                                      <a href="#">
-                                          Kenneth Ross
-                                      </a></td>
-                              </tr> -->
+                            <tr>
+                                <td>Rol</td>
+                                <td><span class="label label-sm label-info">{{user.rol}}</span></td>
+                            </tr>
 
                             </tbody>
                         </table>
 
                         <div class="text-right">
-                            <a class="btn btn-primary btn-o btn-wide" ng-click="Update()">
+                            <a class="btn btn-primary btn-o btn-wide" ui-sref="admin.update($state.params)">
                                 Editar Cuenta
                             </a>
                         </div>

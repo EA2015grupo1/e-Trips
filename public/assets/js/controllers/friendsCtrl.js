@@ -1,10 +1,10 @@
 
 'use strict'
-app.controller('friendsCtrl',['$scope', '$state', '$http','$stateParams', function($scope, $state, $http,$stateParams) {
+app.controller('friendsCtrl',['$scope', '$state', '$http','$stateParams','$cookieStore', function($scope, $state, $http,$stateParams,$cookieStore) {
 
     var user = {};
-    var iduser= $stateParams.id;
     var u= $stateParams.user;
+    var id= $stateParams.id;
     $http.get('/friends/'+u).success(function (data) {
             $scope.users = data;
             if (data.length==1){
@@ -19,8 +19,10 @@ app.controller('friendsCtrl',['$scope', '$state', '$http','$stateParams', functi
         });
 
 
-    $scope.getProfile = function(id) {
-        $state.go("app.profile-student", {
+    $scope.getProfile = function(idstudent) {
+        $cookieStore.put('idstudent', idstudent);
+        $state.go("app.profile-friend", {
+            user: u,
             id: id
         });
 

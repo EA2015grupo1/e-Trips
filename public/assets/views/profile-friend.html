@@ -1,0 +1,157 @@
+<!-- start: PAGE TITLE -->
+
+<!---
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle" translate="sidebar.nav.pages.USERPROFILE">{{ mainTitle }}</h1>
+            <span class="mainDescription">There are many systems which have a need for user profile pages which display personal information on each member.</span>
+        </div>
+        <div ncy-breadcrumb></div>
+    </div>
+</section>
+<!-- end: PAGE TITLE -->
+<!-- start: USER PROFILE -->
+<body ng-controller="profileCtrl">
+<div class="container-fluid container-fullw bg-white">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- /// controller:  'UserCtrl' -  localtion: assets/js/controllers/userCtrl.js /// -->
+            <!-- start: USER TABSET -->
+            <!-- start: TAB OVERVIEW -->
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="user-left">
+                        <div class="center">
+                            <h4>{{userInfo.name}} {{userInfo.lastName}}</h4>
+                            <div flow-init="{singleFile:true}" flow-name="obj.flow" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]">
+                                <div class="user-image">
+                                    <div class="thumbnail">
+
+                                        <img ng-src="{{user.imageUrl}}" alt="" ng-if="!obj.flow.files.length && !noImage">
+                                        <img flow-img="obj.flow.files[0]" ng-if="obj.flow.files.length">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="social-icons block">
+                                <ul>
+                                    <li data-placement="top" data-original-title="Twitter" class="social-twitter tooltips">
+                                        <a href="#" target="_blank">
+                                            Twitter
+                                        </a>
+                                    </li>
+                                    <li data-placement="top" data-original-title="Facebook" class="social-facebook tooltips">
+                                        <a href="#" target="_blank">
+                                            Facebook
+                                        </a>
+                                    </li>
+                                    <li data-placement="top" data-original-title="Google" class="social-google tooltips">
+                                        <a href="#" target="_blank">
+                                            Google+
+                                        </a>
+                                    </li>
+                                    <li data-placement="top" data-original-title="LinkedIn" class="social-linkedin tooltips">
+                                        <a href="#" target="_blank">
+                                            LinkedIn
+                                        </a>
+                                    </li>
+                                    <li data-placement="top" data-original-title="Github" class="social-github tooltips">
+                                        <a href="#" target="_blank">
+                                            Github
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <hr>
+                        </div>
+                        <table class="table table-condensed">
+                            <thead>
+                            <tr>
+                                <th colspan="3">Informacion de Contacto</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>email:</td>
+                                <td>
+                                    <a href>
+                                        {{user.email}}
+                                    </a></td>
+                            </tr>
+                            <tr>
+                                <td>Telefono:</td>
+                                <td>{{user.phone}}</td>
+                            </tr>
+                            <tr>
+                                <td>Ciudad:</td>
+                                <td>{{user.city}}</td>
+                            </tr>
+                            <tr>
+                                <td>Universidad:</td>
+                                <td>{{user.college}}</td>
+                            </tr>
+                            <!--  <tr>
+                                  <td>skye</td>
+                                  <td>
+                                      <a href>
+                                          {{userInfo.skype}}
+                                      </a></td>
+                              </tr> -->
+                            </tbody>
+                        </table>
+                        <table class="table table-condensed">
+                            <thead>
+                            <tr>
+                                <th colspan="3">Informacion General</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Nombre Completo</td>
+                                <td>{{user.name}}</td>
+                            </tr>
+                            <tr>
+                                <td>Usuario</td>
+                                <td>{{user.username}}</td>
+                            </tr>
+                            <!--  <tr>
+                                  <td>Position</td>
+                                  <td>Senior Marketing Manager</td>
+                              </tr>
+                              <tr>
+                                  <td>Supervisor</td>
+                                  <td>
+                                      <a href="#">
+                                          Kenneth Ross
+                                      </a></td>
+                              </tr> -->
+
+                            </tbody>
+                        </table>
+
+                        <div class="text-right">
+                            <a class="btn btn-primary btn-o btn-wide" ng-click="SeeReleases(user.username)">
+                               Ver publicaciones
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- end: TAB OVERVIEW -->
+            <!-- start: TAB EDIT ACCOUNT -->
+
+            <!-- end: TAB PROJECTS -->
+
+            <!-- end: USER TABSET -->
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</body>
+<!-- end: USER PROFILE -->

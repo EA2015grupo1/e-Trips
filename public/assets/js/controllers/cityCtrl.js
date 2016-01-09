@@ -92,7 +92,6 @@ app.controller('cityCtrl',['MarkerCreatorService', '$scope', '$state','$http','t
 
     $http.get('/cities').success(function (data) {
             $scope.cities = data;
-
         })
         .error(function (data) {
             console.log('Error: ' + data);
@@ -178,11 +177,43 @@ app.controller('cityCtrl',['MarkerCreatorService', '$scope', '$state','$http','t
                 user: user,
                 id: id,
                 college: college
-            });
+            }, {reload: false});
             //location.href = '#/app/students/' + college;
             //location.reload('#/app/students/');
 
         }
+    };
+    $scope.see_colleges = function (city) {
+
+            $state.go("admin.colleges", {
+                user: user,
+                id: id,
+                city: city
+            });
+
+    };
+    // Funcion que borra un objeto ciudad conocido su id
+    $scope.deleteCity = function(id) {
+        swal({   title: "¿Estas seguro?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Si, eliminarla!",
+                closeOnConfirm: false },
+            function(isConfirm){
+                if (isConfirm) {
+                    $http.delete('/city/' + id)
+                        .success(function (data) {
+                            $scope.newUser = {};
+                            swal("Eliminada", "Ciudad Eliminada de e-Trips.", "success");
+                            $state.go("admin.cities", {}, { reload: true });
+                        })
+                        .error(function (data) {
+                            console.log('Error: ' + data);
+                        });
+                }
+            });
+
     };
     MarkerCreatorService.createByCoords(40.454018, -3.509205, function (marker) {
         $scope.autentiaMarker = marker;

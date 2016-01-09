@@ -16,7 +16,7 @@
 							<img alt="{{ message.sender.name }}" ng-src="{{ message.sender.imageUrl && message.sender.imageUrl || noAvatarImg }}" class="messages-item-avatar bordered border-primary">
 							<span class="messages-item-from">{{ message.sender.name }}</span>
 							<div class="messages-item-time">
-								<span class="text">{{ message.sender.createdAt | date: "MM/dd/yyyy 'at' h:mma" }}</span>
+								<span class="text">{{ message.createdAt | date: "dd/MM/yyyy 'at' HH:mma" }}</span>
 							</div>
 							<span class="messages-item-subject">  {{ message.subject }}</span>
 							<span class="messages-item-content">{{ message.text | htmlToPlaintext | words:15 :true }}</span>

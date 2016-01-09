@@ -52,6 +52,33 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'Usuarios'
             }
+        }).state('admin.cities', {
+                url: "/cities/:user/:id",
+                templateUrl: "assets/views/acities.html",
+                title: "Ciudades",
+                resolve: loadSequence('cityCtrl'),
+                controller: 'cityCtrl',
+                ncyBreadcrumb: {
+                    label: 'Ciudades'
+                }
+        }).state('admin.colleges', {
+                url: "/colleges/:user/:id/:city",
+                templateUrl: "assets/views/acolleges.html",
+                title: "Universidades",
+                resolve: loadSequence('collegesCtrl'),
+                controller: 'collegesCtrl',
+                ncyBreadcrumb: {
+                    label: 'Ciudades'
+                }
+        }).state('admin.profile', {
+            url: "/profile/:user/:id",
+            templateUrl: "assets/views/profile-admin.html",
+            title: "Profile",
+            resolve: loadSequence('updateCtrl'),
+            controller: 'updateCtrl',
+            ncyBreadcrumb: {
+                label: 'Profile'
+            }
         }).state('admin.update', {
             url: "/update/:user/:id",
             templateUrl: "assets/views/update.html",
@@ -61,15 +88,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'Update'
             }
-        }).state('admin.profile', {
-            url: "/profile/:user/:id",
-            templateUrl: "assets/views/profile.html",
-            title: "Profile",
-            resolve: loadSequence('updateCtrl'),
-            controller: 'updateCtrl',
-            ncyBreadcrumb: {
-                label: 'Profile'
-            }
+        }).state('admin.profile-student', {
+                url: "/profile-student/:user/:id",
+                templateUrl: "assets/views/profile-student.html",
+                title: "Profile-Student",
+                resolve: loadSequence('profileStudentCtrl'),
+                controller: 'profileStudentCtrl',
+                ncyBreadcrumb: {
+                    label: 'Profile-Student'
+                }
         }).state('app.home', {
             url: "/home/:user/:id",
             templateUrl: "assets/views/home.html",
@@ -78,6 +105,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'Mi posicion'
             }
+
+        }).state('app.enter', {
+                url: "/enter",
+                templateUrl: "assets/views/home.html",
+                resolve: loadSequence('positionCtrl'),
+                title: 'Mi posicion',
+                ncyBreadcrumb: {
+                    label: 'Mi posicion'
+                }
 
         }).state('app.ciudades', {
             url: "/ciudades/:user/:id",
@@ -99,7 +135,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             }
         }).state('app.profile', {
             url: "/profile/:user/:id",
-            templateUrl: "assets/views/profile.html",
+            templateUrl: "assets/views/profile-register.html",
             title: "Profile",
             resolve: loadSequence('profileCtrl'),
             controller: 'profileCtrl',
@@ -111,8 +147,17 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 url: "/profile-student/:user/:id",
                 templateUrl: "assets/views/profile-student.html",
                 title: "Profile-Student",
-                resolve: loadSequence('profileCtrl'),
-                controller: 'profileCtrl',
+                resolve: loadSequence('profileStudentCtrl'),
+                controller: 'profileStudentCtrl',
+                ncyBreadcrumb: {
+                    label: 'Profile-Student'
+                }
+        }).state('app.profile-friend', {
+                url: "/profile-friend/:user/:id",
+                templateUrl: "assets/views/profile-friend.html",
+                title: "Profile-Student",
+                resolve: loadSequence('profileStudentCtrl'),
+                controller: 'profileStudentCtrl',
                 ncyBreadcrumb: {
                     label: 'Profile-Student'
                 }
@@ -123,8 +168,26 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             title: "Students",
             controller: 'studentsCtrl',
             ncyBreadcrumb: {
-                    label: 'Students'
+                label: 'Students'
             }
+        }).state('app.releases', {
+                url: "/releases/:user/:id/:friend",
+                templateUrl: "assets/views/releases.html",
+                resolve: loadSequence('releaseCtrl'),
+                title: "Publicaciones",
+                controller: 'releaseCtrl',
+                ncyBreadcrumb: {
+                    label: 'Publicaciones'
+                }
+        }).state('app.comments', {
+                url: "/comments/:user/:id/:friend/:idr",
+                templateUrl: "assets/views/comments.html",
+                resolve: loadSequence('commentCtrl'),
+                title: "Comentarios",
+                controller: 'commentCtrl',
+                ncyBreadcrumb: {
+                    label: 'Comentarios'
+                }
         }).state('app.requests', {
             url: "/requests/:user/:id",
             templateUrl: "assets/views/requests.html",
@@ -203,29 +266,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             templateUrl: "assets/views/login_login.html",
             resolve: loadSequence('loginCtrl'),
             controller: 'loginCtrl'
-        }).state('login.forgot', {
-            url: '/forgot',
-            templateUrl: "assets/views/login_forgot.html"
         }).state('login.registration', {
             url: '/registration',
             templateUrl: "assets/views/login_registration.html",
             resolve: loadSequence('loginCtrl'),
             controller: 'loginCtrl'
-        }).state('login.lockscreen', {
-            url: '/lock',
-            templateUrl: "assets/views/login_lock_screen.html"
-        }).state('application', {
-            url: '/application',
-            template: '<div ui-view class="fade-in-right-big smooth"></div>',
-            abstract: true
-        }).state('application.chat', {
-            url: '/chat',
-            templateUrl: "assets/views/chat.html",
-            controller: 'ChatCtrl',
-            title: "Chat",
-            ncyBreadcrumb: {
-                label: 'Chat'
-            }
         });
 
 

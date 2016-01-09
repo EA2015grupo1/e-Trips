@@ -1,5 +1,5 @@
 <section id="page-title" class="padding-top-15 padding-bottom-15">
-    <div class="row">
+    <div class="row" ng-init="load()">
         <div class="col-sm-12">
             <p style="font-family: Impact, serif; font-size:20pt; font-style:bold">
                 {{tregistros}} Chicos encontrados en e-Trips
@@ -55,7 +55,7 @@
                         </a></td>
                     <td class="center">
                         <div class="visible-md visible-lg hidden-sm hidden-xs">
-                            <label id="request"  ng-click="addRequest(user.username)" style="display: none;">Solicitud Enviada</label>
+                            <label id="request" ng-if="user.hasRequest" ng-click="addRequest(user.username)" style="display: none;">Solicitud Enviada</label>
                             <a href="#" class="btn btn-o btn-primary" id="addfriend" ng-click="addRequest(user.username)">Añadir Amigo</a>
                             <a href="#" class="btn btn-o btn-info" ng-click="open(user.username)">Enviar Mensaje</a>
                         </div>

@@ -42,6 +42,10 @@ app.constant('JS_REQUIRES', {
         'inboxCtrl': 'assets/js/controllers/inboxCtrl.js',
         'girlCtrl': 'assets/js/controllers/girlCtrl.js',
         'boyCtrl': 'assets/js/controllers/boyCtrl.js',
+        'collegesCtrl': 'assets/js/controllers/collegesCtrl.js',
+        'releaseCtrl': 'assets/js/controllers/releaseCtrl.js',
+        'profileStudentCtrl': 'assets/js/controllers/profileStudentCtrl.js',
+        'commentCtrl': 'assets/js/controllers/commentCtrl.js',
 
         //*** Filters
         'htmlToPlaintext': 'assets/js/filters/htmlToPlaintext.js'

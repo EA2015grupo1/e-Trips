@@ -14,8 +14,8 @@ var userSchema = new Schema({
     provider: String,
     provider_id: {type: String, unique: true},
     imageUrl: {type: String},
-    createdAt: {type: Date, default: Date.now}
-
+    createdAt: {type: Date, default: Date.now},
+    hasRequest: {type:Boolean}
 });
 
 module.exports = mongoose.model('User', userSchema);
