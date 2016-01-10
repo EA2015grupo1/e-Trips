@@ -22,12 +22,16 @@ angular.module('app.routes', [])
       controller: 'collegesCtrl'
     })
 
-
+    .state('perfilstudent', {
+      url: '/page5/:user/:id',
+      templateUrl: 'templates/perfil-student.html',
+      controller: 'perfil-studentCtrl'
+    })
 
     .state('registro', {
       url: '/page3',
       templateUrl: 'templates/registro.html',
-      controller: 'loginCtrl'
+      controller: 'registerCtrl'
     })
 
 
@@ -50,7 +54,7 @@ angular.module('app.routes', [])
 
 
     .state('menu.perfil', {
-      url: '/page12',
+      url: '/page12/:user/:id',
       views: {
         'side-menu21': {
           templateUrl: 'templates/perfil.html',
@@ -59,18 +63,11 @@ angular.module('app.routes', [])
       }
     })
 
-    .state('prefil-student', {
-      url: '/page16',
-      templateUrl: 'templates/perfil-student.html',
-      controller: 'perfil-studentCtrl'
-    })
-
-
 
 
 
     .state('editar', {
-      url: '/page2',
+      url: '/page2/:user/:id',
       templateUrl: 'templates/editar.html',
       controller: 'editarCtrl'
     })
@@ -88,7 +85,7 @@ angular.module('app.routes', [])
 
 
     .state('menu.posicion', {
-      url: '/page8',
+      url: '/page8/:user/:id',
       views: {
         'side-menu21': {
           templateUrl: 'templates/posicion.html',

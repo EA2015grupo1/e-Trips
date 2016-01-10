@@ -5,8 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-var idlogin;
-var idstudent;
+
 var _base = "http://192.168.1.183:3000";
 angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'ngCordovaOauth', 'ngCordova'])
 
@@ -60,6 +59,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
         return $http.put(_base + '/user/'+user._id, user);
       },
       getUser: function(id) {
+
         return $http.get(_base + '/user/', +id);
       },
       getCities: function() {
@@ -68,14 +68,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
 
     };
     return _api;
-  }]).controller('loginCtrl', ['$rootScope', '$location', '$scope', '$cordovaOauth','API','$http', '$ionicModal', function($rootScope, $location, $scope, $cordovaOauth, api, $http, $ionicModal) {
-
-    $ionicModal.fromTemplateUrl('my-modal.html', {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then(function(modal) {
-      $scope.modal = modal;
-    });
+  }]).controller('loginCtrl', ['$rootScope', '$state', '$scope', '$cordovaOauth','API','$http', '$ionicModal', function($rootScope, $state, $scope, $cordovaOauth, api, $http, $ionicModal) {
 
 
     $scope.login = {
@@ -96,8 +89,10 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       else {
         $rootScope.showLoading("Autenticando..");
         api.login($scope.login).success(function (data) {
-           $location.path('side-menu21/page12');
-          idlogin = data.user[0]._id;
+          $state.go("menu.posicion", {
+            user: data.user[0].username,
+            id: data.user[0]._id
+          });
           $rootScope.hideLoading();
         }).error(function (data) {
           $rootScope.hideLoading();
@@ -105,7 +100,8 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
         })
       }
     }
-    $scope.twitterLogin = function() {
+
+/*    $scope.twitterLogin = function() {
       $cordovaOauth.twitter("CLIENT ID",  "CLIENT SECRET").then(function(result) {
         console.log(JSON.stringify(result));
       }, function(error) {
@@ -120,7 +116,26 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       }, function (error) {
         console.log(JSON.stringify(error));
       });
+    }*/
+
+
+    $scope.register = function() {
+      $state.go("registro");
     }
+
+
+  }]).controller('registerCtrl', ['$rootScope', '$state', '$scope', '$cordovaOauth','API','$http', '$ionicModal', function($rootScope, $state, $scope, $cordovaOauth, api, $http, $ionicModal) {
+
+    $ionicModal.fromTemplateUrl('my-modal.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.modal = modal;
+    });
+
+
+
+
     var city;
     var college;
     var gender;
@@ -135,15 +150,12 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       phone:''
     }
 
-var username;
+    var username;
     $scope.genders = [
       {gender: "Hombre"},
       {gender: "Mujer"},
     ];
 
-    $scope.register = function() {
-      $location.path('/page3');
-    }
     $http.get(_base+'/cities').success(function (data) {
       $scope.cities = data;
 
@@ -249,11 +261,13 @@ var username;
       alert( error.code);
     }
     $scope.closeRegister = function() {
-       $scope.modal.hide();
-       $location.path('/page1');
+      $scope.modal.hide();
+    $state.go("login");
     }
 
-  }]).controller('posicionCtrl', function($scope, $cordovaGeolocation, $ionicLoading) {
+  }])
+
+  .controller('posicionCtrl', function($scope, $cordovaGeolocation, $ionicLoading) {
 
 
   ionic.Platform.ready(function() {
@@ -306,14 +320,16 @@ var username;
     });
   });
 
-}).controller('perfilCtrl', ['$rootScope', '$location', '$scope', '$http',  'API', function($rootScope, $location, $scope, $http, api) {
+}).controller('perfilCtrl', ['$rootScope', '$state', '$scope', '$http',  'API', '$stateParams', function($rootScope, $state, $scope, $http, api, $stateParams) {
 
+    var id= $stateParams.id;
+    var u= $stateParams.user;
     $scope.user = {};
     $scope.selected = false;
     //var id= localStorage.getItem("id");
-    console.log (idlogin);
+
 // Funci�n que obtiene un objeto usuario conocido su id
-    $http.get(_base+'/user/' + idlogin)
+    $http.get(_base+'/user/' + id)
       .success(function(data) {
         $scope.user._id = data._id;
         $scope.user.username = data.username;
@@ -332,34 +348,13 @@ var username;
       });
 
     $scope.editUser = function() {
-      $location.path('/page2');
+      $state.go("editar", {
+        user: u,
+        id: id
+      })
     }
 
-}]).controller('perfil-studentCtrl', ['$rootScope', '$location', '$scope', '$http',  'API','$stateParams', function($rootScope, $location, $scope, $http, $stateParams) {
-    console.log (idstudent);
-// Funci�n que obtiene un objeto usuario conocido su id
-    $http.get(_base+'/user/' + idstudent)
-      .success(function(data) {
-        $scope.user.username = data.username;
-        $scope.user.name = data.name;
-        $scope.user.email = data.email;
-        $scope.user.phone = data.phone;
-        $scope.user.gender = data.gender;
-        $scope.user.college = data.college;
-        $scope.user.city = data.city;
-        $scope.user.rol = data.rol;
-        $scope.user.imageUrl = data.imageUrl;
-        console.log (data);
-      })
-      .error(function(data) {
-        console.log('Error: ' + data);
-      });
-
-   /* $scope.editUser = function() {
-      $location.path('/page2');
-    }*/
-
-  }]).controller('citiesCtrl', ['$rootScope', '$location', '$scope', 'API', function($rootScope, $location, $scope, api) {
+}]).controller('citiesCtrl', ['$rootScope', '$location', '$scope', 'API', function($rootScope, $location, $scope, api) {
 
 
   api.getCities().success(function (data) {
@@ -388,7 +383,7 @@ var username;
         console.log('Error: ' + data);
       })
 
-}]).controller('girlsCtrl', ['$rootScope', '$location', '$scope', 'API','$http', function($rootScope, $location, $scope, api,$http) {
+}]).controller('girlsCtrl', ['$rootScope', '$state', '$scope', 'API','$http', function($rootScope, $state, $scope, api,$http) {
     var gender ="Mujer";
     $http.get(_base+'/gender-ionic/' + gender)
       .success(function(data) {
@@ -398,13 +393,15 @@ var username;
       .error(function(data) {
         console.log('Error: ' + data);
       })
-    $scope.getProfile = function (item) {
-      idstudent = item;
-      $location.path ('/page16');
+    $scope.getProfile = function (u, id) {
+      $state.go("perfilstudent", {
+        user: u,
+        id: id
+      });
 
     };
 
-}]).controller('boysCtrl', ['$rootScope', '$location', '$scope', 'API','$http', function($rootScope, $location, $scope, api,$http) {
+}]).controller('boysCtrl', ['$rootScope', '$state', '$scope', 'API','$http', function($rootScope, $state, $scope, api,$http) {
     var gender ="Hombre";
     $http.get(_base+'/gender-ionic/' + gender)
       .success(function(data) {
@@ -413,19 +410,44 @@ var username;
       .error(function(data) {
         console.log('Error: ' + data);
       })
-    $scope.getProfile = function (item) {
-      console.log(item)
-      idstudent = item;
-      $location.path ('/page16');
+    $scope.getProfile = function (u, id) {
+      $state.go("perfilstudent", {
+        user: u,
+        id: id
+      });
 
     };
 
-}]).controller('editarCtrl', ['$rootScope', '$location', '$scope', '$http',  'API', '$ionicModal',function($rootScope, $location, $scope, $http, api, $ionicModal) {
+}]).controller('perfil-studentCtrl', ['$rootScope', '$state', '$scope', '$http',  'API','$stateParams', function($rootScope, $state, $scope, $http, api, $stateParams) {
+    var id= $stateParams.id;
+    var u= $stateParams.user;
+    console.log (id);
+
+    api.getUser(id).success(function (data) {
+
+     /* $scope.user.username = data.username;
+      $scope.user.name = data.name;
+      $scope.user.email = data.email;
+      $scope.user.phone = data.phone;
+      $scope.user.gender = data.gender;
+      $scope.user.college = data.college;
+      $scope.user.city = data.city;
+      $scope.user.rol = data.rol;
+      $scope.user.imageUrl = data.imageUrl;*/
+      console.log ("estamos dentro"+data);
+
+    }).error(function (data) {
+
+    })
+
+
+  }]).controller('editarCtrl', ['$rootScope', '$location', '$scope', '$http',  'API', '$ionicModal', '$stateParams', function($rootScope, $location, $scope, $http, api, $ionicModal, $stateParams) {
     var idput;
     $scope.user = {};
     $scope.selected = false;
     //var id= localStorage.getItem("id");
-    console.log (idlogin);
+    var id= $stateParams.id;
+    var u= $stateParams.user;
     $ionicModal.fromTemplateUrl('my-modal.html', {
       scope: $scope,
       animation: 'slide-in-up'
@@ -433,7 +455,7 @@ var username;
       $scope.modal = modal;
     });
 // Funci�n que obtiene un objeto usuario conocido su id
-    $http.get(_base+'/user/' + idlogin)
+    $http.get(_base+'/user/' + id)
       .success(function(data) {
         idput = data._id;
         $scope.user.username = data.username;

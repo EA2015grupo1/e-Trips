@@ -85,7 +85,15 @@ module.exports = function (app) {
             });
 
     };
+    //GET - GET All Users By College with pagination
+        AllGender = function (req, res) {
+            User.find({gender: req.params.gender},function (err, users) {
+                if (err) res.send(500, err.message);
 
+                console.log('GET /gender')
+                res.status(200).jsonp(users);
+            });
+        };
     //GET - GET All Users By College with pagination
     AllUsers = function (req, res) {
         User.find(function (err, users) {
@@ -386,5 +394,6 @@ module.exports = function (app) {
     app.get('/user/provider/twitter', findTwitter);
     app.get('/college/:college', findCollegeUsers);
     app.get('/gender/:gender', findGenderUsers);
+    app.get('/gender-ionic/:gender', AllGender);
 
 }

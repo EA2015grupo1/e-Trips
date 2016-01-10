@@ -1,7 +1,7 @@
 <ion-view title="Chicas">
   <ion-content padding="'true'" class="has-header">
-    <ion-list ng-click="getProfile(girl._id)" ng-repeat="girl in girls">
-      <ion-item menu-close="" class="item-thumbnail-left" href="#/page16">
+    <ion-list ng-click="getProfile(girl.username, girl._id)" ng-repeat="girl in girls">
+      <ion-item menu-close="" class="item-thumbnail-left" ui-sref="perfilstudent($state.params)">
         <img src={{girl.imageUrl}}>
         <strong> {{girl.name}}</strong>
         <p style="color:darkcyan"> {{girl.username}}</p>
