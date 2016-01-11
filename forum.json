@@ -1,31 +1,31 @@
 {
   "_id": {"$oid":"567895dd239410651a8e4df8"},
-  "foro": [
+  "forum": [
     {
-      "universidad":"566b279b747cfb38bc2830df",
+      "universidad":{"$oid":"566b279b747cfb38bc2830df"},
       "topics": [{
-        "usercreator": "566df8c2c7d87f1a47fda4e7",
+        "usercreator": {"$oid":"566df8c2c7d87f1a47fda4e7"},
         "titulo": "parking cercano",
         "posts": [{
           "mensaje": "hay parking cerca de la uni?",
-          "username": "566df8c2c7d87f1a47fda4e7"
+          "username": {"$oid":"566df8c2c7d87f1a47fda4e7"}
         },
           {
             "mensaje": "si, tiene uno grande justo al lado",
-            "username": "566df8c2c7d87f1a47fda4e5"
+            "username": {"$oid":"566df8c2c7d87f1a47fda4e5"}
           }]
       },
         {
-          "usercreator":"566df8c2c7d87f1a47fda4e5",
+          "usercreator":{"$oid":"566df8c2c7d87f1a47fda4e5"},
           "titulo":"horario",
           "posts":[
             {
               "mensaje": "solo hay horario de mañana?",
-              "username": "566df8c2c7d87f1a47fda4e5"
+              "username": {"$oid":"566df8c2c7d87f1a47fda4e5"}
             },
             {
               "mensaje": "no, también de tardes",
-              "username": "566df8c2c7d87f1a47fda4e7"
+              "username": {"$oid":"566df8c2c7d87f1a47fda4e7"}
             }
           ]
         }
@@ -33,30 +33,30 @@
 
     },
     {
-      "universidad":"566b279b747cfb38bc2830df",
+      "universidad":{"$oid":"566b279b747cfb38bc2830df"},
       "topics": [{
-        "usercreator": "566df8c2c7d87f1a47fda4e7",
+        "usercreator": {"$oid":"566df8c2c7d87f1a47fda4e7"},
         "titulo": "parking cercano",
         "posts": [{
           "mensaje": "hay parking cerca de la uni?",
-          "username": "566df8c2c7d87f1a47fda4e7"
+          "username": {"$oid":"566df8c2c7d87f1a47fda4e7"}
         },
           {
             "mensaje": "si, tiene uno grande justo al lado",
-            "username": "566df8c2c7d87f1a47fda4e5"
+            "username": {"$oid":"566df8c2c7d87f1a47fda4e5"}
           }]
       },
         {
-          "usercreator":"566df8c2c7d87f1a47fda4e5",
+          "usercreator":{"$oid":"566df8c2c7d87f1a47fda4e5"},
           "titulo":"horario",
           "posts":[
             {
               "mensaje": "solo hay horario de mañana?",
-              "username": "566df8c2c7d87f1a47fda4e5"
+              "username": {"$oid":"566df8c2c7d87f1a47fda4e5"}
             },
             {
               "mensaje": "no, también de tardes",
-              "username": "566df8c2c7d87f1a47fda4e7"
+              "username": {"$oid":"566df8c2c7d87f1a47fda4e7"}
             }
           ]
         }
