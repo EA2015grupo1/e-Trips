@@ -64,7 +64,6 @@ routes = require('./routes/users')(app);
 routes = require('./routes/cities')(app);
 routes = require('./routes/colleges')(app);
 routes = require('./routes/friends')(app);
-routes = require('./routes/forums')(app);
 routes = require('./routes/requests')(app);
 routes = require('./routes/messages')(app);
 routes = require('./routes/releases')(app);

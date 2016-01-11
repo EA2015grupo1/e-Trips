@@ -177,7 +177,7 @@ app.controller('cityCtrl',['MarkerCreatorService', '$scope', '$state','$http','t
                 user: user,
                 id: id,
                 college: college
-            }, {reload: false});
+            });
             //location.href = '#/app/students/' + college;
             //location.reload('#/app/students/');
 

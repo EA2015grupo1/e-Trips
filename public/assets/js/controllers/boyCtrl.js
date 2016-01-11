@@ -1,18 +1,17 @@
 /**
  * Created by Javi on 27/12/2015.
  */
-app.factory("Users", function ($resource) {
+app.factory("Boys", function ($resource) {
     var boy = "Hombre";
     return $resource('/gender/'+ boy); //la url donde queremos consumir
 });
-app.controller('boyCtrl',['$scope', '$state', '$http', 'ngTableParams','Users','$stateParams','$modal', '$cookieStore', function($scope, $state,$http, ngTableParams, Users,$stateParams, $modal, $cookieStore) {
+app.controller('boyCtrl',['$scope', '$state', '$http', 'ngTableParams','Boys','$stateParams','$modal', '$cookieStore', function($scope, $state,$http, ngTableParams, Boys,$stateParams, $modal, $cookieStore) {
     var user = {};
     $scope.message={};
     var id= $stateParams.id;
     var u= $stateParams.user;
 
     $scope.load=function() {
-        console.log("load de datos de la tabla!!!!");
         var params = {
             page: 1,
             count: 7
@@ -22,7 +21,7 @@ app.controller('boyCtrl',['$scope', '$state', '$http', 'ngTableParams','Users','
             total: 0,
             counts: [5, 10, 15],
             getData: function($defer, params) {
-                Users.get(params.url(), function(response) {
+                Boys.get(params.url(), function(response) {
                     params.total(response.total);
                     $scope.tregistros= response.total;
                     $defer.resolve(response.results);

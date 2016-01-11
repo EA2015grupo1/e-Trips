@@ -6,7 +6,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 
-var _base = "http://192.168.1.183:3000";
+
 angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'ngCordovaOauth', 'ngCordova'])
 
   .run(function($ionicPlatform, $rootScope, $ionicLoading, $location, $timeout) {
@@ -46,7 +46,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
 
   }).factory('API', ['$http', function($http) {
 
-
+    var _base = "http://147.83.7.156:3000";
     var _api = {
 
       login: function(user) {
@@ -58,13 +58,31 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       editUser: function(user) {
         return $http.put(_base + '/user/'+user._id, user);
       },
-      getUser: function(id) {
-
-        return $http.get(_base + '/user/', +id);
+      getUser: function(iduser) {
+        return $http.get(_base + '/user/' +iduser);
       },
       getCities: function() {
         return $http.get(_base + '/cities');
       },
+      getStudents: function (college) {
+        return $http.get (_base + '/college-ionic/'+college);
+      },
+      addrequest: function (user) {
+        return $http.post (_base + '/addrequest/', user);
+      },
+      getrequests: function (user) {
+        return $http.get (_base + '/requests/'+user);
+      },
+      addfriend: function (user) {
+        return $http.post (_base + '/addfriend/',user);
+      },
+      deleterequest: function (idrequest) {
+        return $http.delete (_base + '/request/'+idrequest);
+      },
+      getfriends: function (user) {
+        return $http.get (_base + '/friends/'+user);
+      },
+
 
     };
     return _api;
@@ -89,8 +107,9 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       else {
         $rootScope.showLoading("Autenticando..");
         api.login($scope.login).success(function (data) {
+          window.localStorage['idlogin'] = data.user[0]._id;
+          window.localStorage['user'] = data.user[0].username;
           $state.go("menu.posicion", {
-            user: data.user[0].username,
             id: data.user[0]._id
           });
           $rootScope.hideLoading();
@@ -156,7 +175,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       {gender: "Mujer"},
     ];
 
-    $http.get(_base+'/cities').success(function (data) {
+    $http.get('http://147.83.7.156:3000/cities').success(function (data) {
       $scope.cities = data;
 
     })
@@ -167,7 +186,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
     $scope.cityitemselected = function (item) {
       city = item;
       console.log (city);
-      $http.get(_base+'/colleges/' + item)
+      $http.get('http://147.83.7.156:3000/colleges/' + item)
         .success(function(data) {
           $scope.colleges = data;
         })
@@ -320,36 +339,29 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
     });
   });
 
-}).controller('perfilCtrl', ['$rootScope', '$state', '$scope', '$http',  'API', '$stateParams', function($rootScope, $state, $scope, $http, api, $stateParams) {
+}).controller('perfilCtrl', ['$rootScope', '$state', '$scope', '$http',  'API',  function($rootScope, $state, $scope, $http, api) {
+    var id = window.localStorage['idlogin'];
+    console.log ()
+    api.getUser(id).success(function (data) {
 
-    var id= $stateParams.id;
-    var u= $stateParams.user;
-    $scope.user = {};
-    $scope.selected = false;
-    //var id= localStorage.getItem("id");
 
-// Funci�n que obtiene un objeto usuario conocido su id
-    $http.get(_base+'/user/' + id)
-      .success(function(data) {
-        $scope.user._id = data._id;
-        $scope.user.username = data.username;
-        $scope.user.name = data.name;
-        $scope.user.email = data.email;
-        $scope.user.phone = data.phone;
-        $scope.user.gender = data.gender;
-        $scope.user.college = data.college;
-        $scope.user.city = data.city;
-        $scope.user.rol = data.rol;
-        $scope.user.imageUrl = data.imageUrl;
-        console.log (data);
-      })
-      .error(function(data) {
-        console.log('Error: ' + data);
-      });
+      $scope.username = data.username;
+      $scope.name = data.name;
+      $scope.email = data.email;
+      $scope.phone = data.phone;
+      $scope.gender = data.gender;
+      $scope.college = data.college;
+      $scope.city = data.city;
+      $scope.rol = data.rol;
+      $scope.imageUrl = data.imageUrl;
+
+
+    }).error(function (data) {
+
+    })
 
     $scope.editUser = function() {
       $state.go("editar", {
-        user: u,
         id: id
       })
     }
@@ -372,9 +384,9 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
     };
 
 
-}]).controller('collegesCtrl', ['$rootScope', '$location', '$scope', 'API','$http', function($rootScope, $location, $scope, api,$http) {
+}]).controller('collegesCtrl', ['$rootScope', '$state', '$scope', 'API','$http', function($rootScope, $state, $scope, api,$http) {
 
-    $http.get(_base+'/colleges/' + city)
+    $http.get('http://147.83.7.156:3000/colleges/' + city)
       .success(function(data) {
 
         $scope.colleges = data;
@@ -382,10 +394,16 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       .error(function(data) {
         console.log('Error: ' + data);
       })
+    $scope.getStudents = function (item) {
+      $state.go ("students", {
+        college: item
+      });
+
+    };
 
 }]).controller('girlsCtrl', ['$rootScope', '$state', '$scope', 'API','$http', function($rootScope, $state, $scope, api,$http) {
     var gender ="Mujer";
-    $http.get(_base+'/gender-ionic/' + gender)
+    $http.get('http://147.83.7.156:3000/gender-ionic/' + gender)
       .success(function(data) {
         console.log (data);
         $scope.girls = data;
@@ -393,9 +411,8 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       .error(function(data) {
         console.log('Error: ' + data);
       })
-    $scope.getProfile = function (u, id) {
-      $state.go("perfilstudent", {
-        user: u,
+    $scope.getProfile = function (id) {
+      $state.go("perfil-student", {
         id: id
       });
 
@@ -403,42 +420,178 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
 
 }]).controller('boysCtrl', ['$rootScope', '$state', '$scope', 'API','$http', function($rootScope, $state, $scope, api,$http) {
     var gender ="Hombre";
-    $http.get(_base+'/gender-ionic/' + gender)
+    $http.get('http://147.83.7.156:3000/gender-ionic/' + gender)
       .success(function(data) {
         $scope.boys = data;
       })
       .error(function(data) {
         console.log('Error: ' + data);
       })
-    $scope.getProfile = function (u, id) {
-      $state.go("perfilstudent", {
-        user: u,
+    $scope.getProfile = function (id) {
+      $state.go("perfil-student", {
         id: id
       });
 
     };
 
 }]).controller('perfil-studentCtrl', ['$rootScope', '$state', '$scope', '$http',  'API','$stateParams', function($rootScope, $state, $scope, $http, api, $stateParams) {
-    var id= $stateParams.id;
-    var u= $stateParams.user;
-    console.log (id);
+    var iduser= $stateParams.id;
 
-    api.getUser(id).success(function (data) {
+    api.getUser(iduser).success(function (data) {
 
-     /* $scope.user.username = data.username;
-      $scope.user.name = data.name;
-      $scope.user.email = data.email;
-      $scope.user.phone = data.phone;
-      $scope.user.gender = data.gender;
-      $scope.user.college = data.college;
-      $scope.user.city = data.city;
-      $scope.user.rol = data.rol;
-      $scope.user.imageUrl = data.imageUrl;*/
-      console.log ("estamos dentro"+data);
+
+      $scope.username = data.username;
+      $scope.name = data.name;
+      $scope.email = data.email;
+      $scope.phone = data.phone;
+      $scope.gender = data.gender;
+      $scope.college = data.college;
+      $scope.city = data.city;
+      $scope.rol = data.rol;
+      $scope.imageUrl = data.imageUrl;
+
 
     }).error(function (data) {
 
     })
+    var user = {};
+    $scope.addRequest = function (username) {
+      var id = window.localStorage['idlogin'];
+      console.log (id);
+      console.log (username);
+      user._id = id;
+      user.username= username;
+      api.addrequest(user).success(function (data) {
+
+      }).error(function (data) {
+
+      })
+    };
+
+  }]).controller('perfil-requestCtrl', ['$rootScope', '$state', '$scope', '$http',  'API','$stateParams', function($rootScope, $state, $scope, $http, api, $stateParams) {
+    var iduser= $stateParams.id; //id de paula
+
+    api.getUser(iduser).success(function (data) {
+
+      console.log (data._id);
+      console.log (data.username);
+
+      $scope.username = data.username;
+      $scope.name = data.name;
+      $scope.email = data.email;
+      $scope.phone = data.phone;
+      $scope.gender = data.gender;
+      $scope.college = data.college;
+      $scope.city = data.city;
+      $scope.rol = data.rol;
+      $scope.imageUrl = data.imageUrl;
+
+
+    }).error(function (data) {
+
+    })
+    var user ={};
+    $scope.addFriend = function(username) {
+      var u = window.localStorage['user'];
+      user.user = u;
+      user._id = iduser;
+
+      api.addfriend(user).success(function (data) {
+
+      }).error(function (data) {
+
+      })
+      user = {};
+      var idlogin = window.localStorage['idlogin'];
+      user.user = username;
+      user._id = idlogin;
+      api.addfriend(user).success(function (data) {
+
+      }).error(function (data) {
+
+      })
+      var idrequest = window.localStorage['idrequest'];
+
+      api.deleterequest(idrequest).success(function (data) {
+
+      }).error(function (data) {
+
+      })
+
+
+       $state.go("menu.friends");
+    }
+    $scope.deleteRequest = function () {
+      var idrequest = window.localStorage['idrequest'];
+      $rootScope.showLoading("Eliminado Solicitud..");
+      api.deleterequest(idrequest).success(function (data) {
+        $rootScope.hideLoading();
+        $rootScope.toast('Solicitud Eliminada!');
+        $state.go ("menu.posicion");
+      }).error(function (data) {
+
+      })
+    };
+
+  }]).controller('requestsCtrl', ['$rootScope', '$state', '$scope', 'API','$stateParams', function($rootScope, $state, $scope, api, $stateParams) {
+
+    var id = window.localStorage['idlogin'];
+    var u = window.localStorage['user'];
+    api.getrequests(u).success(function (data) {
+      $scope.users = data;
+      window.localStorage['idrequest'] = data[0]._id;
+
+    })
+      .error(function (data) {
+        console.log('Error: ' + data);
+      });
+
+    $scope.getStudent = function (id) {
+      $state.go("perfil-request", {
+        id: id
+      })
+    }
+
+
+
+  }]).controller('friendsCtrl', ['$rootScope', '$state', '$scope', 'API','$stateParams', function($rootScope, $state, $scope, api, $stateParams) {
+
+    var id = window.localStorage['idlogin'];
+    var u = window.localStorage['user'];
+    api.getfriends(u).success(function (data) {
+      $scope.users = data;
+
+
+    })
+      .error(function (data) {
+        console.log('Error: ' + data);
+      });
+
+   /* $scope.getStudent = function (id) {
+      $state.go("perfil-request", {
+        id: id
+      })
+    }*/
+
+
+
+  }]).controller('studentsCtrl', ['$rootScope', '$state', '$scope', 'API','$stateParams', function($rootScope, $state, $scope, api, $stateParams) {
+
+    var college = $stateParams.college;
+    console.log (college);
+    api.getStudents(college).success(function (data) {
+      $scope.users = data;
+
+    })
+      .error(function (data) {
+        console.log('Error: ' + data);
+      });
+
+    $scope.getStudent = function (id) {
+      $state.go("perfil-student", {
+        id: id
+      })
+    }
 
 
   }]).controller('editarCtrl', ['$rootScope', '$location', '$scope', '$http',  'API', '$ionicModal', '$stateParams', function($rootScope, $location, $scope, $http, api, $ionicModal, $stateParams) {

@@ -22,10 +22,20 @@ angular.module('app.routes', [])
       controller: 'collegesCtrl'
     })
 
-    .state('perfilstudent', {
+    .state('perfil-student', {
       url: '/page5/:user/:id',
       templateUrl: 'templates/perfil-student.html',
       controller: 'perfil-studentCtrl'
+    })
+    .state('perfil-request', {
+      url: '/page37/:user/:id',
+      templateUrl: 'templates/perfil-request.html',
+      controller: 'perfil-requestCtrl'
+    })
+    .state('students', {
+      url: '/page34/:college',
+      templateUrl: 'templates/students.html',
+      controller: 'studentsCtrl'
     })
 
     .state('registro', {
@@ -36,7 +46,24 @@ angular.module('app.routes', [])
 
 
 
-
+    .state('menu.requests', {
+      url: '/page19',
+      views: {
+        'side-menu21': {
+          templateUrl: 'templates/requests.html',
+          controller: 'requestsCtrl'
+        }
+      }
+    })
+    .state('menu.friends', {
+      url: '/page23',
+      views: {
+        'side-menu21': {
+          templateUrl: 'templates/friends.html',
+          controller: 'friendsCtrl'
+        }
+      }
+    })
 
 
     .state('menu.cities', {
@@ -54,7 +81,7 @@ angular.module('app.routes', [])
 
 
     .state('menu.perfil', {
-      url: '/page12/:user/:id',
+      url: '/page12/:id',
       views: {
         'side-menu21': {
           templateUrl: 'templates/perfil.html',
@@ -67,7 +94,7 @@ angular.module('app.routes', [])
 
 
     .state('editar', {
-      url: '/page2/:user/:id',
+      url: '/page2/:id',
       templateUrl: 'templates/editar.html',
       controller: 'editarCtrl'
     })
@@ -85,7 +112,7 @@ angular.module('app.routes', [])
 
 
     .state('menu.posicion', {
-      url: '/page8/:user/:id',
+      url: '/page8/:id',
       views: {
         'side-menu21': {
           templateUrl: 'templates/posicion.html',

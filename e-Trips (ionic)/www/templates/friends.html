@@ -1,0 +1,12 @@
+<ion-view title="Amigos">
+  <ion-content padding="'true'" class="has-header">
+    <ion-list ng-click="getStudent(user.friend._id)" ng-repeat="user in users">
+      <ion-item menu-close="" class="item-thumbnail-left">
+        <img src={{user.friend.imageUrl}}  width="40%" height="120" style="width: 40%; height: 120px;">
+        <strong> {{user.friend.name}}</strong>
+        <p style="color:darkcyan"> {{user.friend.username}}</p>
+        <p>{{user.friend.college}}</p>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

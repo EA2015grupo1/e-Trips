@@ -1,15 +1,38 @@
 'use strict'
 
-app.factory("Users", function ($resource, $stateParams) {
+app.factory("Students", function ($resource, $stateParams) {
+    var c=  $stateParams.college;
+    console.log ("COLEGIO: "+c);
     return $resource('/college/'+ $stateParams.college); //la url donde queremos consumir
 });
-app.controller('studentsCtrl',['$scope', '$state', '$http', 'ngTableParams','Users','$stateParams','$modal', '$cookieStore', function($scope, $state,$http, ngTableParams, Users,$stateParams, $modal, $cookieStore) {
+app.controller('studentsCtrl',['$scope', '$state', '$http', 'ngTableParams','Students','$stateParams','$modal', '$cookieStore', function($scope, $state,$http, ngTableParams, Students,$stateParams, $modal, $cookieStore) {
     var user = {};
     $scope.message={};
     $scope.college = $stateParams.college;
+    var c= $stateParams.college;
     var id= $stateParams.id;
     var u= $stateParams.user;
+    $scope.load=function() {
 
+        var params = {
+            page: 1,
+            count: 7
+        };
+
+        var settings = {
+            total: 0,
+            counts: [5, 10, 15],
+            getData: function ($defer, params) {
+                Students.get(params.url(), function (response) {
+                    params.total(response.total);
+                    $scope.tregistros = response.total;
+                    $defer.resolve(response.results);
+                });
+            }
+        };
+
+        $scope.tableParams = new ngTableParams(params, settings);
+    };
     $scope.open = function (size) {
         $scope.message.receiver = size;
         $scope.message.ids = id;
@@ -42,24 +65,6 @@ app.controller('studentsCtrl',['$scope', '$state', '$http', 'ngTableParams','Use
 
             })
     };
-    var params = {
-        page: 1,
-        count: 7
-    };
-
-    var settings = {
-        total: 0,
-        counts: [5, 10, 15],
-        getData: function($defer, params) {
-            Users.get(params.url(), function(response) {
-                params.total(response.total);
-                $scope.tregistros= response.total;
-                $defer.resolve(response.results);
-            });
-        }
-    };
-
-    $scope.tableParams = new ngTableParams(params, settings);
 
     $scope.getProfile = function(idstudent) {
         $cookieStore.put('idstudent', idstudent);

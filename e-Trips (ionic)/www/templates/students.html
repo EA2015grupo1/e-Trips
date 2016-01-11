@@ -1,0 +1,14 @@
+<ion-header-bar class="bar-positive">
+  <div class="title">Estudiantes</div>
+</ion-header-bar>
+<ion-content padding="'true'">
+  <ion-list ng-click="getStudent(user._id)" ng-repeat="user in users">
+    <ion-item menu-close="" class="item-thumbnail-left">
+      <img src="{{user.imageUrl}}">
+      <strong> {{user.name}}</strong>
+      <p style="color:darkcyan"> {{user.username}}</p>
+      <p>{{user.email}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>
+

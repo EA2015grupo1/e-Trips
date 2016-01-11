@@ -85,7 +85,16 @@ module.exports = function (app) {
             });
 
     };
-    //GET - GET All Users By College with pagination
+    //GET - GET All Users By College w
+    AllCollegeUsers = function (req, res) {
+        User.find({college: req.params.college},function (err, users) {
+            if (err) res.send(500, err.message);
+
+            console.log('GET /users')
+            res.status(200).jsonp(users);
+        });
+    };
+    //GET - GET All Users By Gender
         AllGender = function (req, res) {
             User.find({gender: req.params.gender},function (err, users) {
                 if (err) res.send(500, err.message);
@@ -94,7 +103,7 @@ module.exports = function (app) {
                 res.status(200).jsonp(users);
             });
         };
-    //GET - GET All Users By College with pagination
+    //GET - GET All Users into DB
     AllUsers = function (req, res) {
         User.find(function (err, users) {
             if (err) res.send(500, err.message);
@@ -393,6 +402,7 @@ module.exports = function (app) {
     app.get('/user/provider/facebook', findFacebook);
     app.get('/user/provider/twitter', findTwitter);
     app.get('/college/:college', findCollegeUsers);
+    app.get('/college-ionic/:college', AllCollegeUsers);
     app.get('/gender/:gender', findGenderUsers);
     app.get('/gender-ionic/:gender', AllGender);
 
