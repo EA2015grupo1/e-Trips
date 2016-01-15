@@ -42,3 +42,20 @@
   content: "\f2ca";
 }
 
+.menu {
+  background-color: #3f4041;
+}
+
+.menu .scroll {
+  background-color: transparent;
+}
+
+.menu .list {
+  background-color: transparent;
+}
+
+.-menu .item, .menu .item-content, .menu .item-complex{
+  background-color: transparent;
+  color: #FFFFFF;
+  border-color: rgba(0,0,0,0);
+}

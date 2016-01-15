@@ -1,0 +1,11 @@
+<ion-view title="Usuarios Conectados">
+<ion-content padding="'true'">
+  <ion-list ng-repeat="user in online">
+    <ion-item menu-close="" class="item-thumbnail-left">
+      <img src="{{user.imageUrl}}">
+      <p style="color:darkcyan"> {{user.user}}</p>
+      <p>{{user.city}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>
+</ion-view>

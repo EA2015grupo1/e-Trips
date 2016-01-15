@@ -1,7 +1,7 @@
-<ion-nav-bar class="bar bar-header bar-positive" align-title="center">
-  <ion-nav-back-button class="button-icon icon ion-ios-arrow-back">Back</ion-nav-back-button>
-</ion-nav-bar>
-<ion-view title="Mi Perfil">
+<ion-header-bar class="bar-positive">
+  <ion-header-back-button ng-click="goBack()" class="button icon-left ion-chevron-left button-clear button-dark">Back</ion-header-back-button>
+  <div class="title">Mi Perfil</div>
+</ion-header-bar>
     <ion-content overflow-scroll="true" padding="true" class="has-header" align="center">
         <img src="{{imageUrl}}" width="40%" height="120" style="width: 40%; height: 120px;">
           <div class="list card padding">

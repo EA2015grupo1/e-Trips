@@ -17,13 +17,13 @@ angular.module('app.routes', [])
     })
 
     .state('colleges', {
-      url: '/page14',
+      url: '/page14/:city',
       templateUrl: 'templates/colleges.html',
       controller: 'collegesCtrl'
     })
 
     .state('perfil-student', {
-      url: '/page5/:user/:id',
+      url: '/page5/:city/:college/:id',
       templateUrl: 'templates/perfil-student.html',
       controller: 'perfil-studentCtrl'
     })
@@ -33,7 +33,7 @@ angular.module('app.routes', [])
       controller: 'perfil-requestCtrl'
     })
     .state('students', {
-      url: '/page34/:college',
+      url: '/page34/:city/:college',
       templateUrl: 'templates/students.html',
       controller: 'studentsCtrl'
     })
@@ -43,8 +43,16 @@ angular.module('app.routes', [])
       templateUrl: 'templates/registro.html',
       controller: 'registerCtrl'
     })
-
-
+    .state('editar', {
+      url: '/page2/:id',
+      templateUrl: 'templates/editar.html',
+      controller: 'editarCtrl'
+    })
+    .state('profile', {
+      url: '/page12/:id',
+      templateUrl: 'templates/perfil.html',
+      controller: 'perfilCtrl'
+    })
 
     .state('menu.requests', {
       url: '/page19',
@@ -77,35 +85,23 @@ angular.module('app.routes', [])
     })
 
 
-
-
-
-    .state('menu.perfil', {
-      url: '/page12/:id',
+  /*  .state('menu.perfil', {
+      url: '/page12',
       views: {
         'side-menu21': {
           templateUrl: 'templates/perfil.html',
           controller: 'perfilCtrl'
         }
       }
-    })
-
-
-
-
-    .state('editar', {
-      url: '/page2/:id',
-      templateUrl: 'templates/editar.html',
-      controller: 'editarCtrl'
-    })
-
+    })*/
 
 
 
     .state('menu', {
       url: '/side-menu21',
       abstract:true,
-      templateUrl: 'templates/menu.html'
+      templateUrl: 'templates/menu.html',
+      controller:'perfilCtrl'
     })
 
 
@@ -117,6 +113,25 @@ angular.module('app.routes', [])
         'side-menu21': {
           templateUrl: 'templates/posicion.html',
           controller: 'posicionCtrl'
+        }
+      }
+    })
+    .state('menu.chat', {
+      url: '/page24/',
+      views: {
+        'side-menu21': {
+          templateUrl: 'templates/chat.html',
+          controller: 'chatCtrl'
+        }
+      }
+    })
+
+    .state('menu.online', {
+      url: '/page25/',
+      views: {
+        'side-menu21': {
+          templateUrl: 'templates/online.html',
+          controller: 'chatCtrl'
         }
       }
     })

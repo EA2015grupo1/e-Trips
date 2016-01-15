@@ -1,29 +1,44 @@
-<ion-side-menus enable-menu-with-back-views="false">
-    <ion-side-menu-content>
-        <ion-nav-bar class="bar-positive">
-            <ion-nav-back-button></ion-nav-back-button>
-            <ion-nav-buttons side="center">
-                <button class="button button-icon button-clear ion-navicon" menu-toggle=""></button>
-            </ion-nav-buttons>
-        </ion-nav-bar>
-        <ion-nav-view name="side-menu21"></ion-nav-view>
-    </ion-side-menu-content>
-    <ion-side-menu side="left">
-        <ion-header-bar class="bar-positive">
-            <div class="title">Menu</div>
-        </ion-header-bar>
-        <ion-content padding="false" class="side-menu-left has-header" <="" ion-content="">
+<ion-side-menus enable-menu-with-back-views="false" ng-init="init()">
+
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-positive">
+      <ion-nav-back-button></ion-nav-back-button>
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle=""></button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="side-menu21"></ion-nav-view>
+  </ion-side-menu-content>
+  <ion-side-menu side="left" class="app-sidebar color" ng-click="seeProfile()">
+    <div class="row app-sidebar-profile-box profile-colors">
+      <div class="col col-25">
+        <img src="{{imageUrl}}" width=65&height=65;">
+        <!--<img src="http://graph.facebook.com/{{user.id}}/picture?width=270&height=270" />-->
+      </div>
+      <div class="row">
+      <div class="col-65 col-offset-10">
+        <div>
+          <font color="white" class="title">{{username}}</font></div>
+        <div>
+          <font color="white" class="title">{{city}}</font></div>
+        <div>
+          <font color="white" class="title">{{college}}</font></div>
+      </div>
+    </div>
+
+
+    </div>
             <ion-list >
-                <ion-item ui-sref="menu.perfil" menu-close="">Mi Perfil</ion-item>
-                <ion-item ui-sref="menu.posicion" menu-close="">Mi Posicion</ion-item>
-                <ion-item>Mensajes</ion-item>
-                <ion-item ui-sref="menu.requests" menu-close="">Mis Solicitudes</ion-item>
-                <ion-item ui-sref="menu.friends" menu-close="">Mis Amigos</ion-item>
-                <ion-item ui-sref="menu.cities" menu-close="">Buscar Ciudades y Universidades</ion-item>
-                <ion-item ui-sref="menu.girls" menu-close="">Encontrar Chicas</ion-item>
-                <ion-item ui-sref="menu.boys" menu-close="">Encontrar Chicos</ion-item>
-                <ion-item>Foro</ion-item>
+                <ion-item  class="itemMenu" ui-sref="menu.posicion" menu-close="">Mi Posicion</ion-item>
+                <ion-item  class="itemMenu" ui-sref="menu.online" menu-close="">Usuarios Conectados</ion-item>
+                <ion-item  class="itemMenu" >Mensajes</ion-item>
+                <ion-item  class="itemMenu" ui-sref="menu.requests" menu-close="">Mis Solicitudes</ion-item>
+                <ion-item  class="itemMenu" ui-sref="menu.friends" menu-close="">Mis Amigos</ion-item>
+                <ion-item  class="itemMenu" ui-sref="menu.cities" menu-close="">Buscar Ciudades y Universidades</ion-item>
+                <ion-item  class="itemMenu" ui-sref="menu.girls" menu-close="">Encontrar Chicas</ion-item>
+                <ion-item  class="itemMenu" ui-sref="menu.boys" menu-close="">Encontrar Chicos</ion-item>
+                <ion-item  class="itemMenu" ui-sref="menu.chat" menu-close="">Chat</ion-item>
+                <ion-item  class="itemMenu">Foro</ion-item>
             </ion-list>
-        </ion-content>
-    </ion-side-menu>
+  </ion-side-menu>
 </ion-side-menus>

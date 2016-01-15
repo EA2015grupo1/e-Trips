@@ -31,6 +31,7 @@ module.exports = function (app) {
         console.log(req.body);
                 var chat = new Chat({
                     imageUrl: req.body.imageUrl,
+                    id: req.body.id,
                     user: req.body.user,
                     msg: req.body.message,
                     date: req.body.date

@@ -5,8 +5,8 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-
-
+var socket = io.connect('http://147.83.7.156:3000', { 'forceNew': true });
+var _base = "http://147.83.7.156:3000";
 angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'ngCordovaOauth', 'ngCordova'])
 
   .run(function($ionicPlatform, $rootScope, $ionicLoading, $location, $timeout) {
@@ -46,7 +46,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
 
   }).factory('API', ['$http', function($http) {
 
-    var _base = "http://147.83.7.156:3000";
+
     var _api = {
 
       login: function(user) {
@@ -82,6 +82,23 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       getfriends: function (user) {
         return $http.get (_base + '/friends/'+user);
       },
+      getMessage: function (user) {
+        return $http.get (_base + '/chat/');
+      },
+      getColleges: function (item) {
+        return $http.get (_base + '/colleges/' +item);
+      },
+      getCities: function () {
+        return $http.get (_base + '/cities/');
+      },
+      getGirls: function () {
+        return $http.get (_base + '/gender-ionic/Mujer');
+      },
+      getBoys: function () {
+        return $http.get (_base + '/gender-ionic/Hombre');
+      },
+
+
 
 
     };
@@ -105,13 +122,21 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
         $rootScope.toast('Campo password vacío');
       }
       else {
+        var user={};
         $rootScope.showLoading("Autenticando..");
         api.login($scope.login).success(function (data) {
           window.localStorage['idlogin'] = data.user[0]._id;
           window.localStorage['user'] = data.user[0].username;
-          $state.go("menu.posicion", {
-            id: data.user[0]._id
+          user.id =  data.user[0]._id;
+          user.imageUrl =  data.user[0].imageUrl;
+          user.user =  data.user[0].username;
+          user.city =  data.user[0].city;
+          user.email =  data.user[0].email;
+          user.college =  data.user[0].college;
+          socket.emit('newUser', user, function (data) {
+
           });
+          $state.go("menu.posicion");
           $rootScope.hideLoading();
         }).error(function (data) {
           $rootScope.hideLoading();
@@ -175,7 +200,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       {gender: "Mujer"},
     ];
 
-    $http.get('http://147.83.7.156:3000/cities').success(function (data) {
+    api.getCities().success(function (data) {
       $scope.cities = data;
 
     })
@@ -186,8 +211,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
     $scope.cityitemselected = function (item) {
       city = item;
       console.log (city);
-      $http.get('http://147.83.7.156:3000/colleges/' + item)
-        .success(function(data) {
+      api.getColleges(item).success(function (data) {
           $scope.colleges = data;
         })
         .error(function(data) {
@@ -284,9 +308,95 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
     $state.go("login");
     }
 
-  }])
+  }]).controller('chatCtrl', ['$rootScope', '$state', '$scope', '$cordovaOauth','API','$http', '$ionicModal', function($rootScope, $state, $scope, $cordovaOauth, api, $http, $ionicModal) {
 
-  .controller('posicionCtrl', function($scope, $cordovaGeolocation, $ionicLoading) {
+    var id = window.localStorage['idlogin'];
+    $scope.id = id;
+    var u = window.localStorage['user'];
+    var user={};
+    var users={};
+    $scope.message={};
+    $scope.user = {
+      _id: id
+
+    };
+
+    $scope.messages =[];
+    socket.on('newMessage', function(data){
+      $scope.$apply(function(){
+        $scope.messages.push(data);
+      });
+
+    })
+    api.getUser(id).success(function (data) {
+
+        user.id = id;
+        user.imageUrl = data.imageUrl;
+        user.user = data.username;
+        user.city = data.city;
+        user.email = data.email;
+        user.college = data.college;
+        socket.emit('newUser', user, function (data) {
+
+        });
+        socket.on('usernames', function(data){
+          console.log (data.length);
+          users = data;
+          for (var i=0; i<users.length; i++){
+            if (users[i].user == u){
+              console.log ("encontrado");
+              users.splice(i, 1);
+              break;
+            }
+          }
+          $scope.$apply(function(){
+              $scope.online = users;
+          });
+
+        });
+
+      })
+      .error(function (data) {
+        console.log('Error: ' + data);
+      });
+
+/*    //Obtenemos todos los datos de la base de datos
+    $http.get('http://147.83.7.156:3000/chat').success(function (data) {
+      $scope.messages = data;
+
+    })
+      .error(function (data) {
+        console.log('Error: ' + data);
+      });
+*/
+
+
+
+    $scope.sendMessage = function(sendMessageForm) {
+      user.message = $scope.text;
+      user.date = new Date();
+      if ($scope.text) {
+        socket.emit('sendMessage', user);
+        $scope.text = '';
+      /*  $http.post('http://147.83.7.156:3000/addchat', user)
+          .success(function (data) {
+
+          })
+          .error(function (data) {
+
+          })*/
+      }
+
+
+    };
+
+    var newUser = {};
+
+
+
+
+
+  }]).controller('posicionCtrl', function($scope, $cordovaGeolocation, $ionicLoading) {
 
 
   ionic.Platform.ready(function() {
@@ -341,10 +451,12 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
 
 }).controller('perfilCtrl', ['$rootScope', '$state', '$scope', '$http',  'API',  function($rootScope, $state, $scope, $http, api) {
     var id = window.localStorage['idlogin'];
-    console.log ()
+
+    $scope.goBack = function() {
+      $state.go("menu.posicion");
+    };
+
     api.getUser(id).success(function (data) {
-
-
       $scope.username = data.username;
       $scope.name = data.name;
       $scope.email = data.email;
@@ -359,6 +471,11 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
     }).error(function (data) {
 
     })
+    $scope.seeProfile = function() {
+      $state.go("profile", {
+        id: id
+      })
+    }
 
     $scope.editUser = function() {
       $state.go("editar", {
@@ -366,7 +483,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       })
     }
 
-}]).controller('citiesCtrl', ['$rootScope', '$location', '$scope', 'API', function($rootScope, $location, $scope, api) {
+}]).controller('citiesCtrl', ['$rootScope', '$state', '$scope', 'API', function($rootScope, $state, $scope, api) {
 
 
   api.getCities().success(function (data) {
@@ -378,16 +495,20 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
     });
 
     $scope.getCollege = function (item) {
-      city = item;
-      $location.path ('/page14');
+      $state.go("colleges", {
+        city: item
+      });
 
     };
 
 
-}]).controller('collegesCtrl', ['$rootScope', '$state', '$scope', 'API','$http', function($rootScope, $state, $scope, api,$http) {
+}]).controller('collegesCtrl', ['$rootScope', '$state', '$scope', 'API','$http','$stateParams', '$ionicHistory', function($rootScope, $state, $scope, api,$http,$stateParams, $ionicHistory) {
 
-    $http.get('http://147.83.7.156:3000/colleges/' + city)
-      .success(function(data) {
+    var city=  $stateParams.city;
+    $scope.goBack = function() {
+      $state.go("menu.cities");
+    };
+    api.getColleges(city).success(function (data) {
 
         $scope.colleges = data;
       })
@@ -396,15 +517,15 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       })
     $scope.getStudents = function (item) {
       $state.go ("students", {
+        city: city,
         college: item
+
       });
 
     };
 
 }]).controller('girlsCtrl', ['$rootScope', '$state', '$scope', 'API','$http', function($rootScope, $state, $scope, api,$http) {
-    var gender ="Mujer";
-    $http.get('http://147.83.7.156:3000/gender-ionic/' + gender)
-      .success(function(data) {
+    api.getGirls().success(function (data) {
         console.log (data);
         $scope.girls = data;
       })
@@ -419,9 +540,8 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
     };
 
 }]).controller('boysCtrl', ['$rootScope', '$state', '$scope', 'API','$http', function($rootScope, $state, $scope, api,$http) {
-    var gender ="Hombre";
-    $http.get('http://147.83.7.156:3000/gender-ionic/' + gender)
-      .success(function(data) {
+
+    api.getBoys().success(function (data) {
         $scope.boys = data;
       })
       .error(function(data) {
@@ -436,10 +556,10 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
 
 }]).controller('perfil-studentCtrl', ['$rootScope', '$state', '$scope', '$http',  'API','$stateParams', function($rootScope, $state, $scope, $http, api, $stateParams) {
     var iduser= $stateParams.id;
+    var college = $stateParams.college;
+    var city = $stateParams.city;
 
     api.getUser(iduser).success(function (data) {
-
-
       $scope.username = data.username;
       $scope.name = data.name;
       $scope.email = data.email;
@@ -454,6 +574,13 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
     }).error(function (data) {
 
     })
+
+    $scope.goBack = function() {
+      $state.go("students", {
+        city: city,
+        college: college
+      })
+    };
     var user = {};
     $scope.addRequest = function (username) {
       var id = window.localStorage['idlogin'];
@@ -554,7 +681,14 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
 
 
 
-  }]).controller('friendsCtrl', ['$rootScope', '$state', '$scope', 'API','$stateParams', function($rootScope, $state, $scope, api, $stateParams) {
+  }]).filter('nl2br', ['$filter',
+    function($filter) {
+      return function(data) {
+        if (!data) return data;
+        return data.replace(/\n\r?/g, '<br />');
+      };
+    }
+  ]).controller('friendsCtrl', ['$rootScope', '$state', '$scope', 'API','$stateParams', function($rootScope, $state, $scope, api, $stateParams) {
 
     var id = window.localStorage['idlogin'];
     var u = window.localStorage['user'];
@@ -567,18 +701,18 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
         console.log('Error: ' + data);
       });
 
-   /* $scope.getStudent = function (id) {
-      $state.go("perfil-request", {
-        id: id
-      })
-    }*/
-
-
 
   }]).controller('studentsCtrl', ['$rootScope', '$state', '$scope', 'API','$stateParams', function($rootScope, $state, $scope, api, $stateParams) {
 
     var college = $stateParams.college;
-    console.log (college);
+    var city = $stateParams.city;
+
+    $scope.goBack = function() {
+      $state.go("colleges", {
+        city: city
+      })
+    };
+
     api.getStudents(college).success(function (data) {
       $scope.users = data;
 
@@ -589,18 +723,23 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
 
     $scope.getStudent = function (id) {
       $state.go("perfil-student", {
+        city: city,
+        college: college,
         id: id
       })
     }
 
 
-  }]).controller('editarCtrl', ['$rootScope', '$location', '$scope', '$http',  'API', '$ionicModal', '$stateParams', function($rootScope, $location, $scope, $http, api, $ionicModal, $stateParams) {
+  }]).controller('editarCtrl', ['$rootScope', '$state', '$scope', '$http',  'API', '$ionicModal', '$stateParams', function($rootScope, $state, $scope, $http, api, $ionicModal, $stateParams) {
     var idput;
     $scope.user = {};
     $scope.selected = false;
-    //var id= localStorage.getItem("id");
     var id= $stateParams.id;
     var u= $stateParams.user;
+    $scope.goBack = function() {
+      $state.go("profile");
+    };
+
     $ionicModal.fromTemplateUrl('my-modal.html', {
       scope: $scope,
       animation: 'slide-in-up'
