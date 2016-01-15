@@ -1,17 +1,18 @@
 /**
  * Created by Javi on 27/12/2015.
  */
-app.factory("Boys", function ($resource) {
+app.factory("Users", function ($resource) {
     var boy = "Hombre";
     return $resource('/gender/'+ boy); //la url donde queremos consumir
 });
-app.controller('boyCtrl',['$scope', '$state', '$http', 'ngTableParams','Boys','$stateParams','$modal', '$cookieStore', function($scope, $state,$http, ngTableParams, Boys,$stateParams, $modal, $cookieStore) {
+app.controller('boyCtrl',['$scope', '$state', '$http', 'ngTableParams','Users','$stateParams','$modal', '$cookieStore', function($scope, $state,$http, ngTableParams, Users,$stateParams, $modal, $cookieStore) {
     var user = {};
     $scope.message={};
     var id= $stateParams.id;
     var u= $stateParams.user;
 
     $scope.load=function() {
+        console.log("load de datos de la tabla!!!!");
         var params = {
             page: 1,
             count: 7
@@ -21,7 +22,7 @@ app.controller('boyCtrl',['$scope', '$state', '$http', 'ngTableParams','Boys','$
             total: 0,
             counts: [5, 10, 15],
             getData: function($defer, params) {
-                Boys.get(params.url(), function(response) {
+                Users.get(params.url(), function(response) {
                     params.total(response.total);
                     $scope.tregistros= response.total;
                     $defer.resolve(response.results);
@@ -33,6 +34,9 @@ app.controller('boyCtrl',['$scope', '$state', '$http', 'ngTableParams','Boys','$
 
 
     }
+    $scope.ordenarPor = function(orden){
+        $scope.ordenSeleccionado= orden;
+    };
 
     $scope.open = function (size) {
         $scope.message.receiver = size;
@@ -76,6 +80,8 @@ app.controller('boyCtrl',['$scope', '$state', '$http', 'ngTableParams','Boys','$
 
 }]);
 
+
+
 app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, $http, message) {
     $scope.user.receive = message.receiver;
     $scope.send = function (subject, text) {
@@ -94,4 +100,3 @@ app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, $http, mes
         $modalInstance.dismiss('cancel');
     };
 });
-

@@ -1,9 +1,55 @@
+<style>
+    #search input {
+        background: none repeat scroll 0 0 #fff;
+        border: 0 none;
+        color: #7F7F7F;
+        float: left;
+        font: 12px 'Helvetica','Lucida Sans Unicode','Lucida Grande',sans-serif;
+        height: 40px;
+        margin: 0;
+        padding: 10px;
+        transition: background 0.3s ease-in-out 0s;
+        width: 300px;
+    }
+
+    #search button {
+        background: url("./assets/images/search.png") no-repeat scroll center center #7eac10;
+        cursor: pointer;
+        height: 40px;
+        text-indent: -99999em;
+        transition: background 0.3s ease-in-out 0s;
+        width: 40px;
+        border: 2px solid #fff;
+    }
+
+    #search button:hover {
+        background-color:#000;
+    }
+</style>
 <section id="page-title" class="padding-top-15 padding-bottom-15">
     <div class="row" ng-init="load()">
-        <div class="col-sm-12">
-            <p style="font-family: Impact, serif; font-size:20pt; font-style:bold">
+        <div class="col-md-12">
+            <p style="font-family: Arial, serif; font-size:20pt; font-style:bold">
                 {{tregistros}} Chicos encontrados en e-Trips
             </p>
+            <div class="col-md-5">
+                <div class = "input-group">
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-search">
+                        </i>
+                    </span>
+                <input type="text" class="form-control" placeholder="Buscar por ciudad" ng-model="buscar.city" >
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class = "input-group">
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-search">
+                        </i>
+                    </span>
+                    <input type="text" class="form-control" placeholder="Introduzca nombre" ng-model="buscar.name" >
+                </div>
+            </div>
             <!-- 	<span class="mainDescription">overview &amp; stats </span>-->
         </div>
         <div class="col-sm-5">
@@ -35,15 +81,19 @@
                 <thead>
                 <tr>
                     <th class="center">Foto</th>
-                    <th>Nombre Completo</th>
+                    <th>
+                        <a href = "" ng-click="ordenarPor('name')">
+                            Nombre
+                        </a>
+                        <span class="caret" style="cursor:pointer" ng-click="ordenarPor('-name')"></span>
+                    </th>
                     <th class="hidden-xs">Universidad</th>
                     <th class="hidden-xs">Ciudad</th>
                     <th class="hidden-xs">Usuario</th>
-                    <th class="hidden-xs">Email</th>
                     <th></th>
                 </tr>
                 </thead>
-                <tr ng-repeat="user in $data">
+                <tr ng-repeat="user in $data | orderBy:ordenSeleccionado | filter:buscar">
 
                     <td><img src={{user.imageUrl}} width="50" height="50" class="img-rounded" alt="image"/></td>
                     <td>{{user.name}}</td>
