@@ -103,7 +103,7 @@ var nicknames = [];
 io.on('connection', function(socket) {
     console.log('Alguien se ha conectado con Sockets');
     socket.on('sendMessage', function(data) {
-        io.sockets.emit('newMessage', {msg: data.message, user: data.user, imageUrl: data.imageUrl, id: data.id, date: data.date, city: data.city, college: data.college, email: data.email});
+        io.sockets.emit('newMessage', {msg: data.message, user: data.user, imageUrl: data.imageUrl, id: data.id, date: data.date, city: data.city});
     });
 
     socket.on('newUser', function(data){
@@ -122,93 +122,11 @@ io.on('connection', function(socket) {
         }
 
 
-
-
     });
-    socket.on('getusers', function(data) {
-        io.sockets.emit('usernames', nicknames);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    socket.on('getUsers', function(data){
+    io.sockets.emit('usernames', nicknames);
     });
+
 
     socket.on('disconnect', function(){
         console.log('Alguien se ha desconectado con Sockets');

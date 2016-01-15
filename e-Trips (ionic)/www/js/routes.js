@@ -131,7 +131,7 @@ angular.module('app.routes', [])
       views: {
         'side-menu21': {
           templateUrl: 'templates/online.html',
-          controller: 'chatCtrl'
+          controller: 'onlineCtrl'
         }
       }
     })

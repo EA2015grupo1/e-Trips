@@ -127,12 +127,12 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
         api.login($scope.login).success(function (data) {
           window.localStorage['idlogin'] = data.user[0]._id;
           window.localStorage['user'] = data.user[0].username;
-          user.id =  data.user[0]._id;
-          user.imageUrl =  data.user[0].imageUrl;
-          user.user =  data.user[0].username;
-          user.city =  data.user[0].city;
-          user.email =  data.user[0].email;
-          user.college =  data.user[0].college;
+          window.localStorage['city'] = data.user[0].city;
+          window.localStorage['imageUrl'] = data.user[0].imageUrl;
+          user.id = data.user[0]._id;
+          user.imageUrl = data.user[0].imageUrl;
+          user.user = data.user[0].username;
+          user.city = data.user[0].city;
           socket.emit('newUser', user, function (data) {
 
           });
@@ -144,15 +144,14 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
         })
       }
     }
-      $scope.twitterLogin = function() {
-        $cordovaOauth.twitter("ZmstRHtgbFnTyc0cJOcI0Fas5","HYJkM3CjTkZNGWhjYFf57bqOxtTk8sgnwkXxHSGeyh0nJexrZK").then(function(result) {
-          console.log(JSON.stringify(result));
-          $state.go('menu.posicion');
-        }, function(error) {
-          console.log(JSON.stringify(error));
-        });
-      }
-/*
+
+/*    $scope.twitterLogin = function() {
+      $cordovaOauth.twitter("CLIENT ID",  "CLIENT SECRET").then(function(result) {
+        console.log(JSON.stringify(result));
+      }, function(error) {
+        console.log(JSON.stringify(error));
+      });
+    }
 
     $scope.facebookLogin = function() {
       console.log ("hola");
@@ -314,6 +313,8 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
     var id = window.localStorage['idlogin'];
     $scope.id = id;
     var u = window.localStorage['user'];
+    var city = window.localStorage['city'];
+    var imageUrl = window.localStorage['imageUrl'];
     var user={};
     var users={};
     $scope.message={};
@@ -329,19 +330,9 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       });
 
     })
-    api.getUser(id).success(function (data) {
 
-        user.id = id;
-        user.imageUrl = data.imageUrl;
-        user.user = data.username;
-        user.city = data.city;
-        user.email = data.email;
-        user.college = data.college;
-        socket.emit('newUser', user, function (data) {
-
-        });
-        socket.on('usernames', function(data){
-          console.log (data.length);
+    socket.on('usernames', function(data){
+          console.log (data);
           users = data;
           for (var i=0; i<users.length; i++){
             if (users[i].user == u){
@@ -354,14 +345,10 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
               $scope.online = users;
           });
 
-        });
+    });
 
-      })
-      .error(function (data) {
-        console.log('Error: ' + data);
-      });
 
-/*    //Obtenemos todos los datos de la base de datos
+   //Obtenemos todos los datos de la base de datos
     $http.get('http://147.83.7.156:3000/chat').success(function (data) {
       $scope.messages = data;
 
@@ -369,30 +356,131 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       .error(function (data) {
         console.log('Error: ' + data);
       });
-*/
-
-
 
     $scope.sendMessage = function(sendMessageForm) {
       user.message = $scope.text;
       user.date = new Date();
+      user.id = id;
+      user.user = u;
+      user.city = city;
+      user.imageUrl = imageUrl;
       if ($scope.text) {
         socket.emit('sendMessage', user);
         $scope.text = '';
-      /*  $http.post('http://147.83.7.156:3000/addchat', user)
+       $http.post('http://147.83.7.156:3000/addchat', user)
           .success(function (data) {
 
           })
           .error(function (data) {
 
-          })*/
+          })
       }
-
 
     };
 
     var newUser = {};
 
+
+
+  }]).controller('chatCtrl', ['$rootScope', '$state', '$scope', '$cordovaOauth','API','$http', '$ionicModal', function($rootScope, $state, $scope, $cordovaOauth, api, $http, $ionicModal) {
+
+    var id = window.localStorage['idlogin'];
+    $scope.id = id;
+    var u = window.localStorage['user'];
+    var city = window.localStorage['city'];
+    var imageUrl = window.localStorage['imageUrl'];
+    var user={};
+    var users={};
+    $scope.message={};
+    $scope.user = {
+      _id: id
+
+    };
+
+    $scope.messages =[];
+    socket.on('newMessage', function(data){
+      $scope.$apply(function(){
+        $scope.messages.push(data);
+      });
+
+    })
+
+    socket.on('usernames', function(data){
+      console.log (data);
+      users = data;
+      for (var i=0; i<users.length; i++){
+        if (users[i].user == u){
+          console.log ("encontrado");
+          users.splice(i, 1);
+          break;
+        }
+      }
+      $scope.$apply(function(){
+        $scope.online = users;
+      });
+
+    });
+
+
+    //Obtenemos todos los datos de la base de datos
+    $http.get('http://147.83.7.156:3000/chat').success(function (data) {
+      $scope.messages = data;
+
+    })
+      .error(function (data) {
+        console.log('Error: ' + data);
+      });
+
+    $scope.sendMessage = function(sendMessageForm) {
+      user.message = $scope.text;
+      user.date = new Date();
+      user.id = id;
+      user.user = u;
+      user.city = city;
+      user.imageUrl = imageUrl;
+      if ($scope.text) {
+        socket.emit('sendMessage', user);
+        $scope.text = '';
+        $http.post('http://147.83.7.156:3000/addchat', user)
+          .success(function (data) {
+
+          })
+          .error(function (data) {
+
+          })
+      }
+
+    };
+
+    var newUser = {};
+
+
+
+  }]).controller('onlineCtrl', ['$rootScope', '$state', '$scope', '$cordovaOauth','API','$http', '$ionicModal', function($rootScope, $state, $scope, $cordovaOauth, api, $http, $ionicModal) {
+
+    var u = window.localStorage['user'];
+
+    var users={};
+
+
+    socket.emit('getUsers', function (data) {
+
+    });
+    socket.on('usernames', function(data){
+      console.log (data);
+      users = data;
+      for (var i=0; i<users.length; i++){
+        if (users[i].user == u){
+          console.log ("encontrado");
+          users.splice(i, 1);
+          break;
+        }
+      }
+      $scope.$apply(function(){
+        $scope.online = users;
+      });
+
+    });
 
 
 

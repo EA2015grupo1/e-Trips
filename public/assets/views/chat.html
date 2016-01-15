@@ -41,7 +41,7 @@
 
         <div class="col-sm-12">
             <div>
-                <form ng-submit="submit()" class="input-group" style="text-align:center; margin:0 auto;">
+                <form name="sendMessageForm" ng-submit="sendMessage(sendMessageForm)"  class="input-group" style="text-align:center; margin:0 auto;">
                     <input class="form-control input-lg" ng-model="text" type="text" placeholder="Escribe tu mensaje" >
 					<span class="input-group-btn">
 						<button class="btn btn-lg btn-primary" type="submit">Enviar</button>

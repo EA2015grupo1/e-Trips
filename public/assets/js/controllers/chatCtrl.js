@@ -72,7 +72,7 @@ app.controller('chatCtrl', function ($scope, $stateParams, $http, $modal) {
 
     $scope.users =[];
 
-    $scope.submit = function() {
+    $scope.sendMessage = function(sendMessageForm) {
         user.message = $scope.text;
         user.date = new Date();
         if ($scope.text) {
@@ -106,23 +106,7 @@ app.controller('chatCtrl', function ($scope, $stateParams, $http, $modal) {
         $('#myModalLabel').text(user);
         $('#myModal').modal('show');
     };
-    $scope.doPost = function() {
 
-        $http.get('http://api.randomuser.me/0.4/').success(function(data) {
-
-            console.log (data.results[0]);
-            var newUser = data.results[0];
-            newUser.user.text = $('#inputText').val();
-            newUser.date = new Date();
-            $scope.users.push(newUser);
-
-        }).error(function(data, status) {
-
-            alert('get data error!');
-
-        });
-
-    }
 });
 app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, $http, message) {
     $scope.user.receive = message.receiver;
