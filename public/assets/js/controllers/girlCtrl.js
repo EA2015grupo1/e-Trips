@@ -31,9 +31,10 @@ app.controller('girlCtrl',['$scope', '$state', '$http', 'ngTableParams','Girls',
 
         $scope.tableParams = new ngTableParams(params, settings);
 
-
-
     }
+    $scope.ordenarPor = function(orden){
+        $scope.ordenSeleccionado= orden;
+    };
 
     $scope.open = function (size) {
         $scope.message.receiver = size;
@@ -75,6 +76,8 @@ app.controller('girlCtrl',['$scope', '$state', '$http', 'ngTableParams','Girls',
 
 
 }]);
+
+
 
 app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, $http, message) {
     $scope.user.receive = message.receiver;
