@@ -144,14 +144,15 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
         })
       }
     }
-
-/*    $scope.twitterLogin = function() {
-      $cordovaOauth.twitter("CLIENT ID",  "CLIENT SECRET").then(function(result) {
-        console.log(JSON.stringify(result));
-      }, function(error) {
-        console.log(JSON.stringify(error));
-      });
-    }
+      $scope.twitterLogin = function() {
+        $cordovaOauth.twitter("ZmstRHtgbFnTyc0cJOcI0Fas5","HYJkM3CjTkZNGWhjYFf57bqOxtTk8sgnwkXxHSGeyh0nJexrZK").then(function(result) {
+          console.log(JSON.stringify(result));
+          $state.go('menu.posicion');
+        }, function(error) {
+          console.log(JSON.stringify(error));
+        });
+      }
+/*
 
     $scope.facebookLogin = function() {
       console.log ("hola");
