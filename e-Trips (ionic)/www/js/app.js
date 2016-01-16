@@ -103,8 +103,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
 
     };
     return _api;
-  }]).controller('loginCtrl', ['$rootScope', '$state', '$scope', '$cordovaOauth','API','$http', '$ionicModal', function($rootScope, $state, $scope, $cordovaOauth, api, $http, $ionicModal) {
-
+  }]).controller('loginCtrl', ['$rootScope', '$state', '$scope', 'ngFB', '$cordovaOauth','API','$http', '$ionicModal', '$window', '$localStorage', function($rootScope, $state, $scope,ngFB, $cordovaOauth, api, $http, $ionicModal, $window, $localStorage) {
 
     $scope.login = {
       username: '',
@@ -145,15 +144,16 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       }
     }
 
-/*    $scope.twitterLogin = function() {
-      $cordovaOauth.twitter("CLIENT ID",  "CLIENT SECRET").then(function(result) {
-        console.log(JSON.stringify(result));
-      }, function(error) {
-        console.log(JSON.stringify(error));
-      });
-    }
+    $scope.twitterLogin = function() {
+    $cordovaOauth.twitter("ZmstRHtgbFnTyc0cJOcI0Fas5","HYJkM3CjTkZNGWhjYFf57bqOxtTk8sgnwkXxHSGeyh0nJexrZK").then(function(result) {
+      console.log(JSON.stringify(result));
+      $state.go('menu.posicion');
+    }, function(error) {
+      console.log(JSON.stringify(error));
+    });
+  }
 
-    $scope.facebookLogin = function() {
+   /* $scope.facebookLogin = function() {
       console.log ("hola");
       $cordovaOauth.facebook("CLIENT ID", ["email"], {"auth_type": "rerequest"}).then(function (result) {
         console.log(JSON.stringify(result));
