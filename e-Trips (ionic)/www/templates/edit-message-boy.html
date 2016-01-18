@@ -1,0 +1,25 @@
+<ion-header-bar class="bar-positive">
+  <ion-header-back-button ng-click="goBackBoy()" class="button icon-left ion-chevron-left button-clear button-dark">Back</ion-header-back-button>
+  <div class="title">Enviar Mensaje a {{user}}</div>
+</ion-header-bar>
+<ion-content class="padding">
+
+  <div class="list card padding">
+    <label class="item item-input">
+      <input type="text" placeholder="Asunto" ng-model="subject">
+    </label>
+    <label class="item item-input">
+      <textarea rows="23" cols="50" placeholder="Escribe tu mensaje" ng-model="text">
+</textarea>
+    </label>
+    <br>
+  </div>
+  <div class="button-bar social-login">
+    <button class="button button-calm button-block" ng-click="sendMessage(subject,text)" ng-disabled="!subject || !text">Enviar Mensaje</button>
+  </div>
+  <br><br>
+
+  </div>
+</ion-content>
+</ion-view>
+

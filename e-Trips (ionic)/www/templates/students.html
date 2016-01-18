@@ -1,6 +1,6 @@
 <ion-header-bar class="bar-positive">
   <ion-header-back-button ng-click="goBack()" class="button icon-left ion-chevron-left button-clear button-dark">Back</ion-header-back-button>
-  <div class="title">Estudiantes</div>
+  <div class="title">Estudiantes en {{college}}</div>
 </ion-header-bar>
 <ion-content padding="'true'">
   <ion-list ng-click="getStudent(user._id)" ng-repeat="user in users">

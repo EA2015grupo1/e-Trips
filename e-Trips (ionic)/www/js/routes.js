@@ -27,15 +27,40 @@ angular.module('app.routes', [])
       templateUrl: 'templates/perfil-student.html',
       controller: 'perfil-studentCtrl'
     })
+    .state('perfil-student-boy', {
+      url: '/page39/:id',
+      templateUrl: 'templates/perfil-student-boy.html',
+      controller: 'perfil-studentCtrl'
+    })
+    .state('perfil-student-girl', {
+      url: '/page54/:id',
+      templateUrl: 'templates/perfil-student-girl.html',
+      controller: 'perfil-studentCtrl'
+    })
     .state('perfil-request', {
       url: '/page37/:user/:id',
       templateUrl: 'templates/perfil-request.html',
+      controller: 'perfil-requestCtrl'
+    })
+    .state('perfil-friend', {
+      url: '/page49/:user/:id',
+      templateUrl: 'templates/perfil-friend.html',
       controller: 'perfil-requestCtrl'
     })
     .state('students', {
       url: '/page34/:city/:college',
       templateUrl: 'templates/students.html',
       controller: 'studentsCtrl'
+    })
+    .state('releases', {
+      url: '/page70/:user/:iduser',
+      templateUrl: 'templates/publicaciones.html',
+      controller: 'releasesCtrl'
+    })
+    .state('comments', {
+      url: '/page80/:user/:iduser/:friend/:idr',
+      templateUrl: 'templates/comments.html',
+      controller: 'commentsCtrl'
     })
 
     .state('registro', {
@@ -53,7 +78,31 @@ angular.module('app.routes', [])
       templateUrl: 'templates/perfil.html',
       controller: 'perfilCtrl'
     })
-
+    .state('edit-message', {
+      url: '/page72/:id/:city/:college/:user',
+      templateUrl: 'templates/edit-message.html',
+      controller: 'messageCtrl'
+    })
+    .state('edit-message-boy', {
+      url: '/page73/:user',
+      templateUrl: 'templates/edit-message-boy.html',
+      controller: 'messageCtrl'
+    })
+    .state('edit-message-girl', {
+      url: '/page74/:user',
+      templateUrl: 'templates/edit-message-girl.html',
+      controller: 'messageCtrl'
+    })
+    .state('map-city', {
+      url: '/page10/:city',
+      templateUrl: 'templates/map-city.html',
+      controller: 'MapCityCtrl'
+    })
+    .state('map-colleges', {
+      url: '/page29/:city',
+      templateUrl: 'templates/map-colleges.html',
+      controller: 'MapCollegesCtrl'
+    })
     .state('menu.requests', {
       url: '/page19',
       views: {
@@ -83,17 +132,6 @@ angular.module('app.routes', [])
         }
       }
     })
-
-
-  /*  .state('menu.perfil', {
-      url: '/page12',
-      views: {
-        'side-menu21': {
-          templateUrl: 'templates/perfil.html',
-          controller: 'perfilCtrl'
-        }
-      }
-    })*/
 
 
 
@@ -135,7 +173,22 @@ angular.module('app.routes', [])
         }
       }
     })
-
+    .state('menu.close', {
+      views: {
+        'side-menu21': {
+          controller: 'closeCtrl'
+        }
+      }
+    })
+    .state('menu.messages', {
+      url: '/page26',
+      views: {
+        'side-menu21': {
+          templateUrl: 'templates/messages.html',
+          controller: 'messageCtrl'
+        }
+      }
+    })
     .state('menu.girls', {
       url: '/page15',
       views: {

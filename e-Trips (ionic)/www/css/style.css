@@ -59,3 +59,15 @@
   color: #FFFFFF;
   border-color: rgba(0,0,0,0);
 }
+.details {
+  padding: 0px 12px 20px 12px;
+}
+
+.details img {
+  float: left;
+  margin-right: 12px;
+}
+
+.list {
+  clear: both;
+}
