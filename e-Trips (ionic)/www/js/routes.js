@@ -57,12 +57,21 @@ angular.module('app.routes', [])
       templateUrl: 'templates/publicaciones.html',
       controller: 'releasesCtrl'
     })
+    .state('myreleases', {
+      url: '/page90/:user/:iduser',
+      templateUrl: 'templates/mispublicaciones.html',
+      controller: 'myreleasesCtrl'
+    })
     .state('comments', {
       url: '/page80/:user/:iduser/:friend/:idr',
       templateUrl: 'templates/comments.html',
       controller: 'commentsCtrl'
     })
-
+    .state('mycomments', {
+      url: '/page81/:user/:iduser/:friend/:idr',
+      templateUrl: 'templates/mycomments.html',
+      controller: 'mycommentsCtrl'
+    })
     .state('registro', {
       url: '/page3',
       templateUrl: 'templates/registro.html',

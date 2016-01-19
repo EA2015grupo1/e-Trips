@@ -506,7 +506,11 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
         id: id
       })
     }
-
+    $scope.getPublicaciones = function (username) {
+      $state.go("myreleases", {
+        user: username
+      })
+    }
   }]).controller('citiesCtrl', ['$rootScope', '$state', '$scope', 'API', function ($rootScope, $state, $scope, api) {
 
 
@@ -752,7 +756,64 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
 
       });
     };
-  }]).controller('commentsCtrl', ['$rootScope', '$state', '$scope', 'API', '$http', '$stateParams', function ($rootScope, $state, $scope, api, $http, $stateParams) {
+  }]).controller('myreleasesCtrl', ['$rootScope', '$state', '$scope', 'API', '$http', '$stateParams', function ($rootScope, $state, $scope, api, $http, $stateParams) {
+    var idr = $stateParams.iduser;
+    window.localStorage['idr'] = idr;
+    //var friend = $stateParams.user;
+    var id = window.localStorage['idlogin'];
+    var u = window.localStorage['user'];
+    var user = {};
+
+    api.getReleases(u).success(function (data) {
+      console.log(data);
+      $scope.releases = data;
+
+
+    })
+      .error(function (data) {
+        console.log('Error: ' + data);
+      })
+
+    $scope.sendMessage = function (sendMessageForm) {
+      user.user = u;
+      user.ids = id;
+      user.text = $scope.text;
+      api.addRelease(user).success(function (data) {
+        api.getReleases(u).success(function (data) {
+          console.log(data);
+          $scope.releases = data;
+
+
+        })
+          .error(function (data) {
+            console.log('Error: ' + data);
+          })
+      })
+        .error(function (data) {
+          console.log('Error: ' + data);
+        })
+
+    };
+
+
+    $scope.goBack = function () {
+      $state.go("profile", {
+        user: u,
+        id: idr
+      });
+    };
+
+    $scope.goComments = function (idr) {
+      $state.go("mycomments", {
+        user: u,
+        iduser: id,
+        friend: u,
+        idr: idr
+
+      });
+    };
+
+      }]).controller('commentsCtrl', ['$rootScope', '$state', '$scope', 'API', '$http', '$stateParams', function ($rootScope, $state, $scope, api, $http, $stateParams) {
     var id = $stateParams.iduser;
     var idr = $stateParams.idr;
     var friend = $stateParams.friend;
@@ -795,10 +856,59 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
 
     $scope.goBack = function () {
       $state.go("releases", {
+        user: username,
+        iduser: request
+      });
+    };
+
+  }]).controller('mycommentsCtrl', ['$rootScope', '$state', '$scope', 'API', '$http', '$stateParams', function ($rootScope, $state, $scope, api, $http, $stateParams) {
+    var id = $stateParams.iduser;
+    var idr = $stateParams.idr;
+    var friend = $stateParams.friend;
+    var user = {};
+    var idlogin = window.localStorage['idlogin'];
+    var request = window.localStorage['idr'];
+    var user = {};
+
+    api.getComments(idr).success(function (data) {
+      console.log(data);
+      $scope.comments = data;
+
+
+    })
+      .error(function (data) {
+        console.log('Error: ' + data);
+      })
+
+    $scope.sendMessage = function (sendMessageForm) {
+      user.iduser = id;
+      user.idr = idr;
+      user.text = $scope.text;
+      api.addComment(user).success(function (data) {
+        api.getComments(id).success(function (data) {
+          console.log(data);
+          $scope.comments = data;
+
+
+        })
+          .error(function (data) {
+            console.log('Error: ' + data);
+          })
+      })
+        .error(function (data) {
+          console.log('Error: ' + data);
+        })
+
+    };
+
+
+    $scope.goBack = function () {
+      $state.go("myreleases", {
         user: friend,
         iduser: request
       });
     };
+
 
 
   }]).controller('boysCtrl', ['$rootScope', '$state', '$scope', 'API', '$http', function ($rootScope, $state, $scope, api, $http) {
