@@ -116,13 +116,27 @@ io.on('connection', function(socket) {
             }
          }
         if (!user_exists){
+            console.log (data);
             socket.user = data.user;
             nicknames.push (data);
-
+            io.sockets.emit('usernames', nicknames);
         }
 
 
     });
+
+    socket.on('exit', function(user){
+        for (var i=0; i<nicknames.length; i++) {
+            if (nicknames[i].user == user) {
+                console.log ("encontrado");
+                s = nicknames.splice(i, 1);
+                break;
+            }
+        }
+
+
+    });
+
     socket.on('getUsers', function(data){
     io.sockets.emit('usernames', nicknames);
     });

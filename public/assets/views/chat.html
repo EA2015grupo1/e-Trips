@@ -19,7 +19,7 @@
 <br>
             <div class="row">
                 <div class="col-xs-2" ng-class-odd="'col-xs-push-10'">
-                    <a href="" ng-click="showUserModal($index)"><img title="{{user.user}}" src="{{user.imageUrl}}" class="img-thumbnail img-responsive img-circle" ng-class-even="'pull-right'" ng-class-odd="'pull-left'" style="width:70px;"></a>
+                    <a href=""><img title="{{user.user}}" src="{{user.imageUrl}}" class="img-thumbnail img-responsive img-circle" ng-class-even="'pull-right'" ng-class-odd="'pull-left'" style="width:70px;"></a>
                 </div>
                 <div class="col-xs-10" ng-class-odd="'col-xs-pull-2'">
                     <div class="panel panel-primary">
@@ -44,7 +44,7 @@
                 <form name="sendMessageForm" ng-submit="sendMessage(sendMessageForm)"  class="input-group" style="text-align:center; margin:0 auto;">
                     <input class="form-control input-lg" ng-model="text" type="text" placeholder="Escribe tu mensaje" >
 					<span class="input-group-btn">
-						<button class="btn btn-lg btn-primary" type="submit">Enviar</button>
+						<button class="btn btn-lg btn-primary" type="submit" ng-disabled="!text">Enviar</button>
 					</span>
                 </form>
             </div>
@@ -56,31 +56,5 @@
 
     </div>
 
-    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-info">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h1 id="myModalLabel" class="text-center"></h1>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-xs-4 col-xs-offset-4"><img src="{{imageUrl}}" class="img-thumbnail img-responsive img-circle"></div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <h4 class="text-center"><i class="fa fa-fw fa-map-marker fa-2x"></i> {{city}}, {{college}}</h4>
-                            <h4 class="text-center"><i class="fa fa-fw fa-envelope-o fa-2x"></i> {{email}}</h4>
-                            <h4 class="text-center"><i class="fa fa-fw fa-user fa-2x"></i> {{username}}</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer bg-info">
-                    <button class="btn btn-lg btn-default center-block" data-dismiss="modal" aria-hidden="true">Ok!</button>
-                </div>
-            </div>
-        </div>
-    </div><!--/modal-->
 
 </div><!--/container-->

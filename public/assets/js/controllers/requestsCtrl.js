@@ -70,14 +70,20 @@ app.controller('requestsCtrl',['$scope', '$state', '$http','$stateParams', funct
             function() {
                 $http.delete('/request/' + idrequest)
                     .success(function (data) {
+                        swal("Eliminada", "Solictud Eliminada.", "success");
+                        $state.go("app.requests", {
+                            user: u,
+                            id: iduser
+                        },{reload: true});
 
-                        location.href = '#/app/requests/' + u + '/' + iduser;
-                        location.reload('#/app/requests/');
+
                     })
                     .error(function (data) {
                         console.log('Error: ' + data);
                     });
+
             });
+
     };
     $scope.getProfile = function(id) {
         $state.go("app.profile-student", {

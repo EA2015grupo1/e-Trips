@@ -74,8 +74,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             url: "/profile/:user/:id",
             templateUrl: "assets/views/profile-admin.html",
             title: "Profile",
-            resolve: loadSequence('updateCtrl'),
-            controller: 'updateCtrl',
+            resolve: loadSequence('profileCtrl'),
+            controller: 'profileCtrl',
             ncyBreadcrumb: {
                 label: 'Profile'
             }
@@ -97,6 +97,10 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 ncyBreadcrumb: {
                     label: 'Profile-Student'
                 }
+        }).state('admin.messages', {
+                url: '/messages/:user/:id',
+                templateUrl: "assets/views/messages.html",
+                resolve: loadSequence('truncate', 'htmlToPlaintext', 'inboxCtrl')
         }).state('app.home', {
             url: "/home/:user/:id",
             templateUrl: "assets/views/home.html",

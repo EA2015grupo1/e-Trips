@@ -4,10 +4,11 @@
 'use strict'
 ;
 app.controller('updateCtrl',['$scope', '$state', '$http','$stateParams', function($scope, $state, $http,$stateParams) {
-    $scope.newUser = {};
+
     $scope.user = {};
-    $scope.selected = false;
+    var u= $stateParams.user;
     var id= $stateParams.id;
+    var rol= window.localStorage['rolename'];
     $scope.cityselectedItem = "Ciudades";
     $scope.collegeselectedItem = "Universidades";
     var city;
@@ -195,36 +196,78 @@ app.controller('updateCtrl',['$scope', '$state', '$http','$stateParams', functio
                 newUser.college =college;
             }
 
-            var formData = new FormData();
-            var username = newUser.username;
-            var file = $scope.file;
-            formData.append("file", file);
-            $http.put('/user/' + $scope.user._id, newUser)
-                .success(function (data) {
-                    $scope.users = data;
-                   location.href = '#/app/home';
-                   location.reload('#/app/home');
+            var p=0;;
+            for (var i=0; i<newUser.email.length; i++)
+            {
 
-                })
-                .error(function (data) {
-                    console.log('Error: ' + data);
-                });
-            $http.put('/upload/' + username, formData, {
-                    headers: {
-                        "Content-type": undefined
-                    },
-                    transformRequest: angular.identity
+                if (newUser.email.charAt(i) == "@")//pregunta si el caracter = arroba
+                {
+                    p=1// y le asigna el valor 1 a la variable p
+                    break;
                 }
-                )
-                .success(function (data) {
+            }
+            if (p==0)// si p=0 es que no ha encontrado la arroba
+            {
+                $scope.user.e = "Incluye una @ en el Correo Electronico";
+            }
+            else {
 
-                location.href = '#/app/home';
-                location.reload('#/app/home');
+                var formData = new FormData();
+                var username = newUser.username;
+                var file = $scope.file;
+                formData.append("file", file);
 
-                })
-                .error(function (data) {
-                    console.log('Error: ' + data);
-                });
+               $http.put('/user/' + $scope.user._id, newUser)
+                    .success(function (data) {
+                        $scope.users = data;
+                        if (rol == "administrador") {
+                            $state.go("admin.profile", {
+                                user: u,
+                                id: id
+                            }, {reload: true});
+
+                        }
+                        else {
+                            $state.go("app.profile", {
+                                user: u,
+                                id: id
+                            }, {reload: true});
+
+                        }
+
+                    })
+                    .error(function (data) {
+                        console.log('Error: ' + data);
+                    });
+                $http.put('/upload/' + username, formData, {
+                        headers: {
+                            "Content-type": undefined
+                        },
+                        transformRequest: angular.identity
+                    }
+                    )
+                    .success(function (data) {
+
+                        if (rol == "administrador") {
+                            $state.go("admin.profile", {
+                                user: u,
+                                id: id
+                            }, {reload: true});
+
+                        }
+                        else {
+                            $state.go("app.profile", {
+                                user: u,
+                                id: id
+                            }, {reload: true});
+
+                        }
+                    })
+                    .error(function (data) {
+                        console.log('Error: ' + data);
+                    });
+
+            }
 
         }
     };

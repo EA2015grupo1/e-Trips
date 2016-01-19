@@ -11,25 +11,75 @@ app.controller('girlCtrl',['$scope', '$state', '$http', 'ngTableParams','Girls',
     var u= $stateParams.user;
 
 
+
     $scope.load = function(){
-        var params = {
-            page: 1,
-            count: 7
-        };
+        // Obtenemos todos los datos de la base de datos
+        $http.get('/requests-send/'+id).success(function (s) {
+                $http.get('/friends-user/'+id).success(function (f) {
+                        var params = {
+                            page: 1,
+                            count: 7
+                        };
 
-        var settings = {
-            total: 0,
-            counts: [5, 10, 15],
-            getData: function($defer, params) {
-                Girls.get(params.url(), function(response) {
-                    params.total(response.total);
-                    $scope.tregistros= response.total;
-                    $defer.resolve(response.results);
-                });
-            }
-        };
+                        var settings = {
+                            total: 0,
+                            counts: [5, 10, 15],
+                            getData: function($defer, params) {
+                                Girls.get(params.url(), function(response) {
 
-        $scope.tableParams = new ngTableParams(params, settings);
+                                    check(s,f, response.results, response);
+
+                                });
+                                check = function(requests, friends, users, response){
+                                    var cont=0;
+                                    for (var i=0; i<requests.length; i++){
+                                        for (var j=0; j<users.length; j++){
+                                            if (requests[i].username == users[j].username){
+                                                console.log ("encontrado");
+                                                cont++;
+                                                s = users.splice(j, 1);
+                                                break;
+                                            }
+                                        }
+
+                                    }
+
+                                    for (var i=0; i<friends.length; i++){
+                                        for (var j=0; j<users.length; j++){
+                                            if (friends[i].username == users[j].username){
+                                                console.log ("encontrado");
+                                                cont++;
+                                                s = users.splice(j, 1);
+                                                break;
+                                            }
+                                        }
+
+                                    }
+                                   console.log (cont);
+                                    params.total(response.total-cont);
+                                    $scope.tregistros= response.total-cont;
+                                    $defer.resolve(users);
+                                }
+
+
+
+
+                            }
+                        };
+
+                        $scope.tableParams = new ngTableParams(params, settings);
+
+                    })
+                    .error(function (data) {
+                        console.log('Error: ' + data);
+                    });
+            })
+            .error(function (data) {
+                console.log('Error: ' + data);
+            });
+
+
+
 
     }
     $scope.ordenarPor = function(orden){
@@ -57,14 +107,23 @@ app.controller('girlCtrl',['$scope', '$state', '$http', 'ngTableParams','Girls',
         });
     };
     $scope.addRequest = function(username) {
-        user._id = id;
-        user.username= username;
-        $http.post('/addrequest', user)
-            .success(function (data) {
-            })
-            .error(function (data) {
+        if(u!=username) {
+            user._id = id;
+            user.username = username;
+            $http.post('/addrequest', user)
+                .success(function (data) {
+                })
+                .error(function (data) {
 
-            })
+                })
+            $state.go("app.girls", {
+                user: u,
+                id: id
+            }, {reload: true});
+        }
+        else{
+            swal("Oops...", "No puedes ser amigo de ti mismo!", "warning");
+        }
     };
     $scope.getProfile = function(idstudent) {
         $cookieStore.put('idstudent', idstudent);
@@ -81,9 +140,9 @@ app.controller('girlCtrl',['$scope', '$state', '$http', 'ngTableParams','Girls',
 
 app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, $http, message) {
     $scope.user.receive = message.receiver;
-    $scope.send = function (subject, text) {
-        message.subject = subject,
-            message.text = text;
+    $scope.send = function () {
+        message.subject = $scope.subject;
+        message.text = $scope.text;
         $http.post('/addmessage', message)
             .success(function (data) {
                 $modalInstance.dismiss('cancel');

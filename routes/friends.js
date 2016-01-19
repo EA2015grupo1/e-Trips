@@ -19,7 +19,16 @@ module.exports = function (app) {
 
 
     };
+    //GET - Return a Friends with specified iduser
+    findByIdFriend = function (req, res) {
+        console.log(req.body);
+        Friend.find({friend:req.params.id}, function (err, friends) {
+            if (err) return res.send(500, err.message);
 
+            console.log('GET /friend/' + req.params.id);
+            res.status(200).jsonp(friends);
+        });
+    };
     //GET- GET ALL Friends by Username
     findFriends = function (req, res) {
         console.log (req.params.username);
@@ -32,6 +41,7 @@ module.exports = function (app) {
 
     //endpoints
     app.get('/friends/:username', findFriends);
+    app.get('/friends-user/:id', findByIdFriend);
     app.post('/addfriend', addFriend);
 
 }

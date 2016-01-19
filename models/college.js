@@ -3,8 +3,8 @@ var mongoose = require('mongoose'),
 
 var collegeSchema = new Schema({
     city:    { type: String },
-    college:    { type: String },
-    url:  { type: String }
+    college:    {type: String },
+    location: {type: [Number], index: "2d"}
 });
 
 module.exports = mongoose.model('College', collegeSchema);

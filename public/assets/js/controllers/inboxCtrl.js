@@ -42,9 +42,9 @@ app.controller('InboxCtrl', function ($scope, $state, $http, $stateParams, $moda
 
 app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, $http, message) {
     $scope.user.receive = message.receiver;
-    $scope.send = function (subject, text) {
-        message.subject = subject,
-            message.text = text;
+    $scope.send = function () {
+        message.subject = $scope.subject;
+        message.text = $scope.text;
         $http.post('/addmessage', message)
             .success(function (data) {
                 $modalInstance.dismiss('cancel');

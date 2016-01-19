@@ -63,7 +63,6 @@
                     <td class="hidden-xs">{{user.email}}</td>
                     <td class="center">
                         <div class="visible-md visible-lg hidden-sm hidden-xs">
-                            <label id="request"  ng-click="addRequest(user.username)" style="display: none;">Solicitud Enviada</label>
                             <a href="#" class="btn btn-o btn-primary" id="addfriend" ng-click="addRequest(user.username)">Añadir Amigo</a>
                             <a href="#" class="btn btn-o btn-info" ng-click="open(user.username)">Enviar Mensaje</a>
                         </div>
@@ -80,11 +79,11 @@
         <h3 class="modal-title">Enviar Mensaje a {{user.receive}} </h3>
     </div>
     <div class="modal-body">
-        <textarea rows="1" cols="75" placeholder="Asunto" ng-model="user.subject"></textarea>
-      <textarea rows="7" cols="75" placeholder="Escribe tu mensaje" ng-model="user.text"></textarea>
+        <textarea rows="1" cols="75" placeholder="Asunto" ng-model="subject"></textarea>
+      <textarea rows="7" cols="75" placeholder="Escribe tu mensaje" ng-model="text"></textarea>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="send(user.subject, user.text)">Enviar</button>
+        <button class="btn btn-primary" ng-click="send()" ng-disabled="!text || !subject">Enviar</button>
         <button class="btn btn-primary btn-o" ng-click="cancel()">Cancel</button>
     </div>
 </script>

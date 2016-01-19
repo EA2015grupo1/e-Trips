@@ -5,7 +5,7 @@
             <form class="input-group" style="text-align:center; margin:0 auto;">
                 <input class="form-control input-md" ng-model="text" type="text" placeholder="Escribe algo..." >
 					<span class="input-group-btn">
-						<button class="btn btn-md btn-primary" ng-click="doPost(text)">Publicar</button>
+						<button class="btn btn-md btn-primary" ng-click="doPost(text)" ng-disabled="!text">Publicar</button>
 					</span>
             </form>
         </div>

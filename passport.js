@@ -27,7 +27,7 @@ module.exports = function(passport) {
     });
 
     // Configuración del autenticado con Twitter
-   /* passport.use(new TwitterStrategy({
+  /*  passport.use(new TwitterStrategy({
         consumerKey : configAuth.twitterAuth.clientID,
         consumerSecret : configAuth.twitterAuth.clientSecret,
         callbackURL : configAuth.twitterAuth.callbackURL
@@ -55,8 +55,8 @@ module.exports = function(passport) {
                 done(null, user);
             });
         });
-    }));
-*/
+    }));*/
+
     // Configuración del autenticado con Facebook
     passport.use(new FacebookStrategy({
         clientID : configAuth.facebookAuth.clientID,

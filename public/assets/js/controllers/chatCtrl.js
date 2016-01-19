@@ -31,7 +31,6 @@ app.controller('chatCtrl', function ($scope, $stateParams, $http, $modal) {
     };
     $http.get('/user/' + id)
         .success(function (data) {
-
             user.imageUrl = data.imageUrl;
             user.user = u;
             user.city = data.city;
@@ -41,7 +40,6 @@ app.controller('chatCtrl', function ($scope, $stateParams, $http, $modal) {
 
             });
             socket.on('usernames', function(data){
-                console.log (data.length);
                 users = data;
                 for (var i=0; i<users.length; i++){
                     if (users[i].user == u){
@@ -91,21 +89,12 @@ app.controller('chatCtrl', function ($scope, $stateParams, $http, $modal) {
     };
 
         socket.on('newMessage', function(data){
-            $scope.users.push(data);
-            console.log ($scope.users);
+            $scope.$apply(function () {
+                $scope.users.push(data);
+                console.log ($scope.users);
+            });
         });
 
-    $scope.showUserModal = function(idx){
-        var user = $scope.users[idx].user;
-
-        $scope.imageUrl = $scope.users[idx].imageUrl;
-        $scope.city = $scope.users[idx].city;
-        $scope.college = $scope.users[idx].college;
-        $scope.email = $scope.users[idx].email;
-        $scope.username = user;
-        $('#myModalLabel').text(user);
-        $('#myModal').modal('show');
-    };
 
 });
 app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, $http, message) {

@@ -85,7 +85,17 @@ module.exports = function (app) {
             });
 
     };
-    //GET - GET All Users By College with pagination
+
+    //GET - GET All Users By College
+    AllCollegeUsers = function (req, res) {
+        User.find({college: req.params.college},function (err, users) {
+            if (err) res.send(500, err.message);
+
+            console.log('GET /students')
+            res.status(200).jsonp(users);
+        });
+    };
+    //GET - GET All Users By College
         AllGender = function (req, res) {
             User.find({gender: req.params.gender},function (err, users) {
                 if (err) res.send(500, err.message);
@@ -94,7 +104,7 @@ module.exports = function (app) {
                 res.status(200).jsonp(users);
             });
         };
-    //GET - GET All Users By College with pagination
+    //GET - GET All Users By Into DB
     AllUsers = function (req, res) {
         User.find(function (err, users) {
             if (err) res.send(500, err.message);
@@ -244,7 +254,7 @@ module.exports = function (app) {
         var u1;
         var u2;
         username = req.body.username;
-        User.find(username, function (err, user) {
+        User.find({username: username}, function (err, user) {
             console.log (user);
             if (user == "") {
                 u1 = '"' + req.body.username + '"';
@@ -256,6 +266,8 @@ module.exports = function (app) {
                 u = res[1].split(":");
                 u2 = u[1];
                 u1 = '"' + req.body.username + '"';
+                console.log ("usuario 1:"+u1);
+                console.log ("usuario 2:"+u2);
                 checkreg(u1, u2);
             }
 
@@ -264,7 +276,7 @@ module.exports = function (app) {
 
     };
 
-    function checkreg(u1, u2, filename) {
+    function checkreg(u1, u2) {
 
         if (u1 == u2) {
             return resultado.status(409).jsonp("usuario " + username + " ya existe");
@@ -392,6 +404,7 @@ module.exports = function (app) {
     app.get('/user/provider/facebook', findFacebook);
     app.get('/user/provider/twitter', findTwitter);
     app.get('/college/:college', findCollegeUsers);
+    app.get('/college-ionic/:college', AllCollegeUsers);
     app.get('/gender/:gender', findGenderUsers);
     app.get('/gender-ionic/:gender', AllGender);
 

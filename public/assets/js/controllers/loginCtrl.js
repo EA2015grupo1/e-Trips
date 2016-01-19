@@ -65,8 +65,7 @@ app.controller('loginCtrl',['$scope', '$state','$http', function($scope, $state,
 
                     var id= data.user[0]._id;
                     var user= data.user[0].username;
-                   //  $cookieStore.put('id', data.user[0]._id);
-                    // $cookieStore.put('conectado', data.user[0].username);
+                    window.localStorage['rolename'] = data.user[0].rol;
                     if (data.user[0].rol=="administrador") {
                         $state.go("admin.home", {
                             user: user,
@@ -160,7 +159,7 @@ app.controller('loginCtrl',['$scope', '$state','$http', function($scope, $state,
           // swal("Opps!", "Debes elegir una imagen de perfil!", "error")
         }
         else{
-
+            var conflict=false;
             newUser.city= city;
             newUser.college =college;
             newUser.password=newUser.p1;
@@ -174,24 +173,29 @@ app.controller('loginCtrl',['$scope', '$state','$http', function($scope, $state,
 
                 })
                 .error(function (data) {
-                    console.log('Error: ' + data);
+                    conflict = true;
+                    $scope.alerts = [{
+                        type: 'danger',
+                        msg: 'El usuario ya existe!'
+                    }];
+                   // console.log('Error: ' + data.status);
                 });
+            if (conflict==false) {
+                $http.put('/upload/' + username, formData, {
+                        headers: {
+                            "Content-type": undefined
+                        },
+                        transformRequest: angular.identity
+                    }
+                    )
+                    .success(function (data) {
 
-            $http.put('/upload/' + username, formData, {
-                    headers: {
-                        "Content-type": undefined
-                    },
-                    transformRequest: angular.identity
-                }
-                )
-                .success(function (data) {
-
-                    $state.go("login.signin");
-                })
-                .error(function (data) {
-                    console.log('Error: ' + data);
-                });
-
+                        // $state.go("login.signin");
+                    })
+                    .error(function (data) {
+                        console.log('Error: ' + data);
+                    });
+            }
 
         }
 

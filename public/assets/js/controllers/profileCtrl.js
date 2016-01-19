@@ -6,17 +6,7 @@ app.controller('profileCtrl', ['$scope', '$sce', '$state',  '$http','$stateParam
     $scope.selected = false;
     var id = $stateParams.id;
     var user = $stateParams.user;
-
-
-
-    $http.get('/messages/'+user).success(function (data) {
-            $scope.messages = data;
-            console.log (data);
-
-        })
-        .error(function (data) {
-            console.log('Error: ' + data);
-        });
+    var u;
 
     $scope.getProfileRegister = function () {
         $state.go("app.profile", {
@@ -43,6 +33,13 @@ app.controller('profileCtrl', ['$scope', '$sce', '$state',  '$http','$stateParam
             id: id
         });
     };
+    $scope.seeReleases = function () {
+        $state.go("app.releases", {
+            user: user,
+            id: id,
+            friend: user
+        });
+    };
 
 
     $scope.getMessages = function () {
@@ -56,7 +53,14 @@ app.controller('profileCtrl', ['$scope', '$sce', '$state',  '$http','$stateParam
 
         $http.get('/user/provider/twitter')
             .success(function (data) {
+                console.log (data);
                 if (data != null) {
+                    $state.go("app.home", {
+                        user: data.username,
+                        id: data._id
+                    }, {reload: true});
+                    user= data.username;
+                    id=  data._id;
                     $scope.user._id = data._id;
                     $scope.user.username = data.username;
                     $scope.user.name = data.name;
@@ -67,6 +71,15 @@ app.controller('profileCtrl', ['$scope', '$sce', '$state',  '$http','$stateParam
                     $scope.user.city = data.city;
                     $scope.user.rol = data.rol;
                     $scope.user.imageUrl = data.imageUrl;
+
+                    $http.get('/messages/'+data.username).success(function (data) {
+                        $scope.messages = data;
+                        console.log (data);
+
+                    })
+                        .error(function (data) {
+                            console.log('Error: ' + data);
+                        });
 
                 }
             })
@@ -76,6 +89,8 @@ app.controller('profileCtrl', ['$scope', '$sce', '$state',  '$http','$stateParam
         $http.get('/user/provider/facebook')
             .success(function (data) {
                 if (data != null) {
+                    user= data.username;
+                    id=  data._id;
                     $scope.user._id = data._id;
                     $scope.user.username = data.username;
                     $scope.user.name = data.name;
@@ -86,7 +101,14 @@ app.controller('profileCtrl', ['$scope', '$sce', '$state',  '$http','$stateParam
                     $scope.user.city = data.city;
                     $scope.user.rol = data.rol;
                     $scope.user.imageUrl = data.imageUrl;
+                    $http.get('/messages/'+data.username).success(function (data) {
+                        $scope.messages = data;
+                        console.log (data);
 
+                    })
+                        .error(function (data) {
+                            console.log('Error: ' + data);
+                        });
                 }
             })
             .error(function (data) {
@@ -108,7 +130,14 @@ app.controller('profileCtrl', ['$scope', '$sce', '$state',  '$http','$stateParam
                 $scope.user.city = data.city;
                 $scope.user.rol = data.rol;
                 $scope.user.imageUrl = data.imageUrl;
+                $http.get('/messages/'+user).success(function (data) {
+                    $scope.messages = data;
+                    console.log (data);
 
+                })
+                    .error(function (data) {
+                        console.log('Error: ' + data);
+                    });
 
 
             })
@@ -118,6 +147,9 @@ app.controller('profileCtrl', ['$scope', '$sce', '$state',  '$http','$stateParam
     }
 
     $scope.salirUser = function () {
+        var socket = io.connect('http://localhost:3000', { 'forceNew': true });
+        socket.emit('exit', user, function (data) {
+        });
         $state.go("login.signin");
     };
 }]);/**

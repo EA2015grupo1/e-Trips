@@ -27,7 +27,15 @@ module.exports = function (app) {
 
 
     };
+    //GET - Return a User with specified ID
+    findByCity = function (req, res) {
+        City.find({city: req.params.city}, function (err, user) {
+            if (err) return res.send(500, err.message);
 
+            console.log('GET /city/' + req.params.city);
+            res.status(200).jsonp(user);
+        });
+    };
     //DELETE - Delete a City with specified ID
     deleteCity = function (req, res) {
         return City.findById(req.params.id, function (err, city) {
@@ -45,6 +53,7 @@ module.exports = function (app) {
 
     //endpoints
     app.get('/cities', AllCities);
+    app.get('/city/:city', findByCity);
     app.post('/cities', addCity);
     app.delete('/city/:id', deleteCity);
 
