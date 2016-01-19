@@ -126,6 +126,9 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       getFriendsUser: function (id) {
         return $http.get(_base + '/friends-user/' + id);
       },
+      signup_twitter: function (user) {
+        return $http.post(_base + '/user-twitter', user);
+      },
 
     };
     return _api;
@@ -173,7 +176,11 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
 
     $scope.twitterLogin = function () {
       $cordovaOauth.twitter("zjFLYrlA6HopiEMIJGVFHAITV", "gWaQn8yOI010z9v3b5bznEqN9QzXYZu1O8bJSRk8gCCAncj2HF").then(function (user) {
-        console.log(user);
+        api.signup_twitter(user).success(function (data) {
+          window.localStorage['idlogin'] = data._id;
+          window.localStorage['user'] = data.username;
+        }).error(function (data) {
+        })
         $state.go('menu.posicion');
       }, function (error) {
         console.log(JSON.stringify(error));
@@ -284,6 +291,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
           $rootScope.hideLoading();
         }).error(function (data) {
           $rootScope.hideLoading();
+          $rootScope.toast('El usuario ya existe');
 
         })
 
@@ -317,7 +325,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       options.chunkedMode = false;
 
       var ft = new FileTransfer();
-      ft.upload(imageURI, _base + "/users/upload/" + username, win, fail, options);
+      ft.upload(imageURI, _base + "/upload/" + username, win, fail, options);
     }
 
     function win(r) {
@@ -325,7 +333,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       console.log("Response = " + r.response);
       console.log("Sent = " + r.bytesSent);
       $scope.modal.hide();
-      $location.path('/page1');
+      $state.go ('login');
     }
 
     function fail(error) {
@@ -511,6 +519,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
         user: username
       })
     }
+
   }]).controller('citiesCtrl', ['$rootScope', '$state', '$scope', 'API', function ($rootScope, $state, $scope, api) {
 
 
@@ -523,38 +532,39 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       });
 
     $scope.getMapCity = function (item) {
-      $state.go("map-city", {
-          city: item
-        }
-      );
+      api.getCity(item).success(function (data) {
+        $state.go("map-city", {
+            city: item,
+            location: data[0].location
+          }
+        );
+      }).error(function (data) {
+
+      });
 
     };
 
   }]).controller('MapCityCtrl', ['$rootScope', '$http', '$state', '$scope', 'API', '$stateParams', function ($rootScope, $http, $state, $scope, api, $stateParams) {
 
+    var location={};
+    location=  $stateParams.location;
     var city = $stateParams.city;
     var c1;
     var c2;
     var d = {};
-    api.getCity(city).success(function (data) {
-      $scope.city = data[0].city;
-      console.log(data[0].city);
       $scope.mapCreated = function (map) {
         $scope.map = map;
 
-        $scope.map.setCenter(new google.maps.LatLng(data[0].location[0], data[0].location[1]));
+        $scope.map.setCenter(new google.maps.LatLng(location[0], location[1]));
 
-        var myLatLng = {lat: data[0].location[0], lng: data[0].location[1]};
-        console.log(myLatLng);
+        var myLatLng = {lat: location[0], lng: location[1]};
         var marker = new google.maps.Marker({
           position: myLatLng,
           map: map
 
         });
       }
-    }).error(function (data) {
 
-    });
 
     $scope.goBack = function () {
       $state.go("menu.cities");
@@ -569,40 +579,52 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
     }
 
     $scope.getCollegesMap = function () {
+      api.getColleges(city).success(function (data) {
       $state.go("map-colleges", {
           city: city,
+          location: data
         }
       );
+      }).error(function (data) {
+
+      });
     }
     //
 
   }]).controller('MapCollegesCtrl', ['$rootScope', '$http', '$state', '$scope', 'API', '$stateParams', function ($rootScope, $http, $state, $scope, api, $stateParams) {
-
+    var location={};
+    location=  $stateParams.location;
+    console.log (location);
     var city = $stateParams.city;
     $scope.city = city;
-    api.getColleges(city).success(function (data) {
-      $scope.mapCreated = function (map) {
+
+     $scope.mapCreated = function (map) {
         $scope.map = map;
 
         var infowindowlocal = new google.maps.InfoWindow();
         var markerlocal, i;
 
-        for(i = 0; i < locales.length; i ++) {
-          markerlocal = new google.maps.Marker({
-            position: new google.maps.LatLng(locales[i]._id.location[0], locales[i]._id.location[1]),
-            map: map
+        var infowindowLocales=[];
+
+
+        for (var i = 0; i < location.length; i++) {
+          var markerLocales = new google.maps.Marker({
+            position: {lat:location[i].location[0], lng: location[i].location[1]},
+            map: map,
+            myName: location[i].college,
+            id:i
           });
-          google.maps.event.addListener(markerlocal, 'click', (function (markerlocal, i) {
-            return function () {
-              infowindow.setContent(locales[i]._id.name);
-              infowindow.open(map, markerlocal);
-            }
-          })(markerlocal, i));
+
+          infowindowLocales[i] = new google.maps.InfoWindow({content:location[i].college});
+
+          markerLocales.addListener('click', function() {
+
+            console.log("onclick", this.id, this.myName);
+            infowindowLocales[this.id].open(map, markerLocales);
+          });
         }
       }
-    }).error(function (data) {
 
-    });
 
     $scope.goBack = function () {
       $state.go("menu.cities");
@@ -813,7 +835,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       });
     };
 
-      }]).controller('commentsCtrl', ['$rootScope', '$state', '$scope', 'API', '$http', '$stateParams', function ($rootScope, $state, $scope, api, $http, $stateParams) {
+  }]).controller('commentsCtrl', ['$rootScope', '$state', '$scope', 'API', '$http', '$stateParams', function ($rootScope, $state, $scope, api, $http, $stateParams) {
     var id = $stateParams.iduser;
     var idr = $stateParams.idr;
     var friend = $stateParams.friend;
@@ -856,59 +878,10 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
 
     $scope.goBack = function () {
       $state.go("releases", {
-        user: username,
-        iduser: request
-      });
-    };
-
-  }]).controller('mycommentsCtrl', ['$rootScope', '$state', '$scope', 'API', '$http', '$stateParams', function ($rootScope, $state, $scope, api, $http, $stateParams) {
-    var id = $stateParams.iduser;
-    var idr = $stateParams.idr;
-    var friend = $stateParams.friend;
-    var user = {};
-    var idlogin = window.localStorage['idlogin'];
-    var request = window.localStorage['idr'];
-    var user = {};
-
-    api.getComments(idr).success(function (data) {
-      console.log(data);
-      $scope.comments = data;
-
-
-    })
-      .error(function (data) {
-        console.log('Error: ' + data);
-      })
-
-    $scope.sendMessage = function (sendMessageForm) {
-      user.iduser = id;
-      user.idr = idr;
-      user.text = $scope.text;
-      api.addComment(user).success(function (data) {
-        api.getComments(id).success(function (data) {
-          console.log(data);
-          $scope.comments = data;
-
-
-        })
-          .error(function (data) {
-            console.log('Error: ' + data);
-          })
-      })
-        .error(function (data) {
-          console.log('Error: ' + data);
-        })
-
-    };
-
-
-    $scope.goBack = function () {
-      $state.go("myreleases", {
         user: friend,
         iduser: request
       });
     };
-
 
 
   }]).controller('boysCtrl', ['$rootScope', '$state', '$scope', 'API', '$http', function ($rootScope, $state, $scope, api, $http) {
@@ -969,6 +942,56 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
         college: college
       })
     };
+
+  }]).controller('mycommentsCtrl', ['$rootScope', '$state', '$scope', 'API', '$http', '$stateParams', function ($rootScope, $state, $scope, api, $http, $stateParams) {
+    var id = $stateParams.iduser;
+    var idr = $stateParams.idr;
+    var friend = $stateParams.friend;
+    var user = {};
+    var idlogin = window.localStorage['idlogin'];
+    var request = window.localStorage['idr'];
+    var user = {};
+
+    api.getComments(idr).success(function (data) {
+      console.log(data);
+      $scope.comments = data;
+
+
+    })
+      .error(function (data) {
+        console.log('Error: ' + data);
+      })
+
+    $scope.sendMessage = function (sendMessageForm) {
+      user.iduser = id;
+      user.idr = idr;
+      user.text = $scope.text;
+      api.addComment(user).success(function (data) {
+        api.getComments(idr).success(function (data) {
+          console.log(data);
+          $scope.comments = data;
+
+
+        })
+          .error(function (data) {
+            console.log('Error: ' + data);
+          })
+      })
+        .error(function (data) {
+          console.log('Error: ' + data);
+        })
+
+    };
+
+
+    $scope.goBack = function () {
+      $state.go("myreleases", {
+        user: friend,
+        iduser: request
+      });
+    };
+
+
 
   }]).controller('perfil-studentCtrl', ['$rootScope', '$state', '$scope', '$http', 'API', '$stateParams','$ionicPopup', function ($rootScope, $state, $scope, $http, api, $stateParams,$ionicPopup) {
     var iduser = $stateParams.id;
@@ -1425,7 +1448,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       options.chunkedMode = false;
 
       var ft = new FileTransfer();
-      ft.upload(imageURI, _base + "/api/users/upload/" + username, win, fail, options);
+      ft.upload(imageURI, _base + "/upload/" + username, win, fail, options);
     }
 
     function win(r) {
@@ -1433,7 +1456,8 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       console.log("Response = " + r.response);
       console.log("Sent = " + r.bytesSent);
       $scope.modal.hide();
-      $location.path('/page1');
+      $state.go ('profile',{
+        id: id});
     }
 
     function fail(error) {
@@ -1442,7 +1466,8 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
 
     $scope.closeRegister = function () {
       $scope.modal.hide();
-      $location.path('/page1');
+      $state.go ('profile',{
+        id: id});
     }
 
 

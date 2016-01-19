@@ -1,9 +1,20 @@
-{"_id":{"$oid":"566b27ef747cfb38bc2830fd"},"city":"Madrid"}
-{"_id":{"$oid":"566b27ef747cfb38bc2830fe"},"city":"Barcelona"}
-{"_id":{"$oid":"566b27ef747cfb38bc2830ff"},"city":"Bruselas"}
-{"_id":{"$oid":"566b27ef747cfb38bc283100"},"city":"Londres"}
-{"_id":{"$oid":"566b27ef747cfb38bc283101"},"city":"Estocolmo"}
-{"_id":{"$oid":"566b27ef747cfb38bc283102"},"city":"Munich"}
-{"_id":{"$oid":"566b27ef747cfb38bc283103"},"city":"Berlin"}
-{"_id":{"$oid":"566b27ef747cfb38bc283104"},"city":"Milan"}
-{"_id":{"$oid":"566b27ef747cfb38bc283105"},"city":"Lisboa"}
+{"city":"Madrid","location": [40.4167754, -3.7037901999999576]}
+{"city":"Barcelona","location": [41.38506389999999, 2.1734034999999494]}
+{"city":"Bruselas","location": [50.8503396, 4.351710300000036]}
+
+{"city":"Londres","location": [51.5073509, -0.12775829999998223]}
+
+{"city":"Estocolmo","location": [59.32932349999999, 18.068580800000063]}
+
+
+{"city":"Munich","location": [48.1351253, 11.581980599999952]}
+
+{"city":"Berlin","location": [52.52000659999999, 13.404953999999975]}
+
+
+{"city":"Milan","location": [45.4654219, 9.18592430000001]}
+
+{"city":"Lisboa","location": [38.7222524, -9.139336599999979]}
+
+
+

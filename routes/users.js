@@ -192,6 +192,54 @@ module.exports = function (app) {
     var imagen;
 
     //PUT- Funcion para subir la foto al servidor
+    uploadimage_ionic = function (req, res) {
+        var form = new formidable.IncomingForm();
+        form.parse(req, function (err, fields, files) {
+            console.log (files);
+            var tmp_path = files.file.path;
+            var tipo = files.file.type;//tipo del archivo
+
+            if (tipo == 'image/png' || tipo == 'image/jpg' || tipo == 'image/jpeg') {
+                //Si es de tipo png jpg o jpeg
+                var aleatorio = Math.floor((Math.random() * 9999) + 1);//Variable aleatoria
+                filename = aleatorio + "" + files.file.name;//nombre del archivo mas variable aleatoria
+
+                var target_path = './public/assets/images/' + filename;// hacia donde subiremos nuestro archivo dentro de nuestro servidor
+                fs.rename(tmp_path, target_path, function (err) {//Escribimos el archivo
+                    fs.unlink(tmp_path, function (err) {//borramos el archivo tmp
+                        //damos una respuesta al cliente
+                        console.log('<p>Imagen subida OK</p></br><img  src="./images/' + filename + '"/>');
+                    });
+
+                });
+
+                var u = req.params.username;
+                User.findOne({username: u}, function (err, user) {
+                    imagen = "http://192.168.1.14:3000/assets/images/" + filename;
+                    console.log ("usuario: " + user);
+                    user.imageUrl = imagen;
+
+                    user.save(function (err) {
+                        if (err) return res.send(500, err.message);
+                        res.status(200).jsonp(user);
+                    });
+                });
+
+            } else {
+                console.log('Tipo de archivo imagen no soportada');
+            }
+
+            if (err) {
+                console.error(err.message);
+                return;
+            }
+
+
+        });
+
+    };
+
+    //PUT- Funcion para subir la foto al servidor
     uploadimage = function (req, res) {
         var form = new formidable.IncomingForm();
         form.parse(req, function (err, fields, files) {
@@ -214,7 +262,7 @@ module.exports = function (app) {
 
                 var u = req.params.username;
                 User.findOne({username: u}, function (err, user) {
-                    imagen = "http://localhost:3000/assets/images/" + filename;
+                    imagen = "http://192.168.1.14:3000/assets/images/" + filename;
                     console.log ("usuario: " + user);
                     user.imageUrl = imagen;
 
@@ -304,6 +352,27 @@ module.exports = function (app) {
         }
     };
 
+
+    addUserTwitter = function (req, res) {
+        User.findOne({username: req.body.screen_name}, function(err, user) {
+            var ok= false;
+            if(err) throw(err);
+            // Si existe en la Base de Datos, lo devuelve
+            if(!err && user!= null) return ok ;
+
+            // Si no existe crea un nuevo objecto usuario
+            var user = new User({
+                username: req.body.screen_name,
+                rol:    "registrado",
+                imageUrl: "http://192.168.1.14:3000/assets/images/admin.png"
+            })
+            user.save(function (err, user) {
+                if (err) return res.send(500, err.message);
+                res.status(200).jsonp(user);
+            });
+
+        });
+    };
     //PUT - Update a register already exists
     updateUser = function (req, res) {
         User.findById(req.params.id, function (err, user) {
@@ -401,11 +470,13 @@ module.exports = function (app) {
     app.delete('/user/:id', deleteUser);
     app.post('/user/login', loginUser);
     app.put('/upload/:username', uploadimage);
+    app.post('/upload/:username', uploadimage_ionic);
     app.get('/user/provider/facebook', findFacebook);
     app.get('/user/provider/twitter', findTwitter);
     app.get('/college/:college', findCollegeUsers);
     app.get('/college-ionic/:college', AllCollegeUsers);
     app.get('/gender/:gender', findGenderUsers);
     app.get('/gender-ionic/:gender', AllGender);
+    app.post('/user-twitter/', addUserTwitter);
 
 }

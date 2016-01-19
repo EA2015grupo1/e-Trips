@@ -241,6 +241,13 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 ncyBreadcrumb: {
                     label: 'Chat'
                 }
+        }).state('app.somos', {
+            url: '/somos/:user/:id',
+            templateUrl: "assets/views/somos.html",
+            title: "Quienes Somos",
+            ncyBreadcrumb: {
+                label: 'Quienes Somos'
+            }
         }).state('app.documentation', {
                 url: "/documentation",
                 templateUrl: "assets/views/documentation.html",

@@ -57,21 +57,12 @@ angular.module('app.routes', [])
       templateUrl: 'templates/publicaciones.html',
       controller: 'releasesCtrl'
     })
-    .state('myreleases', {
-      url: '/page90/:user/:iduser',
-      templateUrl: 'templates/mispublicaciones.html',
-      controller: 'myreleasesCtrl'
-    })
     .state('comments', {
       url: '/page80/:user/:iduser/:friend/:idr',
       templateUrl: 'templates/comments.html',
       controller: 'commentsCtrl'
     })
-    .state('mycomments', {
-      url: '/page81/:user/:iduser/:friend/:idr',
-      templateUrl: 'templates/mycomments.html',
-      controller: 'mycommentsCtrl'
-    })
+
     .state('registro', {
       url: '/page3',
       templateUrl: 'templates/registro.html',
@@ -104,13 +95,25 @@ angular.module('app.routes', [])
     })
     .state('map-city', {
       url: '/page10/:city',
+      params: {'location':{}},
       templateUrl: 'templates/map-city.html',
       controller: 'MapCityCtrl'
     })
     .state('map-colleges', {
       url: '/page29/:city',
+      params: {'location':{}},
       templateUrl: 'templates/map-colleges.html',
       controller: 'MapCollegesCtrl'
+    })
+    .state('myreleases', {
+      url: '/page90/:user/:iduser',
+      templateUrl: 'templates/mispublicaciones.html',
+      controller: 'myreleasesCtrl'
+    })
+    .state('mycomments', {
+      url: '/page81/:user/:iduser/:friend/:idr',
+      templateUrl: 'templates/mycomments.html',
+      controller: 'mycommentsCtrl'
     })
     .state('menu.requests', {
       url: '/page19',

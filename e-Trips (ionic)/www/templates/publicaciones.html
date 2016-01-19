@@ -52,8 +52,7 @@
   <form name="sendMessageForm" ng-submit="sendMessage(sendMessageForm)" novalidate>
     <ion-footer-bar class="bar-stable item-input-inset message-footer" keyboard-attach>
       <label class="item-input-wrapper">
-        <textarea ng-model="text" value="" placeholder="Escribe algo..." required minlength="1" maxlength="1500"
-                  msd-elastic></textarea>
+        <textarea ng-model="text" value="" placeholder="Escribe algo..." rows="8" cols="150000"></textarea>
       </label>
 
       <div>
