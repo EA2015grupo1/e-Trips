@@ -89,6 +89,10 @@ app.controller('profileCtrl', ['$scope', '$sce', '$state',  '$http','$stateParam
         $http.get('/user/provider/facebook')
             .success(function (data) {
                 if (data != null) {
+                    $state.go("app.home", {
+                        user: data.username,
+                        id: data._id
+                    }, {reload: true});
                     user= data.username;
                     id=  data._id;
                     $scope.user._id = data._id;
