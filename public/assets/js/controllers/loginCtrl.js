@@ -170,7 +170,7 @@ app.controller('loginCtrl',['$scope', '$state','$http', function($scope, $state,
             formData.append("file", file);
             $http.post('/user', newUser)
                 .success(function (data) {
-
+                    $state.go("login.signin");
                 })
                 .error(function (data) {
                     conflict = true;
@@ -190,7 +190,7 @@ app.controller('loginCtrl',['$scope', '$state','$http', function($scope, $state,
                     )
                     .success(function (data) {
 
-                        // $state.go("login.signin");
+                        $state.go("login.signin");
                     })
                     .error(function (data) {
                         console.log('Error: ' + data);

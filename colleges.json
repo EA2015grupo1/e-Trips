@@ -1,32 +1,32 @@
-{"city":"Madrid","college":"Universidad Politécnica de Madrid","location": [40.4486372, -3.719279799999981]}
-{"city":"Barcelona","college":"Facultat d'informatica de Barcelona","location":[41.389414, 2.1133230000000367]}
-{"city":"Barcelona","college":"EETAC Castelldefels","location":[41.2754808, 1.987033399999973]}
-{"city":"Barcelona","college":"Universitat Pompeu Fabra","location":[41.379272, 2.179649599999948]}
-{"city":"Barcelona","college":"Universitat de Barcelona","location":[41.3855551, 2.1198168999999325]}
-{"city":"Madrid","college":"Universidad Rey Juan Carlos","location":[40.3351225, -3.8721821999999975]}
-{"city":"Madrid","college":"Universidad Complutense de Madrid", "location":[40.4478246, -3.7285871999999927]}
-{"city":"Madrid","college":"Universidad Europea de Madrid", "location":[40.3730386, -3.9193760000000566]}
-{"city":"Bruselas","college":"Catholic University of Leuven","location":[50.8503396, 4.351710300000036]}
-{"city":"Bruselas","college":"Universite Libre de Bruxelles","location":[50.81397349999999, 4.26494230000003]}
-{"city":"Bruselas","college":"Universite Saint-Louis-Bruxelles","location":[50.8535908, 4.361793900000066]}
-{"city":"Londres","college":"University of Oxford London", "location":[51.5177859, -0.12639119999994364]}
-{"city":"Londres","college":"University of Cambridge London","location":[51.5073509, -0.12775829999998223]}
-{"city":"Londres","college":"University College London", "location":[51.52470630000001, -0.13356920000001082]}
-{"city":"Londres","college":"University of Manchester London", "location":[53.4807593, -2.2426305000000184]}
-{"city":"Estocolmo","college":"Stockholms universitet Estocolmo", "location":[59.3627526, 18.059027199999946]}
-{"city":"Estocolmo","college":"Kungliga Tekniska högskolan","location":[59.34980649999999, 18.07066450000002]}
-{"city":"Estocolmo","college":"Handelshögskolan i Stockholm","location":[59.34026379999999, 18.05766159999996]}
-{"city":"Munich","college":" Ludwig-Maximilians-Universität München","location":[48.1499706, 11.594256200000018]}
-{"city":"Munich","college":"Technische Universität München", "location":[48.14965999999999, 11.567860200000041]}
-{"city":"Munich","college":"Universitat der Bundeswehr Munchen","location":[48.08184019999999, 11.632607000000007]}
-{"city":"Munich","college":"Munich Business School", "location":[48.135871, 11.524517999999944]}
-{"city":"Berlin","college":"Freie Universität Berlin", "location":[52.4525264, 13.289678699999968]}
-{"city":"Berlin","college":"Technische Universität Berlin", "location":[52.5129792, 13.320029500000032]}
-{"city":"Berlin","college":"Technische Fachhochschule Berlin", "location":[52.5442992, 13.35280899999998]}
-{"city":"Milan","college":"Politecnico di Milano", "location":[45.4786353, 9.228206099999966]}
-{"city":"Milan","college":"Università degli Studi di Milano", "location":[45.4601435, 9.194584299999974]}
-{"city":"Milan","college":" Università degli Studi di Milano - Bicocca","location":[45.5183837, 9.213404099999934]}
-{"city":"Lisboa","college":"  Universidade Nova de Lisboa","location":[38.73368200000001, -9.160333000000037]}
-{"city":"Lisboa","college":" Universidade Tecnica de Lisboa", "location":[38.7139308, -9.197198800000024]}
-{"city":"Lisboa","college":" Universidade de Lisboa", "location":[38.7530019, -9.15674720000004]}
-{"city":"Lisboa","college":" Universidade Catolica Portuguesa", "location":[38.844643, -9.374716000000035]}
+{"city":"Madrid","college":"Universidad Politécnica de Madrid"}
+{"city":"Barcelona","college":"Facultat d'informatica de Barcelona"}
+{"city":"Barcelona","college":"EETAC Castelldefels"}
+{"city":"Barcelona","college":"Universitat Pompeu Fabra"}
+{"city":"Barcelona","college":"Universitat de Barcelona"}
+{"city":"Madrid","college":"Universidad Rey Juan Carlos"}
+{"city":"Madrid","college":"Universidad Complutense de Madrid"}
+{"city":"Madrid","college":"Universidad Europea de Madrid"}
+{"city":"Bruselas","college":"Catholic University of Leuven"}
+{"city":"Bruselas","college":"Universite Libre de Bruxelles"}
+{"city":"Bruselas","college":"Universite Saint-Louis-Bruxelles"}
+{"city":"Londres","college":"University of Oxford London"}
+{"city":"Londres","college":"University of Cambridge London"}
+{"city":"Londres","college":"University College London"}
+{"city":"Londres","college":"University of Manchester London"}
+{"city":"Estocolmo","college":"Stockholms universitet Estocolmo"}
+{"city":"Estocolmo","college":"Kungliga Tekniska högskolan"}
+{"city":"Estocolmo","college":"Handelshögskolan i Stockholm"}
+{"city":"Munich","college":" Ludwig-Maximilians-Universität München"}
+{"city":"Munich","college":"Technische Universität München"}
+{"city":"Munich","college":"Universitat der Bundeswehr Munchen"}
+{"city":"Munich","college":"Munich Business School"}
+{"city":"Berlin","college":"Freie Universität Berlin"}
+{"city":"Berlin","college":"Technische Universität Berlin"}
+{"city":"Berlin","college":"Technische Fachhochschule Berlin"}
+{"city":"Milan","college":"Politecnico di Milano"}
+{"city":"Milan","college":"Università degli Studi di Milano"}
+{"city":"Milan","college":" Università degli Studi di Milano - Bicocca"}
+{"city":"Lisboa","college":"  Universidade Nova de Lisboa"}
+{"city":"Lisboa","college":" Universidade Tecnica de Lisboa"}
+{"city":"Lisboa","college":" Universidade de Lisboa"}
+{"city":"Lisboa","college":" Universidade Catolica Portuguesa"}

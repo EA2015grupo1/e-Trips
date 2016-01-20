@@ -170,18 +170,7 @@ app.controller('updateCtrl',['$scope', '$state', '$http','$stateParams', functio
             }];
 
         }
-        else if (!$scope.file) {
-            $scope.user.n = "";
-            $scope.user.u = "";
-            $scope.user.e = "";
-            $scope.user.g = "";
-            $scope.user.p = "";
-            $scope.alerts = [{
-                type: 'danger',
-                msg: 'Error debes elegir una imagen de perfil!'
-            }];
-            // swal("Opps!", "Debes elegir una imagen de perfil!", "error")
-        }
+
 
 
         else {
@@ -210,9 +199,9 @@ app.controller('updateCtrl',['$scope', '$state', '$http','$stateParams', functio
             {
                 $scope.user.e = "Incluye una @ en el Correo Electronico";
             }
-            else {
+            else  {
 
-                var formData = new FormData();
+                    var formData = new FormData();
                 var username = newUser.username;
                 var file = $scope.file;
                 formData.append("file", file);
@@ -239,33 +228,36 @@ app.controller('updateCtrl',['$scope', '$state', '$http','$stateParams', functio
                     .error(function (data) {
                         console.log('Error: ' + data);
                     });
-                $http.put('/upload/' + username, formData, {
-                        headers: {
-                            "Content-type": undefined
-                        },
-                        transformRequest: angular.identity
-                    }
+
+                if ($scope.file) {
+                    $http.put('/upload/' + username, formData, {
+                            headers: {
+                                "Content-type": undefined
+                            },
+                            transformRequest: angular.identity
+                        }
                     )
-                    .success(function (data) {
+                        .success(function (data) {
 
-                        if (rol == "administrador") {
-                            $state.go("admin.profile", {
-                                user: u,
-                                id: id
-                            }, {reload: true});
+                            if (rol == "administrador") {
+                                $state.go("admin.profile", {
+                                    user: u,
+                                    id: id
+                                }, {reload: true});
 
-                        }
-                        else {
-                            $state.go("app.profile", {
-                                user: u,
-                                id: id
-                            }, {reload: true});
+                            }
+                            else {
+                                $state.go("app.profile", {
+                                    user: u,
+                                    id: id
+                                }, {reload: true});
 
-                        }
-                    })
-                    .error(function (data) {
-                        console.log('Error: ' + data);
-                    });
+                            }
+                        })
+                        .error(function (data) {
+                            console.log('Error: ' + data);
+                        });
+                }
 
             }
 

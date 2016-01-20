@@ -132,7 +132,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
 
     };
     return _api;
-  }]).controller('loginCtrl', ['$rootScope', '$state', '$scope', '$cordovaOauth', 'API', '$http', '$ionicModal', function ($rootScope, $state, $scope, $cordovaOauth, api, $http, $ionicModal) {
+  }]).controller('loginCtrl', ['$rootScope', '$state', '$scope', '$cordovaOauth', 'API', '$http', '$ionicModal','$ionicHistory', function ($rootScope, $state, $scope, $cordovaOauth, api, $http, $ionicModal,$ionicHistory) {
 
 
     $scope.login = {
@@ -140,7 +140,8 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       password: ''
     }
     $scope.loginUser = function () {
-
+      $ionicHistory.clearCache();
+      $ionicHistory.clearHistory()
       if (($scope.login.username == '') && ($scope.login.password == '')) {
         $rootScope.toast('Campo username y password vacíos');
       }
@@ -713,15 +714,17 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
 
     };
 
-  }]).controller('closeCtrl', ['$rootScope', '$location', function ($rootScope, $location) {
-    window.localStorage.removeItem('idlogin')
-    window.localStorage.removeItem('user');
-    window.localStorage.removeItem('city');
-    window.localStorage.removeItem('imageUrl');
-    window.localStorage.removeItem('id');
-    socket.close();
-    $location.path('/page1');
+  }]).controller('closeCtrl', ['$rootScope','$state', '$scope', '$location','$ionicHistory', function ($rootScope, $state, $scope, $location,$ionicHistory) {
 
+
+    window.localStorage.clear();
+    socket.close();
+    $ionicHistory.clearCache();
+    $ionicHistory.clearHistory();
+    $state.go('login', {}, {reload: true});
+    setTimeout(function () {
+      $window.location.reload(true);
+    }, 100);
   }]).controller('releasesCtrl', ['$rootScope', '$state', '$scope', 'API', '$http', '$stateParams', function ($rootScope, $state, $scope, api, $http, $stateParams) {
     var idr = $stateParams.iduser;
     window.localStorage['idr'] = idr;

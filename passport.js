@@ -82,7 +82,7 @@ module.exports = function(passport) {
                 username:           profile.displayName,
                 name				 : profile.displayName,
                 imageUrl				: profile.photos[0].value,
-                email:                  profile.emails[0].value,
+               // email:                  profile.emails[0].value,
                 rol:    "registrado",
             });
             user.save(function(err) {

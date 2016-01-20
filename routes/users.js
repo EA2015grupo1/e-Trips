@@ -1,5 +1,5 @@
 module.exports = function (app) {
-
+   var _base=" http://localhost:3000"
     var mongoose = require('mongoose');
     var User = require('../models/user.js');
 
@@ -164,9 +164,12 @@ module.exports = function (app) {
         });
     };
 
+
     //GET - Return a User with Provider Twitter
     findTwitter = function (req, res) {
-        User.findOne({provider: 'twitter'}, function (err, user) {
+        var twitter = "twitter";
+        User.findOne({provider: twitter}, function (err, user) {
+            console.log (user);
             if (err) return res.send(500, err.message);
 
             console.log('GET /user/');
@@ -215,7 +218,7 @@ module.exports = function (app) {
 
                 var u = req.params.username;
                 User.findOne({username: u}, function (err, user) {
-                    imagen = "http://192.168.1.14:3000/assets/images/" + filename;
+                    imagen = base+"/assets/images/" + filename;
                     console.log ("usuario: " + user);
                     user.imageUrl = imagen;
 
@@ -262,7 +265,7 @@ module.exports = function (app) {
 
                 var u = req.params.username;
                 User.findOne({username: u}, function (err, user) {
-                    imagen = "http://192.168.1.14:3000/assets/images/" + filename;
+                    imagen = _base+"/assets/images/" + filename;
                     console.log ("usuario: " + user);
                     user.imageUrl = imagen;
 
@@ -340,7 +343,7 @@ module.exports = function (app) {
                 college: request.body.college,
                 city: request.body.city,
                 rol: "registrado",
-                imageUrl: "http://localhost:3000/assets/images/admin.png"
+                imageUrl: _base+"/assets/images/admin.png"
 
             })
 
@@ -364,7 +367,7 @@ module.exports = function (app) {
             var user = new User({
                 username: req.body.screen_name,
                 rol:    "registrado",
-                imageUrl: "http://192.168.1.14:3000/assets/images/admin.png"
+                imageUrl: _base+"/assets/images/admin.png"
             })
             user.save(function (err, user) {
                 if (err) return res.send(500, err.message);
